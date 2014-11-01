@@ -24,6 +24,9 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+TEMPLATE_DIRS = ( BASE_DIR + '/templates' , )
+
+
 ALLOWED_HOSTS = []
 
 
@@ -80,5 +83,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+STATICFILES_DIRS = (
+    BASE_DIR + '/static/',
+)
 STATIC_URL = '/static/'
