@@ -1,9 +1,6 @@
+
 from django.db import models
 
-
-'''
-    Member Model
-'''
 class Member(models.Model):
 
     '''

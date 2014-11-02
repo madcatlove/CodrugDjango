@@ -1,0 +1,51 @@
+
+
+/*
+--------------------------------------
+- Site Layout
+--------------------------------------
+*/
+
+/* HEADER 영역 */
+	.sHead {
+		background-color: #1E74BA;
+		height: 150px;
+		color: white;
+		font-family: 'Nova Flat';
+	}
+
+	.sHead .sMessage {
+		font-size: 60px;
+		margin:0 auto;
+		padding-top: 30px;
+		text-align: center;
+	}
+
+/* 메뉴 버튼 */
+	.sMenu {
+		margin-top: 10px;
+		margin-bottom: 20px;
+	}
+
+	.btnSize {
+		width: 150px;
+		height: 45px;
+	}
+
+	.btnSize2 {
+		height: 45px;
+	}
+
+/* 푸터 영역 */
+	.sFoot {
+		margin-top: 10px;
+		background-color: #C9C9C9;
+		height: 75px;
+	}
+
+
+    .memberJoinFormDiv {
+        width: 400px;
+        display: inline-block;
+        margin:0 auto;
+    }

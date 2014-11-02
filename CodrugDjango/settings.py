@@ -21,9 +21,7 @@ SECRET_KEY = '%cvxpxlmwv=8#yn))(84wm6cgk5ox520-2emcws06i96_5qe+@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 TEMPLATE_DEBUG = True
-
 TEMPLATE_DIRS = ( BASE_DIR + '/templates' , )
 
 
@@ -62,22 +60,21 @@ WSGI_APPLICATION = 'CodrugDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE' : 'django.db.backends.mysql',
+        'HOST' : 'fishdiablo.net',
+        'NAME' : 'madcatExternal',
+        'USER' : 'madcatExternal',
+        'PASSWORD' : '1234',
+        'PORT' : '3306',
     }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 

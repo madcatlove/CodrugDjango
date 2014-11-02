@@ -1,0 +1,38 @@
+{% extends "include/layout.html" %}
+
+{% block addScript %}
+    <script type="text/javascript" src="{{ url_for('static', filename='board.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="boardContent">
+       <!-- title bar -->
+
+    <div style="width: 100%;" class="form-inline">
+        <div style="width:5%; display:inline;">제목</div>
+        <input type="text" class="form-control" id="textTitle" style="width:95%;" />
+    </div>
+
+    <div style="padding-top: 15px; ">
+        <!-- summer note -->
+        <div style="width: 100%">
+            <div id="textContent"></div>
+        </div>
+
+            <!-- button -->
+        <div class="text-center" style="padding-top: 15px;">
+            <button class="btn btn-primary" onclick="void(_boardCls.submitData() )"> 작성완료 </button>
+            <button class="btn btn-danger"> 작성취소 </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready( function() {
+        $('#textContent').summernote( {
+            height: 300
+        });
+    });
+</script>
+
+{% endblock %}
