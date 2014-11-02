@@ -51,8 +51,8 @@
 			<div class="btn-toolbar" style="display:inline-block; margin-top:3px;">
 				<div class="btn-group">
                     <!--버튼에 a 태그 추가 jinja로 각 함수실행 !-->
-                    <a href=""><button type="button" class="btn btn-default btnSize"> Members </button></a>
-					<a href=""><button type="button" class="btn btn-default btnSize"> Timeline </button></a>
+                    <a href="{% url 'index' %}"><button type="button" class="btn btn-default btnSize"> Timeline </button></a>
+                    <a href="{% url 'member_list' %}"><button type="button" class="btn btn-default btnSize"> Members </button></a>
 					<a href=""><button type="button" class="btn btn-default btnSize"> Q & A </button></a>
 					<a href=""><button type="button" class="btn btn-default btnSize"> Archive </button></a>
 					<a href=""><button type="button" class="btn btn-default btnSize"> Assignment </button></a>

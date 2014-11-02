@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 
 # Create your views here.
@@ -22,7 +22,10 @@ def index(request):
     Member join page /member/join
 '''
 def member_join(request):
-    pass
+    tpl = get_template('member_join.html')
+    htmlData = tpl.render( Context() )
+
+    return HttpResponse( htmlData )
 
 '''
     Member Login page /member/login
@@ -30,3 +33,26 @@ def member_join(request):
 def member_login(request):
     pass
 
+def member_list(request):
+    tpl = get_template('members.html')
+    htmlData = tpl.render( Context() )
+
+    return HttpResponse( htmlData )
+
+
+
+def qna_list(request, page = '1'):
+    print page
+    try:
+        page = int(page)
+    except ValueError:
+        raise Http404()
+
+    sParam = {
+        'page' : page
+    }
+
+    tpl = get_template('qna.html')
+    htmlData = tpl.render( Context(sParam) )
+
+    return HttpResponse(htmlData)
