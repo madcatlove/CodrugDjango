@@ -58,3 +58,17 @@ def qna_list(request, page = '1'):
 
     return HttpResponse(htmlData)
 
+
+def timeline(request,):
+    ctx = Context({
+    })
+    content = {}
+    content = Board.objects.all()
+    ctx = Context({
+        'content' : content
+    })
+
+    tpl = get_template('timeline.html')
+    htmlData = tpl.render( ctx )
+
+    return HttpResponse(htmlData)

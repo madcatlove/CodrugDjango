@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import *
 from django.contrib import admin
 
 from CodrugWWW.views import *
@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^board/qna/$', qna_list, name = 'qna_list'),
     url(r'^board/qna/(?P<page>(\d*))?$', qna_list, name = 'qna_list'),
     # url(r'^admin/', include(admin.site.urls)),
+    url(r'^timeline/$', timeline, name='timeline')
 )
