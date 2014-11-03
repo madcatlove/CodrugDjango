@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -22,8 +23,7 @@ SECRET_KEY = '%cvxpxlmwv=8#yn))(84wm6cgk5ox520-2emcws06i96_5qe+@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TEMPLATE_DEBUG = True
-TEMPLATE_DIRS = ( BASE_DIR + '/templates' , )
-
+TEMPLATE_DIRS = ( BASE_DIR + '/templates', )
 
 ALLOWED_HOSTS = []
 
@@ -60,12 +60,12 @@ WSGI_APPLICATION = 'CodrugDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE' : 'django.db.backends.mysql',
-        'HOST' : 'fishdiablo.net',
-        'NAME' : 'madcatExternal',
-        'USER' : 'madcatExternal',
-        'PASSWORD' : '1234',
-        'PORT' : '3306',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'fishdiablo.net',
+        'NAME': 'madcatExternal',
+        'USER': 'madcatExternal',
+        'PASSWORD': '1234',
+        'PORT': '3306',
     }
 }
 
@@ -77,10 +77,10 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 STATICFILES_DIRS = (
     BASE_DIR + '/static/',
 )
 STATIC_URL = '/static/'
+

@@ -7,6 +7,11 @@ class Member(models.Model):
     password = models.CharField(max_length = 100)
     name = models.CharField(max_length = 30)
     image_url = models.CharField(max_length = 100, null= True, default='')
+#게시판 정보
+class Category(models.Model):
+    category = models.PositiveIntegerField()
+    boardNAME = models.CharField(max_length=150)
+    extra = models.CharField(max_length=150)
 
 #통합게시판
 class Board(models.Model):
@@ -20,17 +25,12 @@ class Board(models.Model):
     memberID=models.ForeignKey(Member)
     extra=models.CharField(max_length=200)
     #게시판 분류
-    category=models.PositiveIntegerField()
+    category=models.ForeignKey(Category)
 
-#게시판 정보
-class Category(models.Model):
-    category = models.ForeignKey(Board.category)
-    boardNAME = models.CharField(max_length=150)
-    extra = models.CharField(max_length=150)
 
 #파일관리
 class File(models.Model):
-    category = models.ForeignKey(Category.category)
+    category = models.ForeignKey(Category)
     articleID = models.ForeignKey(Board)
     #변환 전 파일
     inFILE= models.IntegerField()
@@ -39,7 +39,7 @@ class File(models.Model):
 
 #댓글
 class Comment(models.Model):
-    category = models.ForeignKey(Category.category)
+    category = models.ForeignKey(Category)
     articleID = models.ForeignKey(Board)
     #부모댓글
     upperComment = models.PositiveIntegerField()
@@ -49,7 +49,7 @@ class Comment(models.Model):
 
 #과제
 class Assignment(models.Model):
-    title = models.CharField()
+    title = models.CharField(max_length = 150)
     content = models.TextField()
     deadline = models.DateTimeField()
 
@@ -58,5 +58,5 @@ class Submit(models.Model):
     assignmentID=models.ForeignKey(Assignment)
     #과제설명
     subtext = models.TextField()
-    category = models.ForeignKey(Category.category)
+    category = models.ForeignKey(Category)
     created=models.DateTimeField(auto_now_add=True)

@@ -16,6 +16,5 @@ urlpatterns = patterns('',
 
     url(r'^board/qna/$', qna_list, name = 'qna_list'),
     url(r'^board/qna/(?P<page>(\d*))?$', qna_list, name = 'qna_list'),
-
     # url(r'^admin/', include(admin.site.urls)),
 )

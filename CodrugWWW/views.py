@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 
@@ -56,3 +57,4 @@ def qna_list(request, page = '1'):
     htmlData = tpl.render( Context(sParam) )
 
     return HttpResponse(htmlData)
+
