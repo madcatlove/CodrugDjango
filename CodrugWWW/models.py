@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+
 #회원정보
 class Member(models.Model):
-    email = models.CharField(max_length = 150)
+    email = models.CharField(max_length = 150, unique=True)
     password = models.CharField(max_length = 100)
     name = models.CharField(max_length = 30)
     image_url = models.CharField(max_length = 100, null= True, default='')
+    extra = models.TextField(null=True, default='')
 
 #게시판 정보
 class Category(models.Model):
@@ -33,10 +35,10 @@ class Board(models.Model):
 class File(models.Model):
     category = models.ForeignKey(Category)
     articleID = models.ForeignKey(Board)
-    #변환 전 파일
-    inFILE= models.IntegerField()
-    #변환 후 파일
-    outFILE=models.IntegerField()
+    #변환 전 파일 ( 원본 파일 이름 )
+    inFILE= models.CharField(max_length=200)
+    #변환 후 파일 ( hashed 파일 이름 )
+    outFILE= models.CharField(max_length=200, unique=True)
 
 #댓글
 class Comment(models.Model):
