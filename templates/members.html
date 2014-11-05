@@ -1,4 +1,14 @@
 {% extends "include/layout.html" %}
 {% block content %}
+
     <p> Members </p>
+    <hr />
+    dd
+    {% for m in mlist %}
+        이름 : {{ m.name }}
+        이메일 : {{ m.email }}
+        <br />
+    {% endfor %}
+    ss
+
 {% endblock %}

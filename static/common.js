@@ -97,7 +97,7 @@ var procMemberJoin = function() {
             alert(' 정상적으로 회원가입 되셨습니다. ');
         }
         else {
-            alert(' 회원가입 실패. ' + result.errormsg);
+            alert(' 회원가입 실패. ' + result.data);
         }
     })
 

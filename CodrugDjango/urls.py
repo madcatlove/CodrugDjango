@@ -17,5 +17,10 @@ urlpatterns = patterns('',
     url(r'^board/qna/$', qna_list, name = 'qna_list'),
     url(r'^board/qna/(?P<page>(\d*))?$', qna_list, name = 'qna_list'),
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^timeline/$', timeline, name='timeline')
+    url(r'^timeline/$', timeline, name='timeline'),
+
+    ####################
+    # Freeboard
+    url(r'^board/free/(\d*)?$', boardFree_list, name='board_list'),
+    url(r'^board/free/write', boardFree_write, name='board_free'),
 )
