@@ -92,7 +92,7 @@ var procMemberJoin = function() {
         name : nameInput.val().trim()
     }
 
-    urlReq.post('/user', sParam, function(result) {
+    urlReq.post('/member/join', sParam, function(result) {
         if( result.error == false) {
             alert(' 정상적으로 회원가입 되셨습니다. ');
         }

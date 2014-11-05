@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
 
 # Create your views here.
@@ -15,18 +15,33 @@ def index(request):
     htmlData = tpl.render( Context() )
 
     #htmlData = "Hello world."
-    cMember = Member( email = 'k@k.net', password='1234', name = 'Lee' )
-    cMember.save()
+
+
     return HttpResponse(htmlData)
 
 '''
     Member join page /member/join
 '''
 def member_join(request):
-    tpl = get_template('member_join.html')
-    htmlData = tpl.render( Context() )
 
-    return HttpResponse( htmlData )
+    print request.method
+
+    # -- GET -- >> View rendering
+    if request.method == 'GET' :
+        tpl = get_template('member_join.html')
+        htmlData = tpl.render( Context() )
+        return HttpResponse( htmlData )
+
+    # -- POST -- >> Post form
+    else :
+        print 'hello'
+        return HttpResponse('Hello')
+
+    # -- Others >> Error (403)
+    #else :
+    #    return HttpResponseForbidden()
+
+
 
 '''
     Member Login page /member/login
