@@ -21,3 +21,10 @@ var _boardCls = (function() {
 
     return obj;
 })()
+
+
+//------------------
+// 글쓰기 게시판으로 이동
+var moveWriteForm = function(boardName) {
+    window.location.href = '/board/' + boardName + '/write'
+}

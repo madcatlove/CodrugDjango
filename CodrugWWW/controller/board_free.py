@@ -31,6 +31,7 @@ def boardFree_list(request, page = 1):
 
     ctx = Context({
         'page' : page,
+        'boardName' : 'free',
     })
 
     tpl = get_template('boardFreeList.html')

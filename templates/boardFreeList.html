@@ -1,9 +1,84 @@
 {% extends "include/layout.html" %}
 
 {% block addScript %}
+    <script type="text/javascript" src="/static/board.js"></script>
 {% endblock %}
 
 {% block content %}
-Hello board free list <br />
-   page :: {{ page }}
+
+    <div id="boardContent">
+        <table class="table table-hover">
+            <colgroup>
+                 <col width="10%" />
+                 <col width="60%" />
+                 <col width="20%" />
+                 <col width="20%" />
+            </colgroup>
+
+            <thead>
+                <th class="text-center">번호</th>
+                <th class="text-center">제목</th>
+                <th class="text-center">이름</th>
+                <th class="text-center">조회수</th>
+            </thead>
+
+            <tbody>
+
+                <!-- 실제 게시물 등장 -->
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>제목1</td>
+                    <td class="text-center">홍길동</td>
+                    <td class="text-center">2</td>
+                </tr>
+
+                <!-- 실제 게시물 등장 -->
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>제목1</td>
+                    <td class="text-center">홍길동</td>
+                    <td class="text-center">2</td>
+                </tr>
+
+                <!-- 실제 게시물 등장 -->
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>제목1</td>
+                    <td class="text-center">홍길동</td>
+                    <td class="text-center">2</td>
+                </tr>
+
+                <!-- 실제 게시물 등장 -->
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>제목1</td>
+                    <td class="text-center">홍길동</td>
+                    <td class="text-center">2</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <!-- pagnation -->
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-6 text-center">
+                <ul class="pagination">
+                  <li><a href="#">«</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">»</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 text-right">
+                <button type="button" class="btn btn-default" onclick="void(moveWriteForm('{{ boardName }}'));">글쓰기</button>
+            </div>
+
+        </div>
+    </div>
+        <!-- end of boardContent division // -->
+
 {% endblock %}

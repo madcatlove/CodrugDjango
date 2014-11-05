@@ -27,6 +27,6 @@ urlpatterns = patterns('',
 
     ####################
     # Freeboard
-    url(r'^board/free/(\d*)?$', board_free.boardFree_list, name='board_list'),
-    url(r'^board/free/write', board_free.boardFree_write, name='board_free'),
+    url(r'^board/free/(\d*)?$', board_free.boardFree_list, name='board_free_list'),
+    url(r'^board/free/write', board_free.boardFree_write, name='board_free_write'),
 )
