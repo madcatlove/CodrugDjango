@@ -11,16 +11,22 @@ urlpatterns = patterns('',
 
     url(r'^$', index, name = 'index'),
 
-    url(r'^member/join', member_join, name = 'member_join'),
-    url(r'^member/list', member_list, name = 'member_list'),
+    ###################
+    # Member
+    url(r'^member/join', member.member_join, name = 'member_join'),
+    url(r'^member/list', member.member_list, name = 'member_list'),
 
+    ###################
+    # QnA board
     url(r'^board/qna/$', qna_list, name = 'qna_list'),
     url(r'^board/qna/(?P<page>(\d*))?$', qna_list, name = 'qna_list'),
-    # url(r'^admin/', include(admin.site.urls)),
-    url(r'^timeline/$', timeline, name='timeline'),
+
+    ###################
+    # Timeline
+    url(r'^timeline/$', timeline.timeline, name='timeline'),
 
     ####################
     # Freeboard
-    url(r'^board/free/(\d*)?$', boardFree_list, name='board_list'),
-    url(r'^board/free/write', boardFree_write, name='board_free'),
+    url(r'^board/free/(\d*)?$', board_free.boardFree_list, name='board_list'),
+    url(r'^board/free/write', board_free.boardFree_write, name='board_free'),
 )
