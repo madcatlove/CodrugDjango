@@ -12,18 +12,18 @@ from ..models import *
 
 
 '''
-    Album write
+    Archive write
     GET method 로 접근시 글쓰기 폼을 보여주며
     POST method 로 접근시 글쓰기 작업을 진행한다.
 '''
-def boardAlbum_write(request):
+def boardFree_write(request):
 
     if request.method == 'GET' :
         ctx = Context({
 
         })
 
-        tpl = get_template('boardAlbumWrite.html')
+        tpl = get_template('boardArchiveWrite.html')
         htmlData = tpl.render( ctx )
 
         return HttpResponse(htmlData)
@@ -41,7 +41,7 @@ def boardAlbum_write(request):
 
 
             # category id 가져옴.
-            category = Category.objects.get( boardNAME = 'album' )
+            category = Category.objects.get( boardNAME = 'archive' )
 
 
             board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
@@ -89,24 +89,13 @@ def boardAlbum_write(request):
         return HttpResponseForbidden();
 
 '''
-    Album list
+    Archive list
 '''
-def boardAlbum_list(request, page = 1):
+def boardArchive_list(request, page = 1):
     if len(str(page)) == 0: page = 1
-    category = Category.objects.filter(boardNAME='album')
+    category = Category.objects.filter(boardNAME='archive')
     article = Board.objects.filter(category=category)
-    # 파일이 존재하면 이미지, 기타파일 분류작업.
-    oImg = []
-    oEtc = []
-    for x in article:
-        if x.image_ref > 0:
-            oFile = File.objects.filter(id=x.image_ref)
-            # 파일 분류작업
-            for each in oFile:
-                if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
-                    oImg.append(each)
-                else:
-                    oEtc.append(each)
+
     # 댓글 가공.
     for idx in range(0, len(article)):
         commentCount = Comment.objects.filter(category = category, articleID = article[idx]).count()
@@ -115,39 +104,36 @@ def boardAlbum_list(request, page = 1):
 
     ctx = Context({
         'page' : page,
-        'boardName' : 'album',
+        'boardName' : 'archive',
         'article' : article,
-        'imgList' :oImg,
-        'flieList':oEtc,
-        })
+    })
 
-    tpl = get_template('boardAlbumList.html')
+    tpl = get_template('boardArchiveList.html')
     htmlData = tpl.render( ctx )
 
     return HttpResponse(htmlData)
 
 
 '''
-    Album detail
+    Archive detail
 
 '''
 
-def boardAlbum_detail(request, id):
+def boardArchive_detail(request, id):
     article = Board.objects.get(id = id)
     comment = Comment.objects.filter(articleID = id)
+     # 파일이 존재하면 이미지, 기타파일 분류작업.
+    oImg = []
+    oEtc = []
     if article.image_ref > 0:
         oFile = File.objects.filter(id=article.image_ref)
-        oImg=[]
-        oEtc=[]
+
+        # 파일 분류작업
         for each in oFile:
             if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
                 oImg.append(each)
             else:
                 oEtc.append(each)
-    else:
-        oFile = []
-        oImg=[]
-        oEtc=[]
 
     try:
         sExtra = json.loads(article.extra)
@@ -161,17 +147,17 @@ def boardAlbum_detail(request, id):
         'comment':comment,
         'imgList':oImg,
         'fileList':oEtc,
-        })
-    tpl = get_template('boardAlbumDetail.html')
+    })
+    tpl = get_template('boardArchiveDetail.html')
     htmlData= tpl.render(ctx)
 
     return HttpResponse(htmlData)
 
 
 '''
-    Album Comment
+    Archive Comment
 '''
-def boardAlbum_comment(request, articleId):
+def boardArchive_comment(request, articleId):
 
     try:
         # 회원 인증

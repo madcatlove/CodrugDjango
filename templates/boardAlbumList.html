@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends "include/layout.html" %}
 
-</body>
-</html>
+{% block addScript %}
+    <script type="text/javascript" src="/static/board.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div id="boardContent">
+
+        <!-- 실제 게시물 등장 -->
+
+
+        <div class="row">
+            {% for x in article %}
+                {% for z in imgList %}
+                    <div class="col-sm-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img data-src="/upload/{{z.outFILE }}" alt="...">
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+        </div>
+
+
+        <!-- pagnation -->
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-6 text-center">
+                <ul class="pagination">
+                    <li><a href="#">«</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 text-right">
+                <button type="button" class="btn btn-default" onclick="void(moveWriteForm('{{ boardName }}'));">글쓰기</button>
+            </div>
+        </div>
+    </div>
+    <!-- end of boardContent division // -->
+
+{% endblock %}

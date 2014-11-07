@@ -14,19 +14,19 @@ def timeline(request,):
 
     content = {}
     content = Board.objects.all()
-    if content.image_ref > 0:
-        oFile = File.objects.filter(id=content.image_ref)
-        oImg=[]
-        oEtc=[]
-        for each in oFile:
-            if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
-                oImg.append(each)
-            else:
-                oEtc.append(each)
-    else:
-        oFile = []
-        oImg=[]
-        oEtc=[]
+    # 파일이 존재하면 이미지, 기타파일 분류작업.
+    oImg = []
+    oEtc = []
+    for x in content:
+        if x.image_ref > 0:
+            oFile = File.objects.filter(id=x.image_ref)
+
+            # 파일 분류작업
+            for each in oFile:
+                if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
+                    oImg.append(each)
+                else:
+                    oEtc.append(each)
 
     ctx = Context({
         'content' : content,

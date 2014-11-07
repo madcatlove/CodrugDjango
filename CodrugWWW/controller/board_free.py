@@ -106,7 +106,7 @@ def boardFree_list(request, page = 1):
         'page' : page,
         'boardName' : 'free',
         'article' : article,
-    })
+        })
 
     tpl = get_template('boardFreeList.html')
     htmlData = tpl.render( ctx )
@@ -122,20 +122,18 @@ def boardFree_list(request, page = 1):
 def boardFree_detail(request, id):
     article = Board.objects.get(id = id)
     comment = Comment.objects.filter(articleID = id)
+    # 파일이 존재하면 이미지, 기타파일 분류작업.
+    oImg = []
+    oEtc = []
     if article.image_ref > 0:
         oFile = File.objects.filter(id=article.image_ref)
-        oImg=[]
-        oEtc=[]
+
+        # 파일 분류작업
         for each in oFile:
             if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
                 oImg.append(each)
             else:
                 oEtc.append(each)
-    else:
-        oFile = []
-        oImg=[]
-        oEtc=[]
-    
     try:
         sExtra = json.loads(article.extra)
     except:
@@ -148,7 +146,7 @@ def boardFree_detail(request, id):
         'comment':comment,
         'imgList':oImg,
         'fileList':oEtc,
-    })
+        })
     tpl = get_template('boardFreeDetail.html')
     htmlData= tpl.render(ctx)
 

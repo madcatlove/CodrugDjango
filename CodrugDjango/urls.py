@@ -20,7 +20,18 @@ urlpatterns = patterns('',
     url(r'^member/list', member.member_list, name = 'member_list'),
     url(r'^member/login', member.member_login, name = 'member_login'),
     url(r'^member/logout', member.member_logout, name = 'member_logout'),
-
+    ###################
+    # Album board
+    url(r'^board/album/(\d*)?$', board_qna.boardQna_list, name = 'board_album_list'),
+    url(r'^board/album/detail/(\d*)$', board_qna.boardQna_detail, name = 'board_album_detail'),
+    url(r'^board/album/write',board_qna.boardQna_write, name='board_album_write'),
+    url(r'^board/album/comment/(?P<articleId>\d*)$', board_qna.boardQna_comment, name='board_album_comment'),
+    ###################
+    # Archive board
+    url(r'^board/archive/(\d*)?$', board_qna.boardQna_list, name = 'board_archive_list'),
+    url(r'^board/archive/detail/(\d*)$', board_qna.boardQna_detail, name = 'board_archive_detail'),
+    url(r'^board/archive/write',board_qna.boardQna_write, name='board_archive_write'),
+    url(r'^board/archive/comment/(?P<articleId>\d*)$', board_qna.boardQna_comment, name='board_archive_comment'),
     ###################
     # QnA board
     url(r'^board/qna/(\d*)?$', board_qna.boardQna_list, name = 'board_qna_list'),
