@@ -34,10 +34,6 @@ $(document).ready( function() {
 
     $('#boardForm').ajaxForm({
         beforeSubmit: function(arr, $form, opt) {
-            console.log('array = ', arr)
-            console.log('$form = ', $form)
-            console.log('opt = ', opt)
-            console.log(' textContent => ', $('#textContent').code() )
             for(var i = 0; i < arr.length; i++) {
 
                 if( arr[i].name === 'board_content') {
@@ -52,7 +48,15 @@ $(document).ready( function() {
         dataType: 'json',
 
         success: function(r, e,e1,e2) {
-            consloe.log(r)
+            if ( typeof r === 'string') r = JSON.parse(r);
+
+            if(r.error == false) {
+                alert(' 정상적으로 글을 작성하였습니다. ')
+                history.back();
+            }
+            else {
+                alert(r.data)
+            }
         },
 
 

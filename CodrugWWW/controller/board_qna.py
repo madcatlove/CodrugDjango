@@ -12,11 +12,11 @@ import member
 import board_free
 import timeline
 
-__author__ = 'bebop'
 
-'''QNA Write
+
 '''
-
+    QNA Write
+'''
 def boardQna_write(request):
 
     if request.method == 'GET' :
@@ -78,8 +78,10 @@ QNA list
 def boardQna_list(request, page = '1'):
     if len(str(page)) == 0: page = 1
     category = Category.objects.filter(boardNAME='qna')
-    article = Board.objects.filter(category=category)
-    sExtra = json.loads(article)
+    article = Board.objects.filter(category=category).order_by('-id')
+
+    try:    sExtra = json.loads(article.extra)
+    except: sExtra = {}
 
     # 리스트에서 각 게시글에 해당하는 댓글의 개수 출력하고 싶지만 좆같음 '....(3)' 이런 식
     # def count_comment():
@@ -93,7 +95,7 @@ def boardQna_list(request, page = '1'):
         'page' : page,
         'boardName' : 'qna',
         'article' : article,
-        'sExtra':sExtra['isConfirmed']
+        'sExtra': sExtra
     })
     tpl = get_template('boardQnaList.html')
     htmlData = tpl.render( ctx )

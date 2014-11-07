@@ -93,7 +93,7 @@ def boardFree_write(request):
 def boardFree_list(request, page = 1):
     if len(str(page)) == 0: page = 1
     category = Category.objects.filter(boardNAME='free')
-    article = Board.objects.filter(category=category)
+    article = Board.objects.filter(category=category).order_by('-id')
 
     # 댓글 가공.
     for idx in range(0, len(article)):
