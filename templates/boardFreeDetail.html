@@ -2,17 +2,18 @@
 
 {% block content %}
 
-{% for each in content %}
-    {{ each.title }}
-    {{ each.content }}
-    {{ each.memberID }}
-    {% if each.updated != null %}
-        {{ each.updated }}에 수정함
-        {% else %}
-        {{ each.created }}
-    {% endif %}
-    {{ each.viewCount }}
+<div class="container">
+	<div class="jumbortron">
+		<div class="panel panel-default">
+			<div class="panel-heading"> Category: {{article.category}}</div>
+			<div class="panel-heading">{{article.title}} by {{article.memberID.name}} at {{article.created}} </div>
+			<div class="panel-body">{{article.content}}</div>
 
+			<a href="../delete/{{article.id}}">Delete</a>
+			<a href="../modify/{{article.id}}">Modify</a>
+			<a href="../comment/create/{{article.id}}">댓글 달기</a>
+		</div>
+	</div>
+</div>
 
-{% endfor %}
 {% endblock %}

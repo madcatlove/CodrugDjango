@@ -25,36 +25,15 @@
             <tbody>
 
                 <!-- 실제 게시물 등장 -->
+                {%  for each in article %}
                 <tr>
-                    <td class="text-center">1</td>
-                    <td>제목1</td>
-                    <td class="text-center">홍길동</td>
-                    <td class="text-center">2</td>
+                    <td class="text-center">{{ each.id }}</td>
+                    <td>{{ each.title }}</td>
+                    <td class="text-center">{{ each.memberID.name }}</td>
+                    <td class="text-center">{{ each.viewCount }}</td>
                 </tr>
+                {% endfor %}
 
-                <!-- 실제 게시물 등장 -->
-                <tr>
-                    <td class="text-center">1</td>
-                    <td>제목1</td>
-                    <td class="text-center">홍길동</td>
-                    <td class="text-center">2</td>
-                </tr>
-
-                <!-- 실제 게시물 등장 -->
-                <tr>
-                    <td class="text-center">1</td>
-                    <td>제목1</td>
-                    <td class="text-center">홍길동</td>
-                    <td class="text-center">2</td>
-                </tr>
-
-                <!-- 실제 게시물 등장 -->
-                <tr>
-                    <td class="text-center">1</td>
-                    <td>제목1</td>
-                    <td class="text-center">홍길동</td>
-                    <td class="text-center">2</td>
-                </tr>
 
             </tbody>
         </table>
