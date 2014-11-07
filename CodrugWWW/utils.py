@@ -71,3 +71,14 @@ def fileUpload( oFile, keyName ):
     except:
         return (None, None, None)
 
+
+def getBoardExtraMessage(**kwargs) :
+    # default message
+    message = {
+        'isConfirmed' : False
+    }
+
+    for sKey in kwargs:
+        message[sKey] = kwargs[sKey]
+
+    return json.dumps(message)
