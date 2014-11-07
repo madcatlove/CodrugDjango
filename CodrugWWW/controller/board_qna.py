@@ -129,6 +129,7 @@ def boardQna_detail(request, id):
 
 
     sExtra = json.loads(article.extra)
+
     ctx=Context({
         'article':article,
         'comment':comment,
@@ -196,15 +197,22 @@ def boardQna_closeArticle(request, articleId):
         oBoard = Board.objects.get( id = articleId )
 
         # 게시글 정보와 회원 소유주가 같은지 확인
-        if oBoard.memberID != member_login['seq']:
+
+        if oBoard.memberID.id != member_login['seq']:
             raise Exception
 
+        getExtra = json.loads( oBoard.extra )
+        getExtra['isConfirmed'] = True
+        oBoard.extra = json.dumps( getExtra )
+        oBoard.save()
 
+        json_message = utils.sMessage( data = 1)
 
 
     except Exception, e:
         print e
+        json_message = utils.sMessage( data = '질문 확인처리를 하지 못하였습니다.', error = True)
 
 
-
+    return HttpResponse( json.dumps(json_message ))
 

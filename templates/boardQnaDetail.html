@@ -1,4 +1,21 @@
 {% extends "include/layout.html" %}
+{% block addScript %}
+    <script type="text/javascript">
+        var closeQuestion = function(articleNum) {
+            urlReq.get('{% url 'board_qna_close' articleId=article.id %}',{}, function(result) {
+                if( result.error == false ) {
+                    alert(' 질문이 정상적으로 해결처리 되었습니다. ');
+                    window.location.reload();
+                }
+                else {
+                    alert( result.data );
+                }
+            })
+        }
+    </script>
+
+{% endblock %}
+
 
 {% block content %}
 
@@ -8,6 +25,14 @@
                 <div class="panel-heading"> Category: {{article.category.extra}}</div>
                 <div class="panel-heading">{{article.title}} by {{article.memberID.name}} at {{article.created}} </div>
                 <div class="panel-body">{{article.content}}</div>
+
+
+
+                {% if isConfirmed != True %}
+                    <button class="btn btn-success" onclick="void(closeQuestion({{  article.id  }}))">질문이 해결되었습니다.</button>
+                {% else %}
+
+                {% endif %}
 
                 <a href="../delete/{{article.id}}">Delete</a>
                 <a href="../modify/{{article.id}}">Modify</a>
