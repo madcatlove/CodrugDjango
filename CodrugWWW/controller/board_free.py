@@ -46,7 +46,9 @@ def boardFree_write(request):
             board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
             board_content =  unicode( request.POST.get('board_content').strip() )
 
-            # file upload
+            ##---------------------------------------
+            ## FILE UPLOAD
+            ##---------------------------------------
             if 'board_file' in request.FILES:
                 rFile = utils.fileUpload(request.FILES, 'board_file') # 리턴값 : (원본파일이름, 변환파일이름, 파일타입)
                 if rFile[0] is not None:
@@ -69,7 +71,9 @@ def boardFree_write(request):
             #print board_title
             #print board_content
 
-            # data input
+            ##---------------------------------------
+            ## BOARD INSERT
+            ##---------------------------------------
             board = Board(title = board_title, content = board_content, category = category, memberID = oMember,
                           viewCount = 0, image_ref = lastId)
             board.save()
