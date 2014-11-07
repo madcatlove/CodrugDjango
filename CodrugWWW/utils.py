@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+import hashlib
 from django.utils.html import strip_tags
 import json
+import os
 
 ################
 # Utility
 ################
+import time
 
 
 '''
@@ -35,3 +38,36 @@ def sMessage( **kwargs ) :
         message['data'] = None
 
     return json.dumps(message)
+
+
+'''
+    파일 업로드 함수.
+    request.FILES 요구 , 파일을 담고있는 key 값 요구.
+
+    request.FILES['file_form_name']
+
+    리턴 (원본파일이름, 변환된파일이름, 파일타입)
+'''
+def fileUpload( oFile, keyName ):
+    defaultPath = str(os.getcwd()).split('/')
+    defaultPath.append('upload')
+
+    uploadPath = '/'.join(defaultPath)
+
+    # calculate file upload
+    file = oFile[keyName]
+    fileName =  unicode( file.name )
+    extension = fileName.split('.')
+    extension = extension[ len(extension) -1 ]
+    transfilename = '%s.%s' % (hashlib.md5(fileName).hexdigest() + str(int(time.time()) ), extension )
+
+    # upload file
+    try:
+        with open( '%s/%s' % (uploadPath, transfilename) , 'wb') as fp :
+            for chunk in file.chunks():
+                fp.write(chunk)
+
+        return ( fileName, transfilename, file.content_type )
+    except:
+        return (None, None, None)
+
