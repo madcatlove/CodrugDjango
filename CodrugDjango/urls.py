@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^board/qna/(\d*)?$', board_qna.boardQna_list, name = 'board_qna_list'),
     url(r'^board/qna/detail/(\d*)$', board_qna.boardQna_detail, name = 'board_qna_detail'),
     url(r'^board/qna/write',board_qna.boardQna_write, name='board_qna_write'),
+    url(r'^board/qna/comment/(?P<articleId>\d*)$', board_qna.boardQna_comment, name='board_qna_comment'),
 
     ###################
     # Timeline

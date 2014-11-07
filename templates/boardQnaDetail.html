@@ -5,7 +5,7 @@
     <div class="container">
         <div class="jumbortron">
             <div class="panel panel-default">
-                <div class="panel-heading"> Category: {{article.category}}</div>
+                <div class="panel-heading"> Category: {{article.category.extra}}</div>
                 <div class="panel-heading">{{article.title}} by {{article.memberID.name}} at {{article.created}} </div>
                 <div class="panel-body">{{article.content}}</div>
 
@@ -24,6 +24,34 @@
                 </div>
             {% endfor %}
         </div>
+
+
+        <div>
+            <form id="commentForm" role="form" action="{% url 'board_qna_comment' articleId=article.id %}" method="POST">
+                <label for="board_content">코멘트</label>
+                <textarea class="form-control" id="board_content" name="board_content" rows="4" placeholder="코멘트 입력"></textarea>
+                <div class="text-center"><button class="btn btn-primary">댓글 작성</button></div>
+            </form>
+        </div>
+
+        <!-- comment form control -->
+        <script type="text/javascript">
+            $(document).ajaxForm({
+                dataType: 'json',
+                success: function(r, r1,r2,r3) {
+                    if (typeof r === 'string') r = JSON.parse(r)
+                    if(r.error == false) {
+                        alert(' 코멘트 작성에 성공하였습니다. ');
+                        window.location.reload();
+                    }
+                    else {
+                        alert(r.data);
+                    }
+                }
+
+            });
+        </script>
+
     </div>
 
 
