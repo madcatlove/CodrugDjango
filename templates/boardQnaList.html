@@ -26,24 +26,28 @@
 
             <!-- 실제 게시물 등장 -->
             {%  for each in article %}
-                {% if sExtra == True %}
-                    <a href="{% url 'board_qna_detail' each.id %}">
+                {% if each.isConfirmed == True %}
+                    <!-- 확인된 질문 게시물 -->
                     <tr class="success">
                         <td class="text-center">{{ each.id }}</td>
-                        <td>{{ each.title }}</td>
+                        <td>
+                            <a href="/board/qna/detail/{{ each.id }}">{{ each.title }}</a>
+                        </td>
                         <td class="text-center">{{ each.memberID.name }}</td>
                         <td class="text-center">{{ each.viewCount }}</td>
                     </tr>
-                    </a>
+
                 {% else %}
-                    <a href="{% url 'board_qna_detail' each.id %}">
+                    <!-- 확인안된 질문 게시물 -->
                     <tr >
                         <td class="text-center">{{ each.id }}</td>
-                        <td>{{ each.title }}</td>
+                        <td>
+                            <a href="/board/qna/detail/{{ each.id }}">{{ each.title }}</a>
+                        </td>
                         <td class="text-center">{{ each.memberID.name }}</td>
                         <td class="text-center">{{ each.viewCount }}</td>
                     </tr>
-                    </a>
+
                 {% endif %}
             {% endfor %}
 

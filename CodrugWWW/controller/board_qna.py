@@ -57,8 +57,9 @@ def boardQna_write(request):
 
             # data input
             board = Board(title = board_title, content = board_content, category = category, memberID = oMember,
-                          viewCount = 0)
+                          viewCount = 0, extra = utils.getBoardExtraMessage( isConfirmed = False))
             board.save()
+            print utils.getBoardExtraMessage()
         except Exception, e:
             print e
 
@@ -81,8 +82,11 @@ def boardQna_list(request, page = '1'):
     category = Category.objects.filter(boardNAME='qna')
     article = Board.objects.filter(category=category).order_by('-id')
 
-    try:    sExtra = json.loads(article.extra)
-    except: sExtra = {}
+    # sExtra 변환
+    for idx in range(0, len(article)):
+        sExtra = json.loads( article[idx].extra )
+        article[idx].isConfirmed = sExtra['isConfirmed']
+
 
     # 리스트에서 각 게시글에 해당하는 댓글의 개수 출력하고 싶지만 좆같음 '....(3)' 이런 식
     # def count_comment():
@@ -96,7 +100,6 @@ def boardQna_list(request, page = '1'):
         'page' : page,
         'boardName' : 'qna',
         'article' : article,
-        'sExtra': sExtra
     })
     tpl = get_template('boardQnaList.html')
     htmlData = tpl.render( ctx )
@@ -106,33 +109,34 @@ def boardQna_list(request, page = '1'):
 '''
 QNA Detail
 '''
-
-
 def boardQna_detail(request, id):
-    article = Board.objects.get(id)
-    comment = Comment.objects.filter(Comment.articleID == id)
+    article = Board.objects.get(id = id)
+    comment = Comment.objects.filter( articleID = article)
+
+    # 파일이 존재하면 이미지, 기타파일 분류작업.
+    oImg = []
+    oEtc = []
     if article.image_ref > 0:
         oFile = File.objects.filter(id=article.image_ref)
-        oImg=[]
-        oEtc=[]
+
+        # 파일 분류작업
         for each in oFile:
             if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
                 oImg.append(each)
             else:
                 oEtc.append(each)
-    else:
-        oFile = []
-        oImg=[]
-        oEtc=[]
+
+
 
     sExtra = json.loads(article.extra)
     ctx=Context({
         'article':article,
         'comment':comment,
-        'sExtra': sExtra['isConfirmed'],
+        'isConfirmed' : sExtra['isConfirmed'],
         'fileList':oEtc,
         'imgList':oImg,
         })
+
     tpl = get_template('boardQnaDetail.html')
     htmlData= tpl.render(ctx)
 
