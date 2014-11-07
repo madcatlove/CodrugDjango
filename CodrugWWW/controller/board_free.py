@@ -46,6 +46,23 @@ def boardFree_write(request):
             board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
             board_content =  unicode( request.POST.get('board_content').strip() )
 
+            # file upload
+            if 'board_file' in request.FILES:
+                rFile = utils.fileUpload(request.FILES, 'board_file') # 리턴값 : (원본파일이름, 변환파일이름, 파일타입)
+                if rFile[0] is not None:
+                    try:
+                        lastImage = File.objects.latest('id')
+                        lastId = lastImage.id + 1 # 새로운 번호
+                    except:
+                        lastId = 1
+
+                    oImage = File( seq = lastId, inFILE = rFile[0], outFILE = rFile[1], typeFILE = rFile[2])
+                    oImage.save()
+                else:
+                    lastId = -1
+            else:
+                lastId = -1
+
 
 
             #--- FOR DEBUG --
@@ -54,7 +71,7 @@ def boardFree_write(request):
 
             # data input
             board = Board(title = board_title, content = board_content, category = category, memberID = oMember,
-                          viewCount = 0)
+                          viewCount = 0, image_ref = lastId)
             board.save()
         except Exception, e:
             print e
