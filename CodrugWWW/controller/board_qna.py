@@ -77,29 +77,49 @@ def boardQna_write(request):
 QNA list
 '''
 
-def boardQna_list(request, page = '1'):
+def boardQna_list(request, page = 1):
     if len(str(page)) == 0: page = 1
+    page = int(page)
+
     category = Category.objects.filter(boardNAME='qna')
     article = Board.objects.filter(category=category).order_by('-id')
+    articleCount = article.count()
+
+    # pagination
+    countOffset = 2; # 한페이지에 보여줄 갯수
+    pageOffset = 5; # 리스트에 보여줄 페이지 갯수
+    startOffset = ( page -1 ) * countOffset
+    article = article[startOffset:(startOffset+countOffset)]
+    totalPage = int(articleCount / countOffset)
+
+    # 이전 페이지 남은 갯수
+    countPrevArticle = (page -1) * countOffset
+    countNextArticle = (totalPage - (page * countOffset))
+    countPrevPage = int(countPrevArticle / pageOffset )
+    countNextPage = int(countNextArticle / pageOffset )
+
 
     # sExtra 변환
     for idx in range(0, len(article)):
         sExtra = json.loads( article[idx].extra )
         article[idx].isConfirmed = sExtra['isConfirmed']
+        article[idx].commentCount = Comment.objects.filter( articleID = article[idx] ).count()
 
 
-    # 리스트에서 각 게시글에 해당하는 댓글의 개수 출력하고 싶지만 좆같음 '....(3)' 이런 식
-    # def count_comment():
-    #     for each in article:
-    #         comment = Comment.objects.filter(Comment.articleID == each.id)
-    #         cComment = len(comment)
-    #         return cComment
-    # comment = Comment.objects.filter(Comment.articleID == )
 
     ctx = Context({
         'page' : page,
         'boardName' : 'qna',
         'article' : article,
+        'totalPage' : totalPage,
+        'countOffset' : countOffset,
+        'articleCount' : articleCount,
+        'pageOffset' : pageOffset,
+
+        'countPrevArticle' : countPrevArticle,
+        'countNextArticle' : countNextArticle,
+        'countPrevPage' : countPrevPage,
+        'countNextPage' : countNextPage,
     })
     tpl = get_template('boardQnaList.html')
     htmlData = tpl.render( ctx )
