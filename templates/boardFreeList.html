@@ -31,7 +31,7 @@
                     <td class="text-center">{{ each.id }}</td>
                     <td>
                         <a href="/board/free/detail/{{ each.id }}">
-                            {{ each.title }} [ {{ each.commentCount }} ]
+                            {{ each.title }} {% if each.commentCount > 0 %}<span class="badge">{{ each.commentCount }}</span>{% endif %}
                         </a>
                     </td>
                     <td class="text-center">{{ each.memberID.name }}</td>

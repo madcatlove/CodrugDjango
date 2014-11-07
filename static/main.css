@@ -5,7 +5,11 @@
 - Site Layout
 --------------------------------------
 */
-
+/*COMMENT 영영*/
+#blue{
+    background-color: blue;
+    color: white;
+}
 /* HEADER 영역 */
 	.sHead {
 		background-color: #1E74BA;
