@@ -11,17 +11,24 @@ from ..models import *
 
 '''
     Freeboard write
+    GET method 로 접근시 글쓰기 폼을 보여주며
+    POST method 로 접근시 글쓰기 작업을 진행한다.
 '''
 def boardFree_write(request):
 
-    ctx = Context({
+    if request.method == 'GET' :
+        ctx = Context({
 
-    })
+        })
 
-    tpl = get_template('boardFreeWrite.html')
-    htmlData = tpl.render( ctx )
+        tpl = get_template('boardFreeWrite.html')
+        htmlData = tpl.render( ctx )
 
-    return HttpResponse(htmlData)
+        return HttpResponse(htmlData)
+    elif request.method == 'POST':
+        pass
+    else:
+        return HttpResponseForbidden();
 
 '''
     Freeboard list
