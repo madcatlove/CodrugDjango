@@ -26,16 +26,16 @@
 
             <!-- 실제 게시물 등장 -->
             {%  for each in article %}
-                <a href="{% url 'board_free_detail' each.id %}">
-                    <tr>
-                        <td class="text-center">{{ each.id }}</td>
-                        <td>{{ each.title }}</td>
-                        <td class="text-center">{{ each.memberID.name }}</td>
-                        <td class="text-center">{{ each.viewCount }}</td>
-                    </tr>
-                </a>
+
+                <tr>
+                    <td class="text-center">{{ each.id }}</td>
+                    <td><a href="/board/free/detail/{{ each.id }}">{{ each.title }}</a></td>
+                    <td class="text-center">{{ each.memberID.name }}</td>
+                    <td class="text-center">{{ each.viewCount }}</td>
+                </tr>
+
             {% endfor %}
-{#d#}
+            {#d#}
 
             </tbody>
         </table>
