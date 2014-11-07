@@ -114,8 +114,14 @@ def boardFree_list(request, page = 1):
 
 def boardFree_detail(request, id):
 
-    article = Board.objects.get(id)
-    sExtra = json.loads(article.extra)
+    print id
+
+    article = Board.objects.get(id = id)
+    try:
+        sExtra = json.loads(article.extra)
+    except:
+        sExtra = None
+
     ctx=Context({
         'article':article,
     })
