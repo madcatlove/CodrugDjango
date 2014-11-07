@@ -75,7 +75,7 @@ def boardFree_write(request):
             ## BOARD INSERT
             ##---------------------------------------
             board = Board(title = board_title, content = board_content, category = category, memberID = oMember,
-                          viewCount = 0, image_ref = lastId)
+                          viewCount = 0, image_ref = lastId, extra = utils.getBoardExtraMessage(isConfirmed = False) )
             board.save()
         except Exception, e:
             print e
