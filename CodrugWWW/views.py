@@ -26,18 +26,18 @@ def index(request):
 
 
 def qna_list(request, page = '1'):
-    print page
-    try:
-        page = int(page)
-    except ValueError:
-        raise Http404()
+    if len(str(page)) == 0: page = 1
+    category = Category.objects.filter(boardNAME='qna')
+    article = Board.objects.filter(category=category)
 
-    sParam = {
-        'page' : page
-    }
+    ctx = Context({
+        'page' : page,
+        'boardName' : 'qna',
+        'article' : article
+    })
 
-    tpl = get_template('qna.html')
-    htmlData = tpl.render( Context(sParam) )
+    tpl = get_template('qnaList.html')
+    htmlData = tpl.render( ctx )
 
     return HttpResponse(htmlData)
 

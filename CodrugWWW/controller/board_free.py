@@ -71,10 +71,13 @@ def boardFree_write(request):
 '''
 def boardFree_list(request, page = 1):
     if len(str(page)) == 0: page = 1
+    category = Category.objects.filter(boardNAME='free')
+    article = Board.objects.filter(category=category)
 
     ctx = Context({
         'page' : page,
         'boardName' : 'free',
+        'article' : article
     })
 
     tpl = get_template('boardFreeList.html')
@@ -88,11 +91,10 @@ def boardFree_list(request, page = 1):
 
 '''
 
-def boardFree_detail(request):
-    category = Category.objects.filter(boardName='free')
-    content = Board.objects.filter(category=category.id)
+def boardFree_detail(request, id):
+    article = Board.objects.get(id)
     ctx=Context({
-        'content':content
+        'article':article
     })
     tpl = get_template('boardFreeDetail.html')
     htmlData= tpl.render(ctx)
