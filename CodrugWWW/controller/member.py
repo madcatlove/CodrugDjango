@@ -56,19 +56,14 @@ def member_join(request):
     Member Login page /member/login
 '''
 def member_login(request):
-    print request.POST
+
     json_message = {}
     # POST DATA
     try:
         user_email = utils.cleanStr( request.POST.get('email') )
         user_password = utils.cleanStr( request.POST.get('password') )
 
-
         oMember = Member.objects.get(email = user_email)
-
-        print user_email
-        print user_password
-        print type(oMember)
 
         if oMember == None :
             json_message = utils.sMessage( data = '로그인 실패', error = True)
@@ -88,6 +83,16 @@ def member_login(request):
 
 
     return HttpResponse( json.dumps(json_message) )
+
+'''
+    Member logout /member/logout
+'''
+def member_logout(request):
+    del request.session['member_login']
+    json_message = utils.sMessage(data = '정상적으로 로그아웃 되었습니다.')
+    return HttpResponse( json.dumps(json_message) )
+
+
 
 
 '''
