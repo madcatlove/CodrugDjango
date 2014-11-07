@@ -3,12 +3,20 @@
 
     <p> Members </p>
     <hr />
-    dd
-    {% for m in mlist %}
-        이름 : {{ m.name }}
-        이메일 : {{ m.email }}
-        <br />
-    {% endfor %}
-    ss
+
+<div class="row">
+  <div class="col-sm-6 col-md-3">
+  {% for m in mlist %}
+    <div class="thumbnail">
+      <img data-src="holder.js/300x200" alt="...">
+      <div class="caption">
+        <h3>{{ m.name }}</h3>
+        <p>{{ m.email }}</p>
+        <p><a href="#" class="btn btn-primary">Button</a> <a href="#" class="btn btn-default">Button</a></p>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
 
 {% endblock %}

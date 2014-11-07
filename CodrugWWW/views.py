@@ -25,7 +25,6 @@ def index(request):
 
 
 
-
 def qna_list(request, page = '1'):
     print page
     try:
