@@ -122,6 +122,8 @@ def boardFree_detail(request, id):
     except:
         sExtra = None
 
+    print article
+
     ctx=Context({
         'article':article,
     })
