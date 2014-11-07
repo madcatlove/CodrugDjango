@@ -7,6 +7,7 @@ from .. import utils
 # Create your views here.
 from django.template.loader import get_template
 from django.template import Context
+import re
 from ..models import *
 import member
 import board_free
@@ -108,12 +109,27 @@ QNA Detail
 def boardQna_detail(request, id):
     article = Board.objects.get(id)
     comment = Comment.objects.filter(Comment.articleID == id)
+    if article.image_ref > 0:
+        oFile = File.objects.filter(id=article.image_ref)
+        oImg=[]
+        oEtc=[]
+        for each in oFile:
+            if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
+                oImg.append(each)
+            else:
+                oEtc.append(each)
+    else:
+        oFile = []
+        oImg=[]
+        oEtc=[]
 
     sExtra = json.loads(article.extra)
     ctx=Context({
         'article':article,
         'comment':comment,
-        'sExtra': sExtra['isConfirmed']
+        'sExtra': sExtra['isConfirmed'],
+        'fileList':oEtc,
+        'imgList':oImg,
         })
     tpl = get_template('boardQnaDetail.html')
     htmlData= tpl.render(ctx)

@@ -7,6 +7,7 @@ from .. import utils
 # Create your views here.
 from django.template.loader import get_template
 from django.template import Context
+import re
 from ..models import *
 
 
@@ -123,8 +124,17 @@ def boardFree_detail(request, id):
     comment = Comment.objects.filter(articleID = id)
     if article.image_ref > 0:
         oFile = File.objects.filter(id=article.image_ref)
+        oImg=[]
+        oEtc=[]
+        for each in oFile:
+            if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
+                oImg.append(each)
+            else:
+                oEtc.append(each)
     else:
-        oFile = ()
+        oFile = []
+        oImg=[]
+        oEtc=[]
     
     try:
         sExtra = json.loads(article.extra)
@@ -136,7 +146,8 @@ def boardFree_detail(request, id):
     ctx=Context({
         'article':article,
         'comment':comment,
-        'fileList':oFile,
+        'imgList':oImg,
+        'fileList':oEtc,
     })
     tpl = get_template('boardFreeDetail.html')
     htmlData= tpl.render(ctx)
