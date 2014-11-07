@@ -16,7 +16,7 @@ from ..models import *
     GET method 로 접근시 글쓰기 폼을 보여주며
     POST method 로 접근시 글쓰기 작업을 진행한다.
 '''
-def boardFree_write(request):
+def boardArchive_write(request):
 
     if request.method == 'GET' :
         ctx = Context({
