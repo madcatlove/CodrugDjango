@@ -9,7 +9,10 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -66,6 +69,7 @@ DATABASES = {
         'USER': 'madcatExternal',
         'PASSWORD': '1234',
         'PORT': '3306',
+        'CHARSET' : 'UTF-8'
     }
 }
 

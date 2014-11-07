@@ -43,8 +43,14 @@ def boardFree_write(request):
             category = Category.objects.get( boardNAME = 'free' )
 
 
-            board_title = utils.cleanStr( unicode(request.POST.get('board_title')) )
-            board_content =  unicode( request.POST.get('board_content') ).strip()
+            board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
+            board_content =  unicode( request.POST.get('board_content').strip() )
+
+
+
+            #--- FOR DEBUG --
+            #print board_title
+            #print board_content
 
             # data input
             board = Board(title = board_title, content = board_content, category = category, memberID = oMember,
