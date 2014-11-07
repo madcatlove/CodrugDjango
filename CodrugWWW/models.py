@@ -26,7 +26,7 @@ class Board(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     #수정시간
     updated=models.DateTimeField(auto_now=True)
-    viewCount=models.PositiveIntegerField()
+    viewCount=models.PositiveIntegerField(null = True, default = 0)
     memberID=models.ForeignKey(Member)
     extra=models.CharField(max_length=200)
     #게시판 분류

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
 from .. import utils
@@ -26,14 +27,34 @@ def boardFree_write(request):
 
         return HttpResponse(htmlData)
     elif request.method == 'POST':
+
         print request.POST
-        print request.FILES
-        print request.session
+
+        try:
+            # 회원 인증
+            member_login = request.session['member_login']
+            print member_login
+            if not member_login :
+                return HttpResponse( json.dumps( utils.sMessage( error = True)) )
+            oMember = Member.objects.get( id = int(member_login['seq']) )
 
 
-        board_title = utils.cleanStr( request.POST.get('board_title') )
-        board_title = request.POST.get('board_content').strip()
+            # category id 가져옴.
+            category = Category.objects.get( boardNAME = 'free' )
 
+
+            board_title = utils.cleanStr( unicode(request.POST.get('board_title')) )
+            board_content =  unicode( request.POST.get('board_content') ).strip()
+
+            # data input
+            board = Board(title = board_title, content = board_content, category = category, memberID = oMember,
+                          viewCount = 0)
+            board.save()
+        except Exception, e:
+            print e
+
+
+        return HttpResponse( json.dumps( utils.sMessage( data = 1 )))
 
 
     else:
