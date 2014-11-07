@@ -9,7 +9,10 @@ var urlReq = (function() {
             type: method,
             data: data
         }).done( function(data) {
-            console.log(' final result => ' , data)
+            console.log(' final result => ' , data, typeof(data) )
+            if( typeof data === 'string')
+                data = JSON.parse(data);
+
             resultCallback(data);
         })
     }
@@ -53,13 +56,17 @@ var procLogin = function() {
         password: userPwval,
     }
 
-    urlReq.post('/user/login', sParam, function(result) {
+    urlReq.post('/member/login', sParam, function(result) {
+
+        console.log( result , result.error == false)
+
         if( result.error == false) {
+            console.log(' .... ')
             alert(' 정상적으로 로그인 되었습니다. ');
             $('#loginModal').modal('hide');
         }
         else {
-            alert( result.errormsg );
+            alert( result.data );
         }
 
     })

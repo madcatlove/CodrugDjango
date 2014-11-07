@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     # Member
     url(r'^member/join', member.member_join, name = 'member_join'),
     url(r'^member/list', member.member_list, name = 'member_list'),
+    url(r'^member/login', member.member_login, name = 'member_login'),
 
     ###################
     # QnA board

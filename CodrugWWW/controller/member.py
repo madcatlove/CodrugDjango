@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import json
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
+
 from .. import utils
 
 # Create your views here.
@@ -54,7 +56,38 @@ def member_join(request):
     Member Login page /member/login
 '''
 def member_login(request):
-    pass
+    print request.POST
+    json_message = {}
+    # POST DATA
+    try:
+        user_email = utils.cleanStr( request.POST.get('email') )
+        user_password = utils.cleanStr( request.POST.get('password') )
+
+
+        oMember = Member.objects.get(email = user_email)
+
+        print user_email
+        print user_password
+        print type(oMember)
+
+        if oMember == None :
+            json_message = utils.sMessage( data = '로그인 실패', error = True)
+        elif oMember.email != user_email or oMember.password != user_password :
+            json_message = utils.sMessage( data = '로그인 실패', error = True)
+        else :
+            # 로그인 성공
+            request.session['member_login'] = {
+                'seq' : oMember.id,
+                'email' : oMember.email
+            }
+            json_message = utils.sMessage( data = oMember.id)
+
+
+    except (Member.DoesNotExist, KeyError) as e:
+        json_message = utils.sMessage( data = '로그인 실패', error = True)
+
+
+    return HttpResponse( json.dumps(json_message) )
 
 
 '''
