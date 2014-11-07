@@ -11,18 +11,16 @@ from ..models import *
 
 
 '''
-    Freeboard write
-    GET method 로 접근시 글쓰기 폼을 보여주며
-    POST method 로 접근시 글쓰기 작업을 진행한다.
+    Album write
 '''
-def boardFree_write(request):
+def boardAlbum_write(request):
 
     if request.method == 'GET' :
         ctx = Context({
 
         })
 
-        tpl = get_template('boardFreeWrite.html')
+        tpl = get_template('boardAlbumWrite.html')
         htmlData = tpl.render( ctx )
 
         return HttpResponse(htmlData)
@@ -40,7 +38,7 @@ def boardFree_write(request):
 
 
             # category id 가져옴.
-            category = Category.objects.get( boardNAME = 'free' )
+            category = Category.objects.get( boardNAME = 'album' )
 
 
             board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
@@ -88,11 +86,11 @@ def boardFree_write(request):
         return HttpResponseForbidden();
 
 '''
-    Freeboard list
+    Album list
 '''
 def boardFree_list(request, page = 1):
     if len(str(page)) == 0: page = 1
-    category = Category.objects.filter(boardNAME='free')
+    category = Category.objects.filter(boardNAME='album')
     article = Board.objects.filter(category=category)
 
     ctx = Context({
@@ -101,25 +99,26 @@ def boardFree_list(request, page = 1):
         'article' : article,
     })
 
-    tpl = get_template('boardFreeList.html')
+    tpl = get_template('boardAlbumList.html')
     htmlData = tpl.render( ctx )
 
     return HttpResponse(htmlData)
 
 
 '''
-    Freeboard detail
+    Album detail
 
 '''
 
-def boardFree_detail(request, id):
+def boardAlbum_detail(request, id):
+
+
     article = Board.objects.get(id = id)
     comment = Comment.objects.filter(articleID = id)
     if article.image_ref > 0:
         oFile = File.objects.filter(id=article.image_ref)
     else:
         oFile = ()
-    
     try:
         sExtra = json.loads(article.extra)
     except:
@@ -132,7 +131,7 @@ def boardFree_detail(request, id):
         'comment':comment,
         'fileList':oFile,
     })
-    tpl = get_template('boardFreeDetail.html')
+    tpl = get_template('boardAlbumDetail.html')
     htmlData= tpl.render(ctx)
 
     return HttpResponse(htmlData)

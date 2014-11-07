@@ -5,15 +5,26 @@
     <div class="container">
         <div class="jumbortron">
             <div class="panel panel-default">
-                <div class="panel-heading"> Category: {{article.category}}</div>
-                <div class="panel-heading">{{article.title}} by {{article.memberID.name}} at {{article.created}} </div>
+                <div class="panel-heading"> Category: {{article.category.extra}}</div>
+                <div class="panel-heading">
+                    {{article.title}} by {{article.memberID.name}} at {{article.created}}
+                </div>
+                <div class="panel-body">{{ article. }}</div>
                 <div class="panel-body">{{article.content}}</div>
 
                 <a href="../delete/{{article.id}}">Delete</a>
                 <a href="../modify/{{article.id}}">Modify</a>
                 <a href="../comment/create/{{article.id}}">댓글 달기</a>
-            </div>
 
+
+
+{#                <form action="{% url 'board_free_comment' %}" method="POST">#}
+{#                    <input type="hidden" name="board_article_id" value="{{ article.id }}" />#}
+{#                    <input type="hidden" name="board_id" value="{{ article.category.id }}"/>#}
+{#                    <textarea name="board_content"></textarea>#}
+{#                </form>#}
+
+            </div>
         </div>
         <div class="jumbotron">
             {% for each in comment%}
@@ -25,7 +36,5 @@
             {% endfor %}
         </div>
     </div>
-
-
 
 {% endblock %}

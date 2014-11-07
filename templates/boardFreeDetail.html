@@ -2,28 +2,38 @@
 
 {% block content %}
 
-<div class="container">
-	<div class="jumbortron">
-		<div class="panel panel-default">
-			<div class="panel-heading"> Category: {{article.category.extra}}</div>
-			<div class="panel-heading">
-                {{article.title}} by {{article.memberID.name}} at {{article.created}}
+    <div class="container">
+        <div class="jumbortron">
+            <div class="panel panel-default">
+                <div class="panel-heading"> Category: {{article.category.extra}}</div>
+                <div class="panel-heading">
+                    {{article.title}} by {{article.memberID.name}} at {{article.created}}
+                </div>
+                <div class="panel-body">{{article.content}}</div>
+
+                <a href="../delete/{{article.id}}">Delete</a>
+                <a href="../modify/{{article.id}}">Modify</a>
+                <a href="../comment/create/{{article.id}}">댓글 달기</a>
+
+
+
+{#                <form action="{% url 'board_free_comment' %}" method="POST">#}
+{#                    <input type="hidden" name="board_article_id" value="{{ article.id }}" />#}
+{#                    <input type="hidden" name="board_id" value="{{ article.category.id }}"/>#}
+{#                    <textarea name="board_content"></textarea>#}
+{#                </form>#}
+
             </div>
-			<div class="panel-body">{{article.content}}</div>
-
-			<a href="../delete/{{article.id}}">Delete</a>
-			<a href="../modify/{{article.id}}">Modify</a>
-			<a href="../comment/create/{{article.id}}">댓글 달기</a>
-
-
-
-            comment 에서 넘겨야될값들
-            <form action="{% url 'board_free_comment' %}" method="POST">
-            <textarea name="board_content"></textarea>
-            </form>
-
-		</div>
-	</div>
-</div>
+        </div>
+        <div class="jumbotron">
+            {% for each in comment%}
+                <div class="list-group">
+                    <h4 class="list-group-item-heading">{{each.memberID.id}}</h4>
+                    <p class="list-group-item-text">{{each.content}}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
