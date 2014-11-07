@@ -141,12 +141,12 @@ def boardFree_comment(request, articleId):
     try:
         # 회원 인증
         member_login = request.session['member_login']
-        print member_login
         if not member_login :
             return HttpResponse( json.dumps( utils.sMessage( error = True)) )
 
+
         # 각종 객체 가져옴.
-        oMember = Member.objects.get( id = int(member_login['seq']) )
+        oMember = Member.objects.get( id = member_login['seq'] )
         oBoard = Board.objects.get( id = articleId)
         oCategory = oBoard.category
 
@@ -156,20 +156,15 @@ def boardFree_comment(request, articleId):
             raise Exception
 
         # Comment model
-        dictComment = {
-            'category': oCategory,
-            'articleID': oBoard,
-            'upperComment': -1,
-            'content': board_content,
-            'memberID': oMember,
-        }
-        oComment = Comment(dictComment)
+        oComment = Comment( category = oCategory, articleID = oBoard, upperComment = 255, content = board_content,
+                            memberID = oMember)
         oComment.save()
 
         json_message = utils.sMessage( data = 1 )
 
 
     except Exception, e:
+        print e
         json_message = utils.sMessage( data = '코멘트 쓰기에 실패하였습니다.', error = True)
 
 
