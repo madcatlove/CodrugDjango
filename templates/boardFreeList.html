@@ -29,7 +29,11 @@
 
                 <tr>
                     <td class="text-center">{{ each.id }}</td>
-                    <td><a href="/board/free/detail/{{ each.id }}">{{ each.title }}</a></td>
+                    <td>
+                        <a href="/board/free/detail/{{ each.id }}">
+                            {{ each.title }} [ {{ each.commentCount }} ]
+                        </a>
+                    </td>
                     <td class="text-center">{{ each.memberID.name }}</td>
                     <td class="text-center">{{ each.viewCount }}</td>
                 </tr>
