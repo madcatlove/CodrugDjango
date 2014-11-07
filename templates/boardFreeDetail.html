@@ -1,0 +1,18 @@
+{% extends "include/layout.html" %}
+
+{% block content %}
+
+{% for each in content %}
+    {{ each.title }}
+    {{ each.content }}
+    {{ each.memberID }}
+    {% if each.updated != null %}
+        {{ each.updated }}에 수정함
+        {% else %}
+        {{ each.created }}
+    {% endif %}
+    {{ each.viewCount }}
+
+
+{% endfor %}
+{% endblock %}

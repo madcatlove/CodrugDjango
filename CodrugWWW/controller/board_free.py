@@ -45,3 +45,21 @@ def boardFree_list(request, page = 1):
     htmlData = tpl.render( ctx )
 
     return HttpResponse(htmlData)
+
+
+'''
+    Freeboard detail
+
+'''
+
+def boardFree_detail(request):
+    category = Category.objects.filter(boardName='free')
+    content = Board.objects.filter(category=category.id)
+    ctx=Context({
+        'content':content
+    })
+    tpl = get_template('boardFreeDetail.html')
+    htmlData= tpl.render(ctx)
+
+    return HttpResponse(htmlData)
+
