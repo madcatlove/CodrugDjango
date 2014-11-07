@@ -9,6 +9,7 @@ class Member(models.Model):
     password = models.CharField(max_length = 100)
     name = models.CharField(max_length = 30)
     image_url = models.CharField(max_length = 100, null= True, default='')
+    level = models.IntegerField(null = True, default = 1)
     extra = models.TextField(null=True, default='')
 
 #게시판 정보

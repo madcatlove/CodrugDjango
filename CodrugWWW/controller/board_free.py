@@ -26,7 +26,16 @@ def boardFree_write(request):
 
         return HttpResponse(htmlData)
     elif request.method == 'POST':
-        pass
+        print request.POST
+        print request.FILES
+        print request.session
+
+
+        board_title = utils.cleanStr( request.POST.get('board_title') )
+        board_title = request.POST.get('board_content').strip()
+
+
+
     else:
         return HttpResponseForbidden();
 

@@ -28,3 +28,33 @@ var _boardCls = (function() {
 var moveWriteForm = function(boardName) {
     window.location.href = '/board/' + boardName + '/write'
 }
+
+$(document).ready( function() {
+
+
+    $('#boardForm').ajaxForm({
+        beforeSubmit: function(arr, $form, opt) {
+            console.log('array = ', arr)
+            console.log('$form = ', $form)
+            console.log('opt = ', opt)
+            console.log(' textContent => ', $('#textContent').code() )
+            for(var i = 0; i < arr.length; i++) {
+
+                if( arr[i].name === 'board_content') {
+                    arr[i].value = $('#textContent').code()
+                }
+
+            }
+
+            return true;
+        },
+
+        dataType: 'json',
+
+        success: function(r, e,e1,e2) {
+            consloe.log(r)
+        },
+
+
+    })
+})
