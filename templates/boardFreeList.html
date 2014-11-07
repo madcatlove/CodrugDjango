@@ -9,30 +9,32 @@
     <div id="boardContent">
         <table class="table table-hover">
             <colgroup>
-                 <col width="10%" />
-                 <col width="60%" />
-                 <col width="20%" />
-                 <col width="20%" />
+                <col width="10%" />
+                <col width="60%" />
+                <col width="20%" />
+                <col width="20%" />
             </colgroup>
 
             <thead>
-                <th class="text-center">번호</th>
-                <th class="text-center">제목</th>
-                <th class="text-center">이름</th>
-                <th class="text-center">조회수</th>
+            <th class="text-center">번호</th>
+            <th class="text-center">제목</th>
+            <th class="text-center">이름</th>
+            <th class="text-center">조회수</th>
             </thead>
 
             <tbody>
 
-                <!-- 실제 게시물 등장 -->
-                {%  for each in article %}
-                <tr>
-                    <td class="text-center">{{ each.id }}</td>
-                    <td>{{ each.title }}</td>
-                    <td class="text-center">{{ each.memberID.name }}</td>
-                    <td class="text-center">{{ each.viewCount }}</td>
-                </tr>
-                {% endfor %}
+            <!-- 실제 게시물 등장 -->
+            {%  for each in article %}
+                <a href="{% url 'board_free_detail' each.id %}">
+                    <tr>
+                        <td class="text-center">{{ each.id }}</td>
+                        <td>{{ each.title }}</td>
+                        <td class="text-center">{{ each.memberID.name }}</td>
+                        <td class="text-center">{{ each.viewCount }}</td>
+                    </tr>
+                </a>
+            {% endfor %}
 
 
             </tbody>
@@ -43,13 +45,13 @@
             <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6 text-center">
                 <ul class="pagination">
-                  <li><a href="#">«</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">»</a></li>
+                    <li><a href="#">«</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
                 </ul>
             </div>
             <div class="col-md-3 text-right">
@@ -58,6 +60,6 @@
 
         </div>
     </div>
-        <!-- end of boardContent division // -->
+    <!-- end of boardContent division // -->
 
 {% endblock %}

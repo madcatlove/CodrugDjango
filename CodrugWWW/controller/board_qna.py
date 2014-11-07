@@ -8,21 +8,23 @@ from .. import utils
 from django.template.loader import get_template
 from django.template import Context
 from ..models import *
+import member
+import board_free
+import timeline
 
+__author__ = 'bebop'
 
+'''QNA Write
 '''
-    Freeboard write
-    GET method 로 접근시 글쓰기 폼을 보여주며
-    POST method 로 접근시 글쓰기 작업을 진행한다.
-'''
-def boardFree_write(request):
+
+def boardQna_write(request):
 
     if request.method == 'GET' :
         ctx = Context({
 
         })
 
-        tpl = get_template('boardFreeWrite.html')
+        tpl = get_template('boardQnaWrite.html')
         htmlData = tpl.render( ctx )
 
         return HttpResponse(htmlData)
@@ -40,7 +42,7 @@ def boardFree_write(request):
 
 
             # category id 가져옴.
-            category = Category.objects.get( boardNAME = 'free' )
+            category = Category.objects.get( boardNAME = 'qna' )
 
 
             board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
@@ -66,39 +68,54 @@ def boardFree_write(request):
     else:
         return HttpResponseForbidden();
 
+
+
+
 '''
-    Freeboard list
+QNA list
 '''
-def boardFree_list(request, page = 1):
+
+def boardQna_list(request, page = '1'):
     if len(str(page)) == 0: page = 1
-    category = Category.objects.filter(boardNAME='free')
+    category = Category.objects.filter(boardNAME='qna')
     article = Board.objects.filter(category=category)
+    sExtra = json.loads(article)
+
+    # 리스트에서 각 게시글에 해당하는 댓글의 개수 출력하고 싶지만 좆같음 '....(3)' 이런 식
+    # def count_comment():
+    #     for each in article:
+    #         comment = Comment.objects.filter(Comment.articleID == each.id)
+    #         cComment = len(comment)
+    #         return cComment
+    # comment = Comment.objects.filter(Comment.articleID == )
 
     ctx = Context({
         'page' : page,
-        'boardName' : 'free',
+        'boardName' : 'qna',
         'article' : article,
+        'sExtra':sExtra['isConfirmed']
     })
-
-    tpl = get_template('boardFreeList.html')
+    tpl = get_template('boardQnaList.html')
     htmlData = tpl.render( ctx )
 
     return HttpResponse(htmlData)
 
-
 '''
-    Freeboard detail
-
+QNA Detail
 '''
 
-def boardFree_detail(request, id):
 
+def boardQna_detail(request, id):
     article = Board.objects.get(id)
+    comment = Comment.objects.filter(Comment.articleID == id)
+
     sExtra = json.loads(article.extra)
     ctx=Context({
         'article':article,
-    })
-    tpl = get_template('boardFreeDetail.html')
+        'comment':comment,
+        'sExtra': sExtra['isConfirmed']
+        })
+    tpl = get_template('boardQnaDetail.html')
     htmlData= tpl.render(ctx)
 
     return HttpResponse(htmlData)

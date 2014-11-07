@@ -2,6 +2,7 @@
 
 from django.conf.urls import *
 from django.contrib import admin
+from CodrugWWW.controller import board_qna
 
 from CodrugWWW.views import *
 
@@ -22,8 +23,9 @@ urlpatterns = patterns('',
 
     ###################
     # QnA board
-    url(r'^board/qna/$', qna_list, name = 'qna_list'),
-    url(r'^board/qna/(?P<page>(\d*))?$', qna_list, name = 'qna_list'),
+    url(r'^board/qna/(\d*)?$', board_qna.boardQna_list, name = 'board_qna_list'),
+    url(r'^board/qna/detail/(\d*)$', board_qna.boardQna_detail, name = 'board_qna_detail'),
+    url(r'^board/qna/write',board_qna.boardQna_write, name='board_qna_write'),
 
     ###################
     # Timeline
@@ -34,4 +36,4 @@ urlpatterns = patterns('',
     url(r'^board/free/(\d*)?$', board_free.boardFree_list, name='board_free_list'),
     url(r'^board/free/write', board_free.boardFree_write, name='board_free_write'),
     url(r'^board/free/detail/(\d*)$', board_free.boardFree_detail, name='board_free_list'),
-)
+    )

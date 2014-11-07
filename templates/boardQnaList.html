@@ -26,20 +26,24 @@
 
             <!-- 실제 게시물 등장 -->
             {%  for each in article %}
-                {% if each.extra == 'success' %}
+                {% if sExtra == True %}
+                    <a href="{% url 'board_qna_detail' each.id %}">
                     <tr class="success">
                         <td class="text-center">{{ each.id }}</td>
                         <td>{{ each.title }}</td>
                         <td class="text-center">{{ each.memberID.name }}</td>
                         <td class="text-center">{{ each.viewCount }}</td>
                     </tr>
+                    </a>
                 {% else %}
+                    <a href="{% url 'board_qna_detail' each.id %}">
                     <tr >
                         <td class="text-center">{{ each.id }}</td>
                         <td>{{ each.title }}</td>
                         <td class="text-center">{{ each.memberID.name }}</td>
                         <td class="text-center">{{ each.viewCount }}</td>
                     </tr>
+                    </a>
                 {% endif %}
             {% endfor %}
 

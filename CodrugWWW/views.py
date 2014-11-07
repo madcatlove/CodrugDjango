@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
 import utils
@@ -20,24 +21,6 @@ def index(request):
 
     #htmlData = "Hello world."
 
-
-    return HttpResponse(htmlData)
-
-
-
-def qna_list(request, page = '1'):
-    if len(str(page)) == 0: page = 1
-    category = Category.objects.filter(boardNAME='qna')
-    article = Board.objects.filter(category=category)
-
-    ctx = Context({
-        'page' : page,
-        'boardName' : 'qna',
-        'article' : article
-    })
-
-    tpl = get_template('qnaList.html')
-    htmlData = tpl.render( ctx )
 
     return HttpResponse(htmlData)
 
