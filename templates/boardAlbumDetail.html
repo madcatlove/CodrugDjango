@@ -23,7 +23,7 @@
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> {{ article.created }}</p>
+                <p><span class="glyphicon glyphicon-time"></span> {{ article.created|date:'Y-m-d' }}</p>
 
                 <hr>
                 {%  if lenImgList > 0 %}
@@ -68,7 +68,7 @@
                         -->
                         <div class="media-body">
                             <h4 class="media-heading">{{ each.memberID.name }}
-                                <small>{{ each.created }}</small>
+                                <small>{{ each.created|date:'Y-m-d' }}</small>
                             </h4>
                             {{ each.content }}
                         </div>
