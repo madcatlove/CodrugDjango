@@ -1,5 +1,6 @@
 {% extends "include/layout.html" %}
 
+{% load bleach_tags %}
 {% block content %}
 
 
@@ -36,7 +37,7 @@
                 <hr>
 
                 <!-- Post Content -->
-                {{ article.content }}
+                {{ article.content|bleach }}
                 <hr>
                 <!-- File download -->
                 {%  if lenFileList > 0 %}

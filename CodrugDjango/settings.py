@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_bleach',
     'CodrugWWW',
 )
 
@@ -87,4 +88,25 @@ STATICFILES_DIRS = (
     BASE_DIR + '/static/',
 )
 STATIC_URL = '/static/'
+
+
+################################
+# DJANGO BLEACH
+# Which HTML tags are allowed
+BLEACH_ALLOWED_TAGS = ['br', 'p', 'b', 'i', 'u', 'em', 'strong', 'a', 'img', 'embed', 'iframe']
+
+# Which HTML attributes are allowed
+BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'style', 'src', 'width', 'height']
+
+# Which CSS properties are allowed in 'style' attributes (assuming
+# style is an allowed attribute)
+BLEACH_ALLOWED_STYLES = [
+    'font-family', 'font-weight', 'text-decoration', 'font-variant']
+
+# Strip unknown tags if True, replace with HTML escaped characters if
+# False
+BLEACH_STRIP_TAGS = False
+
+# Strip comments, or leave them in.
+BLEACH_STRIP_COMMENTS = False
 
