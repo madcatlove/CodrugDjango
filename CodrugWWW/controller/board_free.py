@@ -8,6 +8,7 @@ from .. import utils
 from django.template.loader import get_template
 from django.template import Context
 import re
+import math
 from ..models import *
 
 
@@ -93,19 +94,50 @@ def boardFree_write(request):
 '''
 def boardFree_list(request, page = 1):
     if len(str(page)) == 0: page = 1
+    page = int(page)
+
     category = Category.objects.filter(boardNAME='free')
     article = Board.objects.filter(category=category).order_by('-id')
+    articleCount = article.count()
 
     # 댓글 가공.
     for idx in range(0, len(article)):
         commentCount = Comment.objects.filter(category = category, articleID = article[idx]).count()
         article[idx].commentCount = commentCount
 
+    #########################
+    # PAGING
+    #########################
+    countOffset = 10; # 한페이지에 보여줄 갯수
+    pageOffset =   5; # 리스트에 보여줄 페이지 갯수
+    startOffset = ( page -1 ) * countOffset
+    article = article[startOffset:(startOffset+countOffset)] # 게시글 적절히 자름.
+
+    pageList = []
+    totalPage = int( math.ceil( 1.0 * articleCount / countOffset)) # 전체 페이지 갯수
+    currentBlock = math.ceil( 1.0 * page / pageOffset )
+    startPageNum = (currentBlock-1) * pageOffset + 1
+
+    if totalPage != 0:
+        for s in range(0, pageOffset):
+            pageList.append( int(startPageNum) )
+            if startPageNum == totalPage:
+                break
+            startPageNum += 1
+    else:
+        totalPage = 1
+        pageList.append(1)
+
+
+
 
     ctx = Context({
         'page' : page,
         'boardName' : 'free',
         'article' : article,
+
+        'totalPage' : totalPage,
+        'pageList' : pageList
         })
 
     tpl = get_template('boardFreeList.html')

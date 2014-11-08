@@ -49,13 +49,29 @@
             <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6 text-center">
                 <ul class="pagination">
-                    <li><a href="#">«</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">»</a></li>
+
+                    <!-- prev arrow -->
+                    {% if page != 1 %}
+                        <li><a href="/board/free/{{ page|add:-1 }}">«</a></li>
+                    {% else %}
+                        <li><a href="#">«</a></li>
+                    {% endif %}
+
+                    {% for pageNum in pageList %}
+                        {% if pageNum == page %}
+                            <li class="active"><a href="/board/free/{{ pageNum }}">{{ pageNum }}</a></li>
+                        {% else %}
+                            <li><a href="/board/free/{{ pageNum }}">{{ pageNum }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- next arrow -->
+                    {% if page != totalPage %}
+                        <li><a href="/board/free/{{ page|add:1 }}">»</a></li>
+                    {% else %}
+                        <li><a href="#">»</a></li>
+                    {% endif %}
+
                 </ul>
             </div>
             <div class="col-md-3 text-right">

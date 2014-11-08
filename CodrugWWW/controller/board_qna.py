@@ -8,6 +8,7 @@ from .. import utils
 from django.template.loader import get_template
 from django.template import Context
 import re
+import math
 from ..models import *
 import member
 import board_free
@@ -85,18 +86,29 @@ def boardQna_list(request, page = 1):
     article = Board.objects.filter(category=category).order_by('-id')
     articleCount = article.count()
 
-    # pagination
-    countOffset = 2; # 한페이지에 보여줄 갯수
-    pageOffset = 5; # 리스트에 보여줄 페이지 갯수
+    #########################
+    # PAGING
+    #########################
+    countOffset = 10; # 한페이지에 보여줄 갯수
+    pageOffset =   5; # 리스트에 보여줄 페이지 갯수
     startOffset = ( page -1 ) * countOffset
-    article = article[startOffset:(startOffset+countOffset)]
-    totalPage = int(articleCount / countOffset)
+    article = article[startOffset:(startOffset+countOffset)] # 게시글 적절히 자름.
 
-    # 이전 페이지 남은 갯수
-    countPrevArticle = (page -1) * countOffset
-    countNextArticle = (totalPage - (page * countOffset))
-    countPrevPage = int(countPrevArticle / pageOffset )
-    countNextPage = int(countNextArticle / pageOffset )
+    pageList = []
+    totalPage = int( math.ceil( 1.0 * articleCount / countOffset)) # 전체 페이지 갯수
+    currentBlock = int(math.ceil( 1.0 * page / pageOffset ))
+    startPageNum = (currentBlock-1) * pageOffset + 1
+
+    if totalPage != 0:
+        for s in range(0, pageOffset):
+            pageList.append( int(startPageNum) )
+            if startPageNum == totalPage:
+                break
+            startPageNum += 1
+    else:
+        totalPage = 1
+        pageList.append(1)
+
 
 
     # sExtra 변환
@@ -115,11 +127,9 @@ def boardQna_list(request, page = 1):
         'countOffset' : countOffset,
         'articleCount' : articleCount,
         'pageOffset' : pageOffset,
+        'pageList' : pageList,
 
-        'countPrevArticle' : countPrevArticle,
-        'countNextArticle' : countNextArticle,
-        'countPrevPage' : countPrevPage,
-        'countNextPage' : countNextPage,
+
     })
     tpl = get_template('boardQnaList.html')
     htmlData = tpl.render( ctx )
