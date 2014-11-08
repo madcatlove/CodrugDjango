@@ -12,7 +12,8 @@
 }
 /* HEADER 영역 */
 	.sHead {
-		background-color: #1E74BA;
+        margin-top: -70px;
+		background-color: #2d6f61;
 		height: 150px;
 		color: white;
 		font-family: 'Nova Flat';
@@ -53,4 +54,10 @@
         width: 400px;
         display: inline-block;
         margin:0 auto;
+    }
+
+    /* 공통 색깔 */
+
+    #idColor1{
+        background-color:#2d6f61
     }
