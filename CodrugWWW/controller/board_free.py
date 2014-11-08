@@ -122,6 +122,10 @@ def boardFree_list(request, page = 1):
 def boardFree_detail(request, id):
     article = Board.objects.get(id = id)
     comment = Comment.objects.filter(articleID = id)
+    # 조회수 1 증가
+    article.viewCount += 1
+    article.save()
+
     # 파일이 존재하면 이미지, 기타파일 분류작업.
     oImg = []
     oEtc = []
@@ -139,13 +143,15 @@ def boardFree_detail(request, id):
     except:
         sExtra = None
 
-    print article
-
+    lenImgList = len(oImg)
+    lenFileList = len(oEtc)
     ctx=Context({
         'article':article,
         'comment':comment,
         'imgList':oImg,
         'fileList':oEtc,
+        'lenImgList': lenImgList,
+        'lenFileList' :lenFileList
         })
     tpl = get_template('boardFreeDetail.html')
     htmlData= tpl.render(ctx)

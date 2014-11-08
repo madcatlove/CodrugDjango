@@ -135,6 +135,9 @@ def boardAlbum_list(request, page = 1):
 def boardAlbum_detail(request, id):
     article = Board.objects.get(id = id)
     comment = Comment.objects.filter(articleID = id)
+    # 조회수 1 증가
+    article.viewCount += 1
+    article.save()
     if article.image_ref > 0:
         oFile = File.objects.filter(id=article.image_ref)
         oImg=[]

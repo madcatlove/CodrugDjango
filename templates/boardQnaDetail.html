@@ -1,84 +1,99 @@
 {% extends "include/layout.html" %}
-{% block addScript %}
-    <script type="text/javascript">
-        var closeQuestion = function(articleNum) {
-            urlReq.get('{% url 'board_qna_close' articleId=article.id %}',{}, function(result) {
-                if( result.error == false ) {
-                    alert(' 질문이 정상적으로 해결처리 되었습니다. ');
-                    window.location.reload();
-                }
-                else {
-                    alert( result.data );
-                }
-            })
-        }
-    </script>
-
-{% endblock %}
-
 
 {% block content %}
 
+
     <div class="container">
-        <div class="jumbortron">
-            <div class="panel panel-default">
-                <div class="panel-heading"> Category: {{article.category.extra}}</div>
-                <div class="panel-heading">{{article.title}} by {{article.memberID.name}} at {{article.created}} </div>
-                <div class="panel-body">{{article.content}}</div>
 
+        <div class="row">
 
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-12">
 
-                {% if isConfirmed != True %}
-                    <button class="btn btn-success" onclick="void(closeQuestion({{  article.id  }}))">질문이 해결되었습니다.</button>
-                {% else %}
+                <!-- Blog Post -->
 
+                <!-- Title -->
+                <h1>{{ article.title }}</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by {{ article.memberID.name }}
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> {{ article.created }}</p>
+
+                <hr>
+                {%  if lenImgList > 0 %}
+                    {%  for img in imgList %}
+                        <!-- View Image -->
+                        <img class="img-responsive" src="/upload/{{img.outFILE }}" alt="">
+                    {% endfor %}
                 {% endif %}
 
-                <a href="../delete/{{article.id}}">Delete</a>
-                <a href="../modify/{{article.id}}">Modify</a>
-                <a href="../comment/create/{{article.id}}">댓글 달기</a>
-            </div>
+                <hr>
 
-        </div>
-        <div class="jumbotron">
-            {% for each in comment%}
-                <div class="list-group">
-                    <h4 class="list-group-item-heading">{{each.memberID.name}}</h4>
-                    <p class="list-group-item-text">{{each.content}}</p>
-                    </a>
+                <!-- Post Content -->
+                {{ article.content }}
+                <hr>
+                <!-- File download -->
+                {%  if lenFileList > 0 %}
+                    {%  for file in fileList %}
+                        <!-- Preview Image -->
+                        <a href="/upload/{{img.outFILE }}">첨부파일</a>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Comments Form -->
+                <div class="well">
+                    <form id ="commentForm" role="form" action="{% url 'board_qna_comment' articleId=article.id%}" method="POST">
+                        <div class="form-group">
+                            <textarea class="form-control" id ="board_content" name="board_content" rows="4" placeholder="코멘트 입력"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">댓글 작성</button>
+                    </form>
                 </div>
-            {% endfor %}
+
+                <hr>
+
+                <!-- Comment -->
+                {% for each in comment %}
+                    <div class="media">
+                        <!-- User Profile Picture
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://placehold.it/64x64" alt="">
+                        </a>
+                        -->
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ each.memberID.name }}
+                                <small>{{ each.created }}</small>
+                            </h4>
+                            {{ each.content }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-
-
-        <div>
-            <form id="commentForm" role="form" action="{% url 'board_qna_comment' articleId=article.id %}" method="POST">
-                <label for="board_content">코멘트</label>
-                <textarea class="form-control" id="board_content" name="board_content" rows="4" placeholder="코멘트 입력"></textarea>
-                <div class="text-center"><button class="btn btn-primary">댓글 작성</button></div>
-            </form>
-        </div>
-
-        <!-- comment form control -->
-        <script type="text/javascript">
-            $(document).ajaxForm({
-                dataType: 'json',
-                success: function(r, r1,r2,r3) {
-                    if (typeof r === 'string') r = JSON.parse(r)
-                    if(r.error == false) {
-                        alert(' 코멘트 작성에 성공하였습니다. ');
-                        window.location.reload();
-                    }
-                    else {
-                        alert(r.data);
-                    }
-                }
-
-            });
-        </script>
-
     </div>
 
+    <!-- comment form control -->
+    <script type="text/javascript">
+        $(document).ajaxForm({
+            dataType: 'json',
+            success: function(r, r1,r2,r3) {
+                if (typeof r === 'string') r = JSON.parse(r)
+                if(r.error == false) {
+                    alert(' 코멘트 작성에 성공하였습니다. ');
+                    window.location.reload();
+                }
+                else {
+                    alert(r.data);
+                }
+            }
 
+        });
+    </script>
 
 {% endblock %}

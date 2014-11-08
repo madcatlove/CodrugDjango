@@ -122,6 +122,9 @@ def boardArchive_list(request, page = 1):
 def boardArchive_detail(request, id):
     article = Board.objects.get(id = id)
     comment = Comment.objects.filter(articleID = id)
+    # 조회수 1 증가
+    article.viewCount += 1
+    article.save()
      # 파일이 존재하면 이미지, 기타파일 분류작업.
     oImg = []
     oEtc = []

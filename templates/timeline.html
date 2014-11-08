@@ -4,22 +4,20 @@
         <div class="page-header">
             <h1 id="timeline">Timeline</h1>
         </div>
+
         <ul class="timeline">
             {%  for each in content %}
-
                 <!-- qna 게시글을 보여주는 타임라인 -->
-
                 {%  if each.category.boardNAME == 'qna' %}
-
                     <li>
-                        <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
+                        <div class="timeline-badge danger"><span><i class="glyphicon glyphicon-credit-card"></i></span></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4 class="timeline-title">{{ each.title }}</h4>
                                 <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                             </div>
                             <div class="timeline-body">
-                                {{ each.content }}
+                                <p>{{ each.content }}</p>
                                 <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
                                 <hr>
                                 <div class="btn-group">
@@ -41,14 +39,14 @@
 
                 {% elif each.category.boardNAME == 'free' %}
                     <li class="timeline-inverted">
-                        <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+                        <div class="timeline-badge warning"><span><i class="glyphicon glyphicon-credit-card"></i></span></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4 class="timeline-title">{{ each.title }}</h4>
                                 <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                             </div>
                             <div class="timeline-body">
-                                {{ each.content }}
+                                <p>{{ each.content }}</p>
                                 <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
                                 <hr>
                                 <div class="btn-group">
@@ -70,7 +68,7 @@
                     <!-- assingnment 보여주는 타임라인 -->
                 {% elif each.category.boardNAME == 'assignment' %}
                     <li>
-                        <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+                        <div class="timeline-badge"><span><i class="glyphicon glyphicon-check"></i></span></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4 class="timeline-title">{{ each.title }}</h4>
