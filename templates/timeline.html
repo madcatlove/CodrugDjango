@@ -1,5 +1,4 @@
 {% extends "include/layout.html" %}
-{% load mathfilters %}
 {% block content %}
     <div class="container">
         <div class="page-header">
@@ -11,12 +10,8 @@
                 <!-- qna 게시글을 보여주는 타임라인 -->
 
                 {%  if each.category.boardNAME == 'qna' %}
-                    {%  if each.id | div:2 == 0 %}
-                        <li>
-                    {%  else %}
-                        <li class="timeline-inverted">
-                    {%  endif %}
 
+                    <li>
                         <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
