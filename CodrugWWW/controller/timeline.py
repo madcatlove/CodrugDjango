@@ -11,7 +11,6 @@ from ..models import *
 
 
 def timeline(request,):
-
     content = {}
     content = Board.objects.all()
     # 파일이 존재하면 이미지, 기타파일 분류작업.
