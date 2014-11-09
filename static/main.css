@@ -4,12 +4,10 @@
 --------------------------------------
 - Site Layout
 --------------------------------------
-*/
-/*COMMENT 영영*/
-#blue{
-    background-color: blue;
-    color: white;
-}
+/* fonts import */
+    /*font-family: 'Jeju Gothic', serif;*/
+    @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
 /* HEADER 영역 */
 	.sHead {
         margin-top: -70px;
