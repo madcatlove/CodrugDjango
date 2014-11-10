@@ -2,7 +2,7 @@
 
 from django.conf.urls import *
 from django.contrib import admin
-from CodrugWWW.controller import board_qna, board_free, board_album, board_archive
+from CodrugWWW.controller import board_qna, board_free, board_album, board_archive, assignment
 
 from CodrugWWW.views import *
 
@@ -49,4 +49,9 @@ urlpatterns = patterns('',
     url(r'^board/free/write', board_free.boardFree_write, name='board_free_write'),
     url(r'^board/free/detail/(\d*)$', board_free.boardFree_detail, name='board_free_list'),
     url(r'^board/free/comment/(?P<articleId>\d*)$', board_free.boardFree_comment, name='board_free_comment'),
+    url(r'^board/free/delete/(\d*)$', board_free.boardFree_delete, name='board_free_delete'),
+    url(r'^board/free/modify/(\d*)$', board_free.boardFree_modify, name='board_free_modify'),
+
+    ####################
+    url(r'^assignment/$', assignment.assignment_list, name='assignment_list'),
     )

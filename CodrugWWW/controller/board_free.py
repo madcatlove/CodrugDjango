@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 from django.http import HttpResponse, Http404, HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .. import utils
 
 # Create your views here.
@@ -138,7 +138,7 @@ def boardFree_list(request, page = 1):
 
         'totalPage' : totalPage,
         'pageList' : pageList
-        })
+    })
 
     tpl = get_template('boardFreeList.html')
     htmlData = tpl.render( ctx )
@@ -184,7 +184,7 @@ def boardFree_detail(request, id):
         'fileList':oEtc,
         'lenImgList': lenImgList,
         'lenFileList' :lenFileList
-        })
+    })
     tpl = get_template('boardFreeDetail.html')
     htmlData= tpl.render(ctx)
 
@@ -228,4 +228,24 @@ def boardFree_comment(request, articleId):
 
     return HttpResponse( json.dumps(json_message) )
 
+'''
+    Freeboard Delete
+'''
 
+def boardFree_delete(request, id):
+    article = Board.objects.get(id = id)
+    Board.delete(article)
+
+    return redirect('board_free.boardFree_list')
+
+
+'''
+    Freeboard Modify
+'''
+
+def boardFree_modify(request, id):
+    article = Board.objects.get(id=id)
+
+    
+
+    return redirect('board_free.boardFree_detail', id=id)
