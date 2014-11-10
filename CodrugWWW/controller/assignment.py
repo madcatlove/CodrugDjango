@@ -14,7 +14,7 @@ from ..models import *
 
 def assignment_list(request):
 
-    assignmentList = Assignment.objects.gets.all()
+    assignmentList = Assignment.objects.all()
 
     tpl = get_template('assignment.html')
     ctx = Context({
