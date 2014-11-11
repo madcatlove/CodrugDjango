@@ -53,5 +53,8 @@ urlpatterns = patterns('',
     url(r'^board/free/modify/(\d*)$', board_free.boardFree_modify, name='board_free_modify'),
 
     ####################
+    # Assignment
     url(r'^assignment/$', assignment.assignment_list, name='assignment_list'),
+    url(r'^assignment/write$', assignment.assignment_write, name = 'assignment_write'),
+    url(r'^assignment/(?P<articleId>\d*)$', assignment.assignment_detail, name = 'assignment_detail'),
     )

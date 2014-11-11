@@ -25,3 +25,21 @@ def assignment_list(request):
     htmlData = tpl.render( ctx )
 
     return HttpResponse(htmlData)
+
+'''
+    과제 제출 컨트롤러
+'''
+def assignment_write(request):
+
+    if request.method == 'GET':
+        pass
+    elif request.method == 'POST':
+        pass
+    else:
+        return HttpResponseForbidden()
+
+'''
+    과제 제출 상세보기
+'''
+def assignment_detail(request, articleId):
+    pass
