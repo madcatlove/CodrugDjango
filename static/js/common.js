@@ -109,3 +109,15 @@ var procMemberJoin = function() {
     })
 
 }
+
+var procMemberLogout = function() {
+    urlReq.get('/member/logout', {}, function(result) {
+        if( !result.error ) {
+            alert( result.data );
+            window.location.reload();
+        }
+        else {
+            alert( result.data );
+        }
+    })
+}

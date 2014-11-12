@@ -34,6 +34,6 @@ def timeline(request,):
     }
 
     rContext = RequestContext( request )
-    htmlData = render(request, 'timeline.html.html', ctx, context_instance=rContext)
+    htmlData = render(request, 'timeline.html', ctx, context_instance=rContext)
 
     return HttpResponse(htmlData)
