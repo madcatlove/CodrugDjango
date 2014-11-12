@@ -20,9 +20,9 @@ from ..models import *
 def boardFree_write(request):
 
     if request.method == 'GET' :
-        ctx = Context({
+        ctx = {
 
-        })
+        }
         rContext = RequestContext(request)
         htmlData = render(request, 'boardFreeWrite.html', ctx, context_instance = rContext)
         return HttpResponse(htmlData)
@@ -130,14 +130,14 @@ def boardFree_list(request, page = 1):
 
 
 
-    ctx = Context({
+    ctx = {
         'page' : page,
         'boardName' : 'free',
         'article' : article,
 
         'totalPage' : totalPage,
         'pageList' : pageList
-    })
+    }
     rContext = RequestContext( request )
     htmlData = render(request, 'boardFreeList.html', ctx, context_instance = rContext)
     return HttpResponse(htmlData)
@@ -174,14 +174,14 @@ def boardFree_detail(request, id):
 
     lenImgList = len(oImg)
     lenFileList = len(oEtc)
-    ctx=Context({
+    ctx = {
         'article':article,
         'comment':comment,
         'imgList':oImg,
         'fileList':oEtc,
         'lenImgList': lenImgList,
         'lenFileList' :lenFileList
-    })
+    }
     rContext = RequestContext(request)
     htmlData= render(request, 'boardFreeDetail.html', ctx, context_instance = rContext)
 
