@@ -6,7 +6,7 @@ from .. import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 import re
 import math
 from ..models import *
@@ -23,11 +23,10 @@ def boardFree_write(request):
         ctx = Context({
 
         })
-
-        tpl = get_template('boardFreeWrite.html')
-        htmlData = tpl.render( ctx )
-
+        rContext = RequestContext(request)
+        htmlData = render(request, 'boardFreeWrite.html', ctx, context_instance = rContext)
         return HttpResponse(htmlData)
+
     elif request.method == 'POST':
 
         print request.POST
@@ -139,10 +138,8 @@ def boardFree_list(request, page = 1):
         'totalPage' : totalPage,
         'pageList' : pageList
     })
-
-    tpl = get_template('boardFreeList.html')
-    htmlData = tpl.render( ctx )
-
+    rContext = RequestContext( request )
+    htmlData = render(request, 'boardFreeList.html', ctx, context_instance = rContext)
     return HttpResponse(htmlData)
 
 
@@ -185,8 +182,8 @@ def boardFree_detail(request, id):
         'lenImgList': lenImgList,
         'lenFileList' :lenFileList
     })
-    tpl = get_template('boardFreeDetail.html')
-    htmlData= tpl.render(ctx)
+    rContext = RequestContext(request)
+    htmlData= render(request, 'boardFreeDetail.html', ctx, context_instance = rContext)
 
     return HttpResponse(htmlData)
 

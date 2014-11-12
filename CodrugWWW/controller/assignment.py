@@ -6,7 +6,7 @@ from .. import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 import re
 import math
 from ..models import *
@@ -16,15 +16,12 @@ def assignment_list(request):
 
     assignmentList = Assignment.objects.all()
 
-    tpl = get_template('assignment.html')
+    rContext = RequestContext(request)
     ctx = Context({
         'aList' : assignmentList
     })
-
-
-    htmlData = tpl.render( ctx )
-
-    return HttpResponse(htmlData)
+    rend = render(request, 'assignment.html', ctx, context_instance=rContext)
+    return HttpResponse( rend )
 
 '''
     과제 제출 컨트롤러
