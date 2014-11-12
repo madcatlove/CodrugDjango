@@ -265,7 +265,7 @@ def boardQna_delete(request, id):
 
     except Exception, e:
         print e
-        return HttpResponseForbidden()
+        return HttpResponse( utils.scriptError(' 게시물을 삭제하는데 오류가 발생하였습니다. ') )
 
 
 '''
@@ -273,7 +273,7 @@ def boardQna_delete(request, id):
 '''
 def boardQna_modify(request, id):
     if  len(str(id)) == 0  :
-        return HttpResponseForbidden()
+        return HttpResponse( utils.scriptError(' 잘못된 접근입니다. ') )
     id = int(id)
 
     # ---- 게시글 수정 ----
@@ -330,6 +330,6 @@ def boardQna_modify(request, id):
 
         except Exception,e :
             print 'exception', e
-            return HttpResponseForbidden()
+            return HttpResponse( utils.scriptError(' 잘못된 접근입니다. ') )
 
 
