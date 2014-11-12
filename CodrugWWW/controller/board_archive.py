@@ -6,7 +6,7 @@ from .. import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 import re
 import math
 from ..models import *
@@ -20,14 +20,11 @@ from ..models import *
 def boardArchive_write(request):
 
     if request.method == 'GET' :
-        ctx = Context({
-
-        })
-
-        tpl = get_template('boardArchiveWrite.html')
-        htmlData = tpl.render( ctx )
-
+        ctx = {}
+        rContext = RequestContext( request )
+        htmlData = render(request, 'boardArchiveWrite.html', ctx, context_instance = rContext)
         return HttpResponse(htmlData)
+
     elif request.method == 'POST':
 
         print request.POST
@@ -128,15 +125,14 @@ def boardArchive_list(request, page = 1):
         pageList.append(1)
 
 
-    ctx = Context({
+    ctx = {
         'page' : page,
         'boardName' : 'archive',
         'article' : article,
-    })
+    }
 
-    tpl = get_template('boardArchiveList.html')
-    htmlData = tpl.render( ctx )
-
+    rContext = RequestContext( request )
+    htmlData = render(request, 'boardArchiveList.html', ctx, context_instance = rContext)
     return HttpResponse(htmlData)
 
 
@@ -171,15 +167,14 @@ def boardArchive_detail(request, id):
 
     print article
 
-    ctx=Context({
+    ctx={
         'article':article,
         'comment':comment,
         'imgList':oImg,
         'fileList':oEtc,
-    })
-    tpl = get_template('boardArchiveDetail.html')
-    htmlData= tpl.render(ctx)
-
+    }
+    rContext = RequestContext( request )
+    htmlData = render(request, 'boardArchiveDetail.html', ctx, context_instance = rContext)
     return HttpResponse(htmlData)
 
 

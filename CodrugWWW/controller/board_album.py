@@ -6,7 +6,7 @@ from .. import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 import re
 import math
 from ..models import *
@@ -20,9 +20,9 @@ from ..models import *
 def boardAlbum_write(request):
 
     if request.method == 'GET' :
-        ctx = Context({
+        ctx = {
 
-        })
+        }
 
         tpl = get_template('boardAlbumWrite.html')
         htmlData = tpl.render( ctx )
@@ -142,7 +142,7 @@ def boardAlbum_list(request, page = 1):
         pageList.append(1)
 
 
-    ctx = Context({
+    ctx = {
         'page' : page,
         'boardName' : 'album',
         'article' : article,
@@ -151,13 +151,11 @@ def boardAlbum_list(request, page = 1):
 
         'totalPage' : totalPage,
         'pageList' : pageList,
-        })
+        }
 
-    tpl = get_template('boardAlbumList.html')
-    htmlData = tpl.render( ctx )
-
+    rContext = RequestContext( request )
+    htmlData = render(request, 'boardAlbumList.html', ctx, context_instance = rContext)
     return HttpResponse(htmlData)
-
 
 '''
     Album detail
@@ -191,15 +189,14 @@ def boardAlbum_detail(request, id):
 
     print article
 
-    ctx=Context({
+    ctx={
         'article':article,
         'comment':comment,
         'imgList':oImg,
         'fileList':oEtc,
-        })
-    tpl = get_template('boardAlbumDetail.html')
-    htmlData= tpl.render(ctx)
-
+        }
+    rContext = RequestContext( request )
+    htmlData = render(request, 'boardArchiveList.html', ctx, context_instance = rContext)
     return HttpResponse(htmlData)
 
 
