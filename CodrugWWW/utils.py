@@ -87,9 +87,9 @@ def getBoardExtraMessage(**kwargs) :
 '''
     스크립트 에러 메세지 리턴.
 '''
-def scriptError(message, url = ''):
+def scriptError(smessage, url = ''):
     message = '<script type="text/javascript">'
-    message += "alert('%s');" % message
+    message += "alert('%s');" % smessage
     if len(url) == 0:
         message += 'history.back();'
     else:

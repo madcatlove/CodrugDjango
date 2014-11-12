@@ -51,6 +51,8 @@
                     {% endfor %}
                 {% endif %}
 
+                <div class="row">
+                <div class="col-md-8">
                 <!-- 수정폼 -->
                 <div class="text-left" style="margin-bottom: 15px;">
                     <button class="btn btn-danger" onclick="void(moveModifyForm({{ article.id }}, '{{ article.category.boardNAME }}'));">수정</button>
@@ -67,10 +69,12 @@
                         <button type="submit" class="btn btn-primary">댓글 작성</button>
                     </form>
                 </div>
-
                 <hr>
+                </div> <!-- end col md 8 -->
+                </div> <!-- end row -->
 
                 <!-- Comment -->
+                <div class="row">
                 {% for each in comment %}
                     <div class="media">
                         <!-- User Profile Picture
@@ -86,6 +90,7 @@
                         </div>
                     </div>
                 {% endfor %}
+                </div>
             </div>
         </div>
     </div>

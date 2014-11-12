@@ -137,6 +137,9 @@
     color: inherit;
 }
 
+.timeline * {
+    max-width: 100%;
+}
 .timeline-body > p,
 .timeline-body > ul {
     margin-bottom: 0;

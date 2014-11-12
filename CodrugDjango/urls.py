@@ -12,7 +12,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'CodrugDjango.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', index, name = 'index'),
+    # url(r'^$', index, name = 'index'),
+    url(r'^$', timeline.timeline, name = 'index'),
 
     ###################
     # Member

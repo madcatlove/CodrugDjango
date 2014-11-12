@@ -1,4 +1,5 @@
 {% extends "include/layout.html" %}
+{% load bleach_tags %}
 {% block content %}
         <div class="page-header">
             <h1 id="timeline">Timeline</h1>
@@ -16,7 +17,7 @@
                                 <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                             </div>
                             <div class="timeline-body">
-                                {{ each.content }}
+                                {{ each.content|bleach }}
                                 <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
                                 <hr>
                                 <div class="btn-group">
@@ -45,7 +46,7 @@
                                 <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                             </div>
                             <div class="timeline-body">
-                                <p>{{ each.content }}</p>
+                                <p>{{ each.content|bleach }}</p>
                                 <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
                                 <hr>
                                 <div class="btn-group">
@@ -74,7 +75,7 @@
                                 <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                             </div>
                             <div class="timeline-body">
-                                {{ each.content }}
+                                {{ each.content|bleach }}
                                 <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
                                 <hr>
                                 <div class="btn-group">
@@ -101,7 +102,7 @@
                                 <h4 class="timeline-title">{{ each.title }}</h4>
                             </div>
                             <div class="timeline-body">
-                                {{ each.content }}
+                                {{ each.content|bleach }}
                             </div>
                         </div>
                     </li>
@@ -115,7 +116,7 @@
                                 <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                             </div>
                             <div class="timeline-body">
-                                {{ each.content }}
+                                {{ each.content|bleach }}
                                 <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
                                 <hr>
                                 <div class="btn-group">
@@ -143,7 +144,7 @@
                                 <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                             </div>
                             <div class="timeline-body">
-                                {{ each.content }}
+                                {{ each.content|bleach }}
                                 <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
                                 <hr>
                                 <div class="btn-group">
