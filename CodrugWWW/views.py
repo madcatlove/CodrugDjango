@@ -23,3 +23,22 @@ def index(request):
 
     return HttpResponse( rend )
 
+def testUpload(request):
+
+    if request.method == 'POST':
+        print request.FILES
+
+        oFile = request.FILES.getlist('sUpload')
+        print oFile
+        for zFile in oFile:
+            print zFile.name
+
+    else :
+        rContext = RequestContext(request)
+        ctx = {
+
+        }
+        rend = render(request, 'uploadTest.html', ctx, context_instance=rContext)
+
+
+        return HttpResponse( rend )

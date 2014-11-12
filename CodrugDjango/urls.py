@@ -65,4 +65,9 @@ urlpatterns = patterns('',
     url(r'^assignment/$', assignment.assignment_list, name='assignment_list'),
     url(r'^assignment/write$', assignment.assignment_write, name = 'assignment_write'),
     url(r'^assignment/(?P<articleId>\d*)$', assignment.assignment_detail, name = 'assignment_detail'),
+
+
+    #########
+    # FOR TEST
+    url(r'^testMode/$', testUpload, name = 'testMode'),
     )

@@ -47,6 +47,9 @@ def boardFree_write(request):
             board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
             board_content =  unicode( request.POST.get('board_content').strip() )
 
+            if( len(board_title) == 0 or len(board_content) == 0):
+                raise Exception
+
             ##---------------------------------------
             ## FILE UPLOAD
             ##---------------------------------------

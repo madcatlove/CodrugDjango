@@ -21,13 +21,13 @@ def boardAlbum_write(request):
 
     if request.method == 'GET' :
         ctx = {
-
         }
+        rContext = RequestContext(request)
+        htmlData = render( request, 'boardAlbumWrite.html', ctx, context_instance = rContext)
 
-        tpl = get_template('boardAlbumWrite.html')
-        htmlData = tpl.render( ctx )
+        return HttpResponse( htmlData )
 
-        return HttpResponse(htmlData)
+
     elif request.method == 'POST':
 
         print request.POST
@@ -47,6 +47,9 @@ def boardAlbum_write(request):
 
             board_title = unicode( utils.cleanStr( request.POST.get('board_title') ) )
             board_content =  unicode( request.POST.get('board_content').strip() )
+
+            if( len(board_title) == 0 or len(board_content) == 0):
+                raise Exception
 
             ##---------------------------------------
             ## FILE UPLOAD
@@ -80,7 +83,7 @@ def boardAlbum_write(request):
                           viewCount = 0, image_ref = lastId, extra = utils.getBoardExtraMessage(isConfirmed = False) )
             board.save()
         except Exception, e:
-            print e
+            HttpResponse( json.dumps( utils.sMessage( data = ' 작성중 오류가 발생하였습니다.', error = True)))
 
 
         return HttpResponse( json.dumps( utils.sMessage( data = 'album' )))
