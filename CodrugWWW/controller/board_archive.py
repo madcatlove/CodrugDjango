@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 from django.http import HttpResponse, Http404, HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .. import utils
 
 # Create your views here.
@@ -214,5 +214,23 @@ def boardArchive_comment(request, articleId):
 
 
     return HttpResponse( json.dumps(json_message) )
+
+def boardArchive_delete(request, id):
+    try:
+        article = Board.objects.get(id = id)
+
+        # 회원 정보가 존재하는지 확인. ( 없으면 exception )
+        if not request.session['member_login']: raise Exception
+
+        # 글 정보와 멤버 정보가 같은지 확인. ( 없으면 exception )
+        if article.memberID.id != request.session['member_login'].seq : raise Exception
+
+        # 글 삭제.
+        Board.delete(article)
+
+        return redirect('board_archive_list')
+
+    except Exception, e:
+        return HttpResponseForbidden()
 
 

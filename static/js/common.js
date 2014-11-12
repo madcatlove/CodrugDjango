@@ -64,6 +64,7 @@ var procLogin = function() {
             console.log(' .... ')
             alert(' 정상적으로 로그인 되었습니다. ');
             $('#loginModal').modal('hide');
+            window.location.reload();
         }
         else {
             alert( result.data );
@@ -102,6 +103,7 @@ var procMemberJoin = function() {
     urlReq.post('/member/join', sParam, function(result) {
         if( result.error == false) {
             alert(' 정상적으로 회원가입 되셨습니다. ');
+            window.location.href = '/';
         }
         else {
             alert(' 회원가입 실패. ' + result.data);
@@ -120,4 +122,8 @@ var procMemberLogout = function() {
             alert( result.data );
         }
     })
+}
+
+var viewMemberJoin = function() {
+    window.location.href = '/member/join';
 }

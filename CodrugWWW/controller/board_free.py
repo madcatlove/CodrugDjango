@@ -230,10 +230,23 @@ def boardFree_comment(request, articleId):
 '''
 
 def boardFree_delete(request, id):
-    article = Board.objects.get(id = id)
-    Board.delete(article)
+    try:
+        article = Board.objects.get(id = id)
 
-    return redirect('board_free.boardFree_list')
+        # 회원 정보가 존재하는지 확인. ( 없으면 exception )
+        if not request.session['member_login']: raise Exception
+
+        # 글 정보와 멤버 정보가 같은지 확인. ( 없으면 exception )
+        if article.memberID.id != request.session['member_login'].seq : raise Exception
+
+        # 글 삭제.
+        Board.delete(article)
+
+        return redirect('board_free_list')
+
+    except Exception, e:
+        return HttpResponseForbidden()
+
 
 
 '''
@@ -245,4 +258,4 @@ def boardFree_modify(request, id):
 
     
 
-    return redirect('board_free.boardFree_detail', id=id)
+    return redirect('board_free_list')
