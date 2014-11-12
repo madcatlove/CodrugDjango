@@ -32,6 +32,8 @@ urlpatterns = patterns('',
     url(r'^board/archive/detail/(\d*)$', board_archive.boardArchive_detail, name = 'board_archive_detail'),
     url(r'^board/archive/write',board_archive.boardArchive_write, name='board_archive_write'),
     url(r'^board/archive/comment/(?P<articleId>\d*)$', board_archive.boardArchive_comment, name='board_archive_comment'),
+    url(r'^board/archive/modify/(\d*)$', board_archive.boardArchive_modify, name='board_archive_modify'),
+
     ###################
     # QnA board
     url(r'^board/qna/(\d*)?$', board_qna.boardQna_list, name = 'board_qna_list'),
@@ -39,6 +41,8 @@ urlpatterns = patterns('',
     url(r'^board/qna/write',board_qna.boardQna_write, name='board_qna_write'),
     url(r'^board/qna/comment/(?P<articleId>\d*)$', board_qna.boardQna_comment, name='board_qna_comment'),
     url(r'^board/qna/close/(?P<articleId>\d*)$', board_qna.boardQna_closeArticle, name='board_qna_close'),
+    url(r'^board/free/qna/(\d*)$', board_qna.boardQna_modify, name='board_qna_modify'),
+
     ###################
     # Timeline
     url(r'^timeline/$', timeline.timeline, name='timeline'),
