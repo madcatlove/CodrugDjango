@@ -7,7 +7,7 @@ from .. import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 from ..models import *
 
 '''
@@ -17,8 +17,11 @@ def member_join(request):
 
     # -- GET -- >> View rendering
     if request.method == 'GET' :
-        tpl = get_template('member_join.html')
-        htmlData = tpl.render( Context() )
+        ctx = Context({
+
+        })
+        rContext = RequestContext( request )
+        htmlData = render(request, 'member_join.html', ctx, context_instance=rContext)
         return HttpResponse( htmlData )
 
     # -- POST -- >> Post form
@@ -107,8 +110,7 @@ def member_list(request):
         'mlist' : mList
     })
 
-    tpl = get_template('members.html')
-    htmlData = tpl.render( ctx )
-
+    rContext = RequestContext( request )
+    htmlData = render(request, 'members.html', ctx, context_instance=rContext)
     return HttpResponse( htmlData )
 
