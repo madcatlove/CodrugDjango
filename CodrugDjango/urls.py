@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^board/archive/write',board_archive.boardArchive_write, name='board_archive_write'),
     url(r'^board/archive/comment/(?P<articleId>\d*)$', board_archive.boardArchive_comment, name='board_archive_comment'),
     url(r'^board/archive/modify/(\d*)$', board_archive.boardArchive_modify, name='board_archive_modify'),
+    url(r'^board/archive/delete/(\d*)$', board_archive.boardArchive_delete, name='board_archive_delete'),
 
     ###################
     # QnA board
@@ -41,7 +42,9 @@ urlpatterns = patterns('',
     url(r'^board/qna/write',board_qna.boardQna_write, name='board_qna_write'),
     url(r'^board/qna/comment/(?P<articleId>\d*)$', board_qna.boardQna_comment, name='board_qna_comment'),
     url(r'^board/qna/close/(?P<articleId>\d*)$', board_qna.boardQna_closeArticle, name='board_qna_close'),
-    url(r'^board/free/qna/(\d*)$', board_qna.boardQna_modify, name='board_qna_modify'),
+    url(r'^board/qna/modify/(\d*)$', board_qna.boardQna_modify, name='board_qna_modify'),
+    url(r'^board/qna/delete/(\d*)$', board_qna.boardQna_delete, name='board_qna_delete'),
+
 
     ###################
     # Timeline

@@ -46,6 +46,13 @@
                     {% endfor %}
                 {% endif %}
 
+                <!-- 수정폼 -->
+                <div class="text-left" style="margin-bottom: 15px;">
+                    <button class="btn btn-danger">수정</button>
+                    <button class="btn btn-danger">삭제</button>
+
+                </div>
+
                 <!-- Comments Form -->
                 <div class="well">
                     <form id ="commentForm" role="form" action="{% url 'board_free_comment' articleId=article.id%}" method="POST">

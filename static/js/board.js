@@ -93,3 +93,13 @@ $(document).ready( function() {
 
     })
 })
+
+// --- 글수정 폼으로 ---
+var moveModifyForm = function(id, boardNAME) {
+    window.location.href = '/board/' + boardNAME + '/modify/' + id;
+}
+
+// --- 글삭제 ---
+var moveDeleteForm = function(id, boardNAME) {
+    window.location.href = '/board/' + boardNAME + '/delete/' + id;
+}
