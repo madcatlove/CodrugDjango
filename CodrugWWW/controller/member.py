@@ -17,9 +17,9 @@ def member_join(request):
 
     # -- GET -- >> View rendering
     if request.method == 'GET' :
-        ctx = Context({
+        ctx = {
 
-        })
+        }
         rContext = RequestContext( request )
         htmlData = render(request, 'member_join.html', ctx, context_instance=rContext)
         return HttpResponse( htmlData )
@@ -106,9 +106,9 @@ def member_list(request):
     mList = Member.objects.all()
     print mList
 
-    ctx = Context({
+    ctx = {
         'mlist' : mList
-    })
+    }
 
     rContext = RequestContext( request )
     htmlData = render(request, 'members.html', ctx, context_instance=rContext)
