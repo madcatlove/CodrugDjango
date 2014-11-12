@@ -17,9 +17,9 @@ def assignment_list(request):
     assignmentList = Assignment.objects.all()
 
     rContext = RequestContext(request)
-    ctx = Context({
+    ctx = {
         'aList' : assignmentList
-    })
+    }
     rend = render(request, 'assignment.html', ctx, context_instance=rContext)
     return HttpResponse( rend )
 

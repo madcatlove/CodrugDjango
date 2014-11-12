@@ -22,9 +22,9 @@ import timeline
 def boardQna_write(request):
 
     if request.method == 'GET' :
-        ctx = Context({
+        ctx = {
 
-        })
+        }
         rContext = RequestContext( request )
         htmlData = render(request, 'boardQnaWrite.html.html', ctx, context_instance=rContext)
         return HttpResponse(htmlData)
@@ -118,7 +118,7 @@ def boardQna_list(request, page = 1):
 
 
 
-    ctx = Context({
+    ctx = {
         'page' : page,
         'boardName' : 'qna',
         'article' : article,
@@ -129,7 +129,7 @@ def boardQna_list(request, page = 1):
         'pageList' : pageList,
 
 
-    })
+    }
     rContext = RequestContext( request )
     htmlData = render(request, 'boardQnaList.html', ctx, context_instance=rContext)
     return HttpResponse(htmlData)
@@ -161,13 +161,13 @@ def boardQna_detail(request, id):
 
     sExtra = json.loads(article.extra)
 
-    ctx=Context({
+    ctx = {
         'article':article,
         'comment':comment,
         'isConfirmed' : sExtra['isConfirmed'],
         'fileList':oEtc,
         'imgList':oImg,
-        })
+        }
 
     rContext = RequestContext( request )
     htmlData = render(request, 'boardQnaDetail.html.html', ctx, context_instance=rContext)
