@@ -22,6 +22,37 @@ var _boardCls = (function() {
     return obj;
 })()
 
+var procModifyArticle = function(id, boardNAME) {
+    var $board_title = $('input[name=board_title]').val().trim();
+    var $board_content = $('#textContent').code();
+
+    if( $board_title.length == 0) {
+        alert(' 제목을 입력해주세요. ');
+        return;
+    }
+
+    if( $board_content.length == 0) {
+        alert(' 내용을 입력해주세요. ');
+        return;
+    }
+
+    var sParam = {
+        board_title : $board_title,
+        board_content : $board_content,
+    }
+
+    urlReq.post('/board/' + boardNAME + '/modify/' + id, sParam, function(result) {
+        if( !result.error ) {
+            alert(' 정상적으로 수정이 되었습니다. ');
+            window.location.href = '/board/' + boardNAME + '/detail/' + id;
+        }
+        else {
+            alert( result.data )
+        }
+    })
+
+}
+
 
 //------------------
 // 글쓰기 게시판으로 이동

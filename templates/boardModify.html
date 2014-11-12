@@ -7,10 +7,9 @@
 {% block content %}
 <div id="boardContent">
        <!-- title bar -->
-    <form role="form" id="boardForm" action="/board/free/write" method="POST" enctype="multipart/form-data">
         <div style="width: 100%;" class="form-inline">
             <div style="width:5%; display:inline;">제목</div>
-            <input type="text" class="form-control" name="board_title" id="textTitle" style="width:95%;" />
+            <input type="text" class="form-control" name="board_title" id="textTitle" style="width:95%;" value="{{ board_title }}" />
         </div>
 
         <div style="padding-top: 15px; ">
@@ -20,15 +19,12 @@
                 <textarea id="board_content" name="board_content" style="display:none;"></textarea>
             </div>
 
-            <input type="file" name="board_file" />
-
             <!-- button -->
             <div class="text-center" style="padding-top: 15px;">
-                <button class="btn btn-primary" onclick="void(_boardCls.submitData() )"> 작성완료 </button>
+                <button class="btn btn-primary" onclick="void( procModifyArticle({{ id }}, '{{ boardNAME }}') )"> 수정완료 </button>
                 <button class="btn btn-danger"> 작성취소 </button>
             </div>
         </div>
-    </form>
 </div>
 
 <script type="text/javascript">
@@ -36,7 +32,10 @@
         $('#textContent').summernote( {
             height: 300
         });
-    });
+
+        var content = {{ board_content_json|safe }};
+        $('#textContent').code( content );
+   });
 </script>
 
 {% endblock %}

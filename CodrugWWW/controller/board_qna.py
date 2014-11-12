@@ -267,3 +267,68 @@ def boardQna_delete(request, id):
         return HttpResponseForbidden()
 
 
+'''
+    QnA Modify
+'''
+def boardQna_modify(request, id):
+    if  len(str(id)) == 0  :
+        return HttpResponseForbidden()
+    id = int(id)
+
+    # ---- 게시글 수정 ----
+    if request.method == 'POST':
+        try:
+            board = Board.objects.get( id = id )
+
+            # 멤버 정보와 같은지 확인.( 작성자랑 맞는지 )
+            if not request.session['member_login']:
+                raise Exception
+
+            if board.memberID.id != request.session['member_login'].get('seq') :
+                raise Exception
+
+            board_title =  utils.cleanStr( request.POST.get('board_title') )
+            board_content = request.POST.get('board_content')
+
+            if len(board_title) == 0 or len(board_content) == 0 :
+                raise Exception
+
+            board.title = board_title
+            board.content = board_content
+            board.save()
+
+            return HttpResponse(json.dumps( utils.sMessage( data = '게시물을 정상적으로 수정하였습니다.', error = False) ))
+
+        except Exception,e :
+            print e
+            return HttpResponse(json.dumps( utils.sMessage( data = '게시물 수정중 오류가 발생하였습니다.', error = True) ))
+
+
+    # ---- 게시글 수정 뷰 ----
+    else:
+        try:
+            board = Board.objects.get( id = id )
+
+            # 멤버 정보와 같은지 확인.( 작성자랑 맞는지 )
+            if not request.session['member_login']:
+                raise Exception
+
+            if board.memberID.id != request.session['member_login'].get('seq') :
+                raise Exception
+
+            # 게시글 뷰.
+            rContext = RequestContext(request)
+            ctx = {
+                'board_title' : board.title,
+                'board_content_json' : json.dumps(board.content),
+                'boardNAME' : board.category.boardNAME,
+                'id' : id,
+            }
+            htmlData = render(request, 'boardModify.html', ctx, context_instance=rContext)
+            return HttpResponse(htmlData)
+
+        except Exception,e :
+            print 'exception', e
+            return HttpResponseForbidden()
+
+
