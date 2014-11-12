@@ -1,5 +1,11 @@
 {% extends 'include/layout.html' %}
 
 {% block content %}
+
 Index page
+
+    {% if request.session.member_login.seq > 0 %}
+        hello
+    {% endif %}
+
 {% endblock %}

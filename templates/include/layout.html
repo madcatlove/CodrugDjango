@@ -65,9 +65,30 @@
             </div>
 
             <div class="btn-group">
-                <button type="button" class="btn btn-primary btnSize2" data-toggle="modal" data-target="#loginModal">
-                    <span class="glyphicon glyphicon-lock"></span>
-                </button>
+
+                {% if request.session.member_login and request.session.member_login.seq > 0 %}
+                    <!-- 로그인이 되어있을 경우 -->
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btnSize2" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">로그아웃</a></li>
+                            <li><a href="#">회원정보 수정</a></li>
+
+                            <!-- <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li> -->
+                        </ul>
+                    </div>
+                {% else %}
+                    <!-- 로그인이 안되어 있을경우 -->
+                    <button type="button" class="btn btn-primary btnSize2" data-toggle="modal" data-target="#loginModal">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </button>
+                {% endif %}
+
             </div>
         </div>
 

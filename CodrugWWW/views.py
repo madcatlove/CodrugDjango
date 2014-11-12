@@ -6,7 +6,7 @@ import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 from models import *
 from controller import member
 from controller import board_free
@@ -16,11 +16,10 @@ from controller import timeline
     Index page /
 '''
 def index(request):
-    tpl = get_template('index.html')
-    htmlData = tpl.render( Context() )
 
-    #htmlData = "Hello world."
+    ctx = {}
+    rContext = RequestContext(request)
+    rend = render(request, 'index.html', ctx , context_instance = rContext)
 
-
-    return HttpResponse(htmlData)
+    return HttpResponse( rend )
 
