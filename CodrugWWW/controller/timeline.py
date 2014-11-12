@@ -5,7 +5,7 @@ from .. import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 import re
 from ..models import *
 
@@ -27,13 +27,13 @@ def timeline(request,):
                 else:
                     oEtc.append(each)
 
-    ctx = Context({
+    ctx = {
         'content' : content,
         'imgList':oImg,
         'fileList':oEtc
-    })
+    }
 
-    tpl = get_template('timeline.html')
-    htmlData = tpl.render( ctx )
+    rContext = RequestContext( request )
+    htmlData = render(request, 'timeline.html.html', ctx, context_instance=rContext)
 
     return HttpResponse(htmlData)
