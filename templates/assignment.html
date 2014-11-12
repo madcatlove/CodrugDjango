@@ -18,14 +18,17 @@
                     <div class="caption">
                         <h3>{{ each.title }}</h3>
                         <p></p>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#submitModal" onclick="void( injectionAssId({{ each.id }}));">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detailModal">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">제출하기</a></li>
-                                <li><a href="#">상세설명</a></li>
-                                <li class="divider"></li>
                                 {% for y in fileList %}
                                     <li><a href="/upload/{{y.outFILE }}">첨부파일</a></li>
                                 {% endfor %}
@@ -36,4 +39,43 @@
             </div>
         {% endfor %}
     </div>
+
+
+
+
+    <!-- Submit modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Submit Assignment</h4>
+                </div>
+                <form role="form" action="{% url 'assignment_list' %}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="assignment_id" value="" />
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="userId">Submit Assignment</label>
+                            <textarea class="form-control" name="assignment_content" rows="5"></textarea>
+                            <input class='text-right' type="file" name="assignment_file"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">제출하기</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--modal end-->
+
+
+    <script type="text/javascript">
+        var injectionAssId = function( aId ) {
+            $('input[name=assignment_id]').val( aId );
+        }
+
+    </script>
 {% endblock %}

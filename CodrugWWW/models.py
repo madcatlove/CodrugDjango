@@ -67,6 +67,6 @@ class Submit(models.Model):
     assignmentID=models.ForeignKey(Assignment)
     #과제설명
     subtext = models.TextField()
-    category = models.ForeignKey(Category)
     created=models.DateTimeField(auto_now_add=True)
     image_ref = models.IntegerField(null = True, default = -1)
+    memberID =models.ForeignKey(Member)
