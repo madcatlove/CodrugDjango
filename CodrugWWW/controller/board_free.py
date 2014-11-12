@@ -237,7 +237,7 @@ def boardFree_delete(request, id):
         if not request.session['member_login']: raise Exception
 
         # 글 정보와 멤버 정보가 같은지 확인. ( 없으면 exception )
-        if article.memberID.id != request.session['member_login'].seq : raise Exception
+        if article.memberID.id != request.session['member_login'].get('seq') : raise Exception
 
         # 글 삭제.
         Board.delete(article)

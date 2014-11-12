@@ -1,5 +1,10 @@
 {% extends "include/layout.html" %}
 {% load bleach_tags %}
+
+{% block addScript %}
+    <script type="text/javascript" src="/static/js/board.js"></script>
+{% endblock %}
+
 {% block content %}
 
 
@@ -48,8 +53,8 @@
 
                 <!-- 수정폼 -->
                 <div class="text-left" style="margin-bottom: 15px;">
-                    <button class="btn btn-danger">수정</button>
-                    <button class="btn btn-danger">삭제</button>
+                    <button class="btn btn-danger" onclick="void(moveModifyForm({{ article.id }}, '{{ article.category.boardNAME }}'));">수정</button>
+                    <button class="btn btn-danger" onclick="void(moveDeleteForm({{ article.id }}, '{{ article.category.boardNAME }}'));">삭제</button>
 
                 </div>
 
