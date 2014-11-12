@@ -22,6 +22,10 @@ import timeline
 def boardQna_write(request):
 
     if request.method == 'GET' :
+
+        if not request.session.get('member_login'):
+            return HttpResponse( utils.scriptError(' 회원만 접근이 가능합니다. ', '/') )
+
         ctx = {
 
         }
@@ -30,8 +34,6 @@ def boardQna_write(request):
         return HttpResponse(htmlData)
 
     elif request.method == 'POST':
-
-        print request.POST
 
         try:
             # 회원 인증
