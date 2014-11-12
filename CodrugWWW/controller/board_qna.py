@@ -6,7 +6,7 @@ from .. import utils
 
 # Create your views here.
 from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 import re
 import math
 from ..models import *
@@ -25,11 +25,10 @@ def boardQna_write(request):
         ctx = Context({
 
         })
-
-        tpl = get_template('boardQnaWrite.html')
-        htmlData = tpl.render( ctx )
-
+        rContext = RequestContext( request )
+        htmlData = render(request, 'boardQnaWrite.html.html', ctx, context_instance=rContext)
         return HttpResponse(htmlData)
+
     elif request.method == 'POST':
 
         print request.POST
@@ -131,9 +130,8 @@ def boardQna_list(request, page = 1):
 
 
     })
-    tpl = get_template('boardQnaList.html')
-    htmlData = tpl.render( ctx )
-
+    rContext = RequestContext( request )
+    htmlData = render(request, 'boardQnaList.html', ctx, context_instance=rContext)
     return HttpResponse(htmlData)
 
 '''
@@ -171,8 +169,8 @@ def boardQna_detail(request, id):
         'imgList':oImg,
         })
 
-    tpl = get_template('boardQnaDetail.html')
-    htmlData= tpl.render(ctx)
+    rContext = RequestContext( request )
+    htmlData = render(request, 'boardQnaDetail.html.html', ctx, context_instance=rContext)
 
     return HttpResponse(htmlData)
 
