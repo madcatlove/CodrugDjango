@@ -83,11 +83,11 @@ def boardAlbum_write(request):
             print e
 
 
-        return HttpResponse( json.dumps( utils.sMessage( data = 1 )))
+        return HttpResponse( json.dumps( utils.sMessage( data = 'album' )))
 
 
     else:
-        return HttpResponseForbidden();
+        HttpResponse( json.dumps( utils.sMessage( data = ' 작성중 오류가 발생하였습니다.', error = True)))
 
 '''
     Album list

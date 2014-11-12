@@ -80,13 +80,14 @@ def boardFree_write(request):
             board.save()
         except Exception, e:
             print e
+            return HttpResponse( json.dumps( utils.sMessage( data = ' 작성중 오류가 발생하였습니다.', error = True)))
 
 
-        return HttpResponse( json.dumps( utils.sMessage( data = 1 )))
+        return HttpResponse( json.dumps( utils.sMessage( data = 'free' )))
 
 
     else:
-        return HttpResponseForbidden();
+        return HttpResponse( json.dumps( utils.sMessage( data = ' 작성중 오류가 발생하였습니다.', error = True)))
 
 '''
     Freeboard list

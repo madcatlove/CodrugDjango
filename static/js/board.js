@@ -83,7 +83,7 @@ $(document).ready( function() {
 
             if(r.error == false) {
                 alert(' 정상적으로 글을 작성하였습니다. ')
-                history.back();
+                window.location.href = '/board/' + r.data;
             }
             else {
                 alert(r.data)
