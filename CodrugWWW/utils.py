@@ -82,3 +82,18 @@ def getBoardExtraMessage(**kwargs) :
         message[sKey] = kwargs[sKey]
 
     return json.dumps(message)
+
+
+'''
+    스크립트 에러 메세지 리턴.
+'''
+def scriptError(message, url = ''):
+    message = '<script type="text/javascript">'
+    message += "alert('%s');" % message
+    if len(url) == 0:
+        message += 'history.back();'
+    else:
+        message += 'window.location.href = "%s";' % url
+    message += '</script>'
+
+    return message
