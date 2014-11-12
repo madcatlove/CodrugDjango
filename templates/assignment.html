@@ -1,55 +1,39 @@
 {% extends "include/layout.html" %}
 {% block content %}
 
-        <h2 class="text-center title">과제</h2>
-        <p class="lead text-center">
-            여러분이 하셔야 할 과제들입니다.<br>
-            <!-- their photos at <a href="http://unsplash.com">Unsplash</a>, thank you guys! -->
-        </p>
-        <div class="row">
+    <h2 class="text-center title">과제</h2>
+    <p class="lead text-center">
+        여러분이 하셔야 할 과제들입니다.<br>
+        <!-- their photos at <a href="http://unsplash.com">Unsplash</a>, thank you guys! -->
+    </p>
+    <div class="row">
+        {%  for each in aList %}
+
+
             <div class="col-sm-4">
                 <div class="thumbnail">
-                    <img src="assets/screenshots/sshot1.jpg" alt="">
+                    {%  for x in imgList %}
+                        <img src="/upload/{{x.outFILE }}">
+                    {% endfor %}
                     <div class="caption">
-                        <h3>과제명</h3>
+                        <h3>{{ each.title }}</h3>
                         <p></p>
-                        <p><a href="#" class="btn btn-primary" role="button">제출하기</a> <a href="#" class="btn btn-default" role="button">상세내용</a></p>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">제출하기</a></li>
+                                <li><a href="#">상세설명</a></li>
+                                <li class="divider"></li>
+                                {% for y in fileList %}
+                                    <li><a href="/upload/{{y.outFILE }}">첨부파일</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-4">
-                <div class="thumbnail">
-                    <img src="assets/screenshots/sshot4.jpg" alt="">
-                    <div class="caption">
-                        <h3>과제명</h3>
-                        <p></p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="thumbnail">
-                    <img src="assets/screenshots/sshot5.jpg" alt="">
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-                        <p></p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="thumbnail">
-                    <img src="assets/screenshots/sshot3.jpg" alt="">
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque doloribus enim vitae nam cupiditate eius at explicabo eaque facere iste.</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        {% endfor %}
+    </div>
 {% endblock %}
