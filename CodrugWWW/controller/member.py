@@ -3,11 +3,12 @@ import json
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
 
-from .. import utils
+from .. import utils, exceptions
 
 # Create your views here.
 from django.template.loader import get_template
 from django.template import Context, RequestContext
+import re
 from ..models import *
 
 '''
@@ -27,23 +28,33 @@ def member_join(request):
     # -- POST -- >> Post form
     elif request.method == 'POST' :
 
-        # GET DATA
-        user_password = utils.cleanStr( request.POST.get('password'))
-        user_email = utils.cleanStr( request.POST.get('email') )
-        user_name = utils.cleanStr( request.POST.get('name') )
+        try:
+            # GET DATA
+            user_password = utils.cleanStr( request.POST.get('password'))
+            user_email = utils.cleanStr( request.POST.get('email') )
+            user_name = utils.cleanStr( request.POST.get('name') )
 
-        json_message = {}
+            # 유저 이메일 / 비밀번호 길이 체크.
+            if len(user_email) == 0 or len(user_password) == 0 or len(user_name) == 0:
+                raise exceptions.MemberException(' 필수 항목이 누락되었습니다. ')
 
-        # Validation
-        if len(user_password) == 0 or len(user_email) == 0 or len(user_name) == 0 :
-            json_message = utils.sMessage( data = '잘못된 정보입니다', error = True)
-        else :
-            try:
-                oMember = Member(email = user_email, password = user_password, name = user_name, extra = '')
-                oMember.save()
-                json_message = utils.sMessage( data = 'Success')
-            except IntegrityError:
-                json_message = utils.sMessage( data = '회원생성중 에러', error = True)
+            # 이메일 유효성 검사 시작.
+            sRegex = re.compile( r'^[\w\.\-\_]+@[\w\_\-]+\.[\w\.]+[^\W]$' )
+            if bool( sRegex.match( user_email ) ) != True:
+                raise exceptions.MemberException(' 이메일 주소가 올바르지 않습니다. ')
+
+            # Commit
+            oMember = Member(email = user_email, password = user_password, name = user_name, extra = '')
+            oMember.save()
+            json_message = utils.sMessage( data = 'Success')
+
+
+
+        except exceptions.MemberException, e:
+            json_message = utils.sMessage( data = e.message, error = True)
+
+        except IntegrityError:
+            json_message = utils.sMessage( data = '회원생성중 에러', error = True)
 
 
 
@@ -60,11 +71,24 @@ def member_join(request):
 '''
 def member_login(request):
 
+    if request.method != 'POST':
+        return HttpResponseForbidden()
+
     json_message = {}
     # POST DATA
     try:
+
         user_email = utils.cleanStr( request.POST.get('email') )
         user_password = utils.cleanStr( request.POST.get('password') )
+
+        # 유저 이메일 / 비밀번호 길이 체크.
+        if len(user_email) == 0 or len(user_password) == 0:
+            raise exceptions.MemberException(' 아이디나 비밀번호가 누락되었습니다. ')
+
+        # 이메일 유효성 검사 시작.
+        sRegex = re.compile( r'^[\w\.\-\_]+@[\w\_\-]+\.[\w\.]+[^\W]$' )
+        if bool( sRegex.match( user_email ) ) != True:
+            raise exceptions.MemberException(' 이메일 주소가 올바르지 않습니다. ')
 
         oMember = Member.objects.get(email = user_email)
 
@@ -80,9 +104,14 @@ def member_login(request):
             }
             json_message = utils.sMessage( data = oMember.id)
 
+    except exceptions.MemberException, e:
+        json_message = utils.sMessage( data = e.message, error = True)
 
-    except (Member.DoesNotExist, KeyError) as e:
+
+    except (Member.DoesNotExist, KeyError, TypeError) as e:
         json_message = utils.sMessage( data = '로그인 실패', error = True)
+
+
 
 
     return HttpResponse( json.dumps(json_message) )
@@ -114,3 +143,37 @@ def member_list(request):
     htmlData = render(request, 'members.html', ctx, context_instance=rContext)
     return HttpResponse( htmlData )
 
+
+'''
+    Member Modify form
+'''
+def member_modify(request):
+
+    # Globally check member logged
+    memberSession = request.session.get('member_login')
+    if not memberSession or memberSession.seq < 0:
+        return HttpResponse( utils.scriptError(' 회원 로그인이 필요한 페이지입니다. ', '/') )
+
+    # Get Member info
+    try:
+        oMember = Member.objects.get( id = memberSession.seq )
+    except Member.DoesNotExist, e:
+        del request.session['member_login']
+        return HttpResponse( utils.scriptError(' 회원 정보를 가져올 수 없습니다. ', '/') )
+
+
+
+    if request.method == 'GET':
+        # Rendering View page
+        ctx = {
+            'member' : oMember,
+        }
+        rContext = RequestContext(request)
+        htmlData = render( request, 'memberModify.html', ctx, context_instance = rContext)
+        return HttpResponse( htmlData )
+
+    elif request.method == 'POST':
+        pass
+
+    else:
+        return HttpResponseForbidden()

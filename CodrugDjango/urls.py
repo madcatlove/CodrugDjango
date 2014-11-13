@@ -21,6 +21,8 @@ urlpatterns = patterns('',
     url(r'^member/list', member.member_list, name = 'member_list'),
     url(r'^member/login', member.member_login, name = 'member_login'),
     url(r'^member/logout', member.member_logout, name = 'member_logout'),
+    url(r'^member/modify', member.member_modify, name = 'member_modify'),
+
     ###################
     # Album board
     url(r'^board/album/(\d*)?$', board_album.boardAlbum_list, name = 'board_album_list'),

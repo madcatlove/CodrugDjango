@@ -2,6 +2,7 @@
 import json
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
+import re
 import utils
 
 # Create your views here.
@@ -34,6 +35,11 @@ def testUpload(request):
             print zFile.name
 
     else :
+
+
+
+
+
         rContext = RequestContext(request)
         ctx = {
 
