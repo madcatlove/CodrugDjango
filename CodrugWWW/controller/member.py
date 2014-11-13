@@ -151,12 +151,13 @@ def member_modify(request):
 
     # Globally check member logged
     memberSession = request.session.get('member_login')
-    if not memberSession or memberSession.seq < 0:
+
+    if not memberSession or memberSession['seq'] < 0:
         return HttpResponse( utils.scriptError(' 회원 로그인이 필요한 페이지입니다. ', '/') )
 
-    # Get Member info
+    # Get Member info ( 현재 세션에 있는 정보를 토대로 가져옴 )
     try:
-        oMember = Member.objects.get( id = memberSession.seq )
+        oMember = Member.objects.get( id = memberSession['seq'] )
     except Member.DoesNotExist, e:
         del request.session['member_login']
         return HttpResponse( utils.scriptError(' 회원 정보를 가져올 수 없습니다. ', '/') )
@@ -173,7 +174,44 @@ def member_modify(request):
         return HttpResponse( htmlData )
 
     elif request.method == 'POST':
-        pass
+
+        # 변수 받아옴.
+        user_name = request.POST.get('username')
+        user_password = request.POST.get('userpassword')
+        user_new_password = request.POST.get('newpassword')
+        user_new_password2 = request.POST.get('newpassword2')
+
+
+        try:
+            if len(user_name) == 0 or len(user_password) == 0:
+                raise exceptions.MemberException(' 필수정보가 누락되었습니다. ')
+
+            # 패스워드가 다를때.
+            if user_password is not oMember.password:
+                raise exceptions.MemberException(' 잘못된 정보입니다. (Error:1) ')
+
+            # 새로운 패스워드가 존재할때.
+            if len(user_new_password) != 0 :
+                if user_new_password != user_new_password2 :
+                    raise exceptions.MemberException(' 새로운 비밀번호가 같지 않습니다. ')
+                else:
+                    oMember.password = user_new_password # 새로운 비밀번호로 재설정.
+
+            # 멤버 주입.
+            oMember.name = user_name
+            oMember.save();
+
+            json_message = utils.sMessage( data = '정상적으로 수정하였습니다. ')
+
+        except exceptions.MemberException, e:
+            json_message = utils.sMessage( data = e.message, error = True)
+        except Exception, e:
+            json_message = utils.sMessage( data = '회원 정보 수정 에러', error = True)
+
+
+
+
+        return HttpResponse( json.dumps( json_message ) )
 
     else:
-        return HttpResponseForbidden()
+        return HttpResponse( utils.scriptError(' 잘못된 접근입니다. ', '/' ) )

@@ -35,16 +35,13 @@ def testUpload(request):
             print zFile.name
 
     else :
-
-
-
-
+        s = request.GET.get('sdfsdf')
+        print s
 
         rContext = RequestContext(request)
         ctx = {
 
         }
         rend = render(request, 'uploadTest.html', ctx, context_instance=rContext)
-
 
         return HttpResponse( rend )

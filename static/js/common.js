@@ -112,6 +112,50 @@ var procMemberJoin = function() {
 
 }
 
+var procMemberModify = function() {
+    var currentPwd = $('div.memberModifyFormDiv input').eq(0);
+    var newPwd = $('div.memberModifyFormDiv input').eq(1);
+    var newPwd2 = $('div.memberModifyFormDiv input').eq(2);
+    var userName = $('div.memberModifyFormDiv input').eq(3);
+
+    if( currentPwd.val().trim().length == 0 ) {
+        alert(' 현재 비밀번호를 입력하셔야 합니다. ');
+        currentPwd.focus();
+        return;
+    }
+
+    if( newPwd.val().trim().length != 0 ) {
+        if( newPwd.val().trim() != newPwd2.val().trim() ) {
+            alert(' 새로운 비밀번호가 맞지 않습니다. ');
+            newPwd2.focus();
+            return;
+        }
+    }
+
+    if( userName.val().trim().length == 0 ) {
+        alert(' 이름을 입력해 주세요. ');
+        userName.focus();
+        return;
+    }
+
+    sParam = {
+        username : userName.val().trim(),
+        userpassword : currentPwd.val().trim(),
+        newpassword : newPwd.val().trim(),
+        newpassword2 : newPwd2.val().trim(),
+    }
+
+    urlReq.post('/member/modify', sParam, function(result) {
+        if( result.error == false) {
+            alert(' 정상적으로 처리 되었습니다. ');
+            window.location.href = '/';
+        }
+        else {
+            alert( result.data );
+        }
+    })
+}
+
 var procMemberLogout = function() {
     urlReq.get('/member/logout', {}, function(result) {
         if( !result.error ) {

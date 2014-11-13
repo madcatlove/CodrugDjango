@@ -3,29 +3,29 @@
 <!-- member join form -->
 <form role="form" onsubmit="return false;">
     <div style="width:100%; margin:0 auto;">
-        <div class="memberJoinFormDiv">
+        <div class="memberModifyFormDiv">
 
             <div class="form-group">
                 <label for="userPassword">현재 비밀번호</label>
-                <input type="password" class="form-control" id="userPassword" placeHolder="User password" />
+                <input type="password" class="form-control" id="userPassword" placeHolder="Current user password" />
             </div>
 
             <div class="form-group">
                 <label for="userPassword">새로운 비밀번호(옵션)</label>
-                <input type="password" class="form-control" id="userPassword" placeHolder="User password" />
+                <input type="password" class="form-control" id="userPassword" placeHolder="New user password" />
             </div>
 
             <div class="form-group">
                 <label for="userPassword">새로운 비밀번호확인(옵션)</label>
-                <input type="password" class="form-control" id="userPassword" placeHolder="User password" />
+                <input type="password" class="form-control" id="userPassword" placeHolder="Retype New user password" />
             </div>
 
             <div class="form-group">
                 <label for="userName">이름</label>
-                <input type="text" class="form-control" id="userName" placeHolder="User Name" />
+                <input type="text" class="form-control" id="userName" placeHolder="User Name" value="{{  member.name }}" />
             </div>
 
-            <button class="btn btn-primary" onclick="void( procMemberJoin() )">회원 가입</button>
+            <button class="btn btn-primary" onclick="void( procMemberModify() )">회원 수정</button>
             <button class="btn btn-default">취소</button>
         </div>
     </div>
