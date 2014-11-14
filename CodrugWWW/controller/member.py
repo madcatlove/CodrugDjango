@@ -192,7 +192,7 @@ def member_modify(request):
 
             # 새로운 패스워드가 존재할때.
             if len(user_new_password) != 0 :
-                if unicode(user_new_password) is not unicode(user_new_password2) :
+                if unicode(user_new_password).encode('utf8') != unicode(user_new_password2).encode('utf8') :
                     raise exceptions.MemberException(' 새로운 비밀번호가 같지 않습니다. ')
                 else:
                     oMember.password = user_new_password # 새로운 비밀번호로 재설정.
