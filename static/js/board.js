@@ -115,5 +115,6 @@ var moveModifyForm = function(id, boardNAME) {
 
 // --- 글삭제 ---
 var moveDeleteForm = function(id, boardNAME) {
-    window.location.href = '/board/' + boardNAME + '/delete/' + id;
+    if( confirm(' 게시물을 정말 삭제하시겠습니까? ') )
+        window.location.href = '/board/' + boardNAME + '/delete/' + id;
 }
