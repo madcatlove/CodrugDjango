@@ -80,3 +80,8 @@
 #idColor1{
     background-color:#2d6f61
 }
+
+
+div.row img {
+    max-width: 100%;
+}
