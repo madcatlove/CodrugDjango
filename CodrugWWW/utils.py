@@ -52,8 +52,7 @@ def fileUpload( oFile, keyName ):
     defaultPath = str(os.getcwd()).split('/')
     defaultPath.append('upload')
     uploadPath = '/'.join(defaultPath)
-    if len(uploadPath) == 0:
-        uploadPath = '/home/codrug/upload/'
+    uploadPath = '/home/codrug/upload/' # FOR SERVER ENV
 
     # calculate file upload
     file = oFile[keyName]
@@ -85,8 +84,8 @@ def fileUploadSingle( oFile ):
     defaultPath = str(os.getcwd()).split('/')
     defaultPath.append('upload')
     uploadPath = '/'.join(defaultPath)
-    if len(uploadPath) == 0:
-        uploadPath = '/home/codrug/upload/'
+    uploadPath = '/home/codrug/upload/' # FOR SERVER ENV
+
 
     # file information
     file = oFile

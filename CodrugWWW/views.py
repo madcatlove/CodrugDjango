@@ -36,14 +36,11 @@ def testUpload(request):
             print zFile.name
 
     else :
+        # defaultPath = str(os.getcwd()).split('/')
+        # defaultPath.append('upload')
+        # uploadPath = '/'.join(defaultPath)
 
-
-
-        defaultPath = str(os.getcwd()).split('/')
-        defaultPath.append('upload')
-        uploadPath = '/'.join(defaultPath)
-        if len(uploadPath) == 0:
-            uploadPath = '/home/codrug/upload/'
+        uploadPath = '/home/codrug/upload/'
 
         print uploadPath, len(uploadPath)
 
