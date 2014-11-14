@@ -45,6 +45,8 @@ def testUpload(request):
         if len(uploadPath) == 0:
             uploadPath = '/home/codrug/upload/'
 
+        print uploadPath, len(uploadPath)
+
         rContext = RequestContext(request)
         ctx = {
             'uploadPath' : uploadPath,
