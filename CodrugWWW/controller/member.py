@@ -188,7 +188,7 @@ def member_modify(request):
 
             # 패스워드가 다를때.
             if unicode(user_password) is not unicode(oMember.password):
-                raise exceptions.MemberException(' 잘못된 정보입니다. (Error:1) "%s" "%s" ' % (user_password, oMember.password))
+                raise exceptions.MemberException(' 잘못된 정보입니다. (Error:1) "%s" "%s" %d %d' % (user_password, oMember.password, len(user_password), len(oMember.password)) )
 
             # 새로운 패스워드가 존재할때.
             if len(user_new_password) != 0 :
