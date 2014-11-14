@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import hashlib
 from django.utils.html import strip_tags
+from CodrugDjango import settings
 import json
 import os
 
@@ -8,6 +9,7 @@ import os
 # Utility
 ################
 import time
+
 
 
 '''
@@ -49,10 +51,7 @@ def sMessage( **kwargs ) :
     리턴 (원본파일이름, 변환된파일이름, 파일타입)
 '''
 def fileUpload( oFile, keyName ):
-    defaultPath = str(os.getcwd()).split('/')
-    defaultPath.append('upload')
-    uploadPath = '/'.join(defaultPath)
-    uploadPath = '/home/codrug/upload/' # FOR SERVER ENV
+    uploadPath = settings.uploadDir
 
     # calculate file upload
     file = oFile[keyName]
@@ -81,10 +80,7 @@ def fileUpload( oFile, keyName ):
 def fileUploadSingle( oFile ):
 
     # upload Path
-    defaultPath = str(os.getcwd()).split('/')
-    defaultPath.append('upload')
-    uploadPath = '/'.join(defaultPath)
-    uploadPath = '/home/codrug/upload/' # FOR SERVER ENV
+    uploadPath = settings.uploadDir
 
 
     # file information

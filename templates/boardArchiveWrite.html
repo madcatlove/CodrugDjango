@@ -34,6 +34,7 @@
 <script type="text/javascript">
     $(document).ready( function() {
         $('#textContent').summernote( {
+            onImageUpload : _sNote.summernoteUploadHandler,
             height: 300
         });
     });

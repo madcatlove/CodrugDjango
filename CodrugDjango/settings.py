@@ -18,8 +18,16 @@ sys.setdefaultencoding('utf-8')
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+
 ##### 실제 서버에 반영?
 isProduction = False
+
+#### 이미지 업로드 디렉토리.
+if isProduction :
+    uploadDir = '/home/codrug/upload/'
+else:
+    uploadDir = BASE_DIR + '/upload/'
+
 
 
 # Quick-start development settings - unsuitable for production

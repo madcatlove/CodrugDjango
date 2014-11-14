@@ -13,3 +13,8 @@ class MemberException(Exception):
 class BoardException(Exception):
     def __init__(self, message):
         super(BoardException, self).__init__(message)
+
+
+class FileException(Exception):
+    def __init__(self, message):
+        super(FileException, self).__init__(message)
