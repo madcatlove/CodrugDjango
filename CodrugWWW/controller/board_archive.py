@@ -134,6 +134,8 @@ def boardArchive_list(request, page = 1):
         'page' : page,
         'boardName' : 'archive',
         'article' : article,
+        'totalPage':totalPage,
+        'pageList':pageList
     }
 
     rContext = RequestContext( request )
