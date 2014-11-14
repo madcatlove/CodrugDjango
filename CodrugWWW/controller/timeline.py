@@ -12,7 +12,7 @@ from ..models import *
 
 def timeline(request,):
     content = {}
-    content = Board.objects.all()
+    content = Board.objects.all().order_by('-id')
     # 파일이 존재하면 이미지, 기타파일 분류작업.
     oImg = []
     oEtc = []
