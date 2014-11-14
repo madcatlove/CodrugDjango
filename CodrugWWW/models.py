@@ -37,7 +37,7 @@ class Board(models.Model):
 
 #파일관리
 class File(models.Model):
-    seq = models.IntegerField()
+    seq = models.IntegerField(null=False)
     #변환 전 파일 ( 원본 파일 이름 )
     inFILE= models.CharField(max_length=200)
     #변환 후 파일 ( hashed 파일 이름 )

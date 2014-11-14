@@ -5,57 +5,72 @@
 - Site Layout
 --------------------------------------
 /* fonts import */
-    /*font-family: 'Jeju Gothic', serif;*/
-    @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+/*font-family: 'Jeju Gothic', serif;*/
+@font-face {
+    font-family: 'Jeju Gothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.eot);
+    src: url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.eot?#iefix) format('embedded-opentype'),
+    url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.woff2) format('woff2'),
+    url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.woff) format('woff'),
+    url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.ttf) format('truetype');
+}
+/* font */
+.jeju{
+    font-family: 'Jeju Gothic';
+}
 
 /* HEADER 영역 */
-	.sHead {
-        margin-top: -70px;
-		background-color: #1E74BA;
-		height: 150px;
-		color: white;
-		font-family: 'Nova Flat';
-	}
+.sHead {
+    margin-top: -70px;
+    background-color: #1E74BA;
+    height: 150px;
+    color: white;
+    font-family: 'Nova Flat';
+}
 
-	.sHead .sMessage {
-		font-size: 60px;
-		margin:0 auto;
-		padding-top: 30px;
-		text-align: center;
-	}
+.sHead .sMessage {
+    font-size: 60px;
+    margin:0 auto;
+    padding-top: 30px;
+    text-align: center;
+}
 
 /* 메뉴 버튼 */
-	.sMenu {
-		margin-top: 10px;
-		margin-bottom: 20px;
-	}
+.sMenu {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 
-	.btnSize {
-		width: 100px;
-		height: 45px;
+.btnSize {
+    width: 100px;
+    height: 45px;
 
-	}
+}
 
-	.btnSize2 {
-		height: 45px;
-	}
+.btnSize2 {
+    height: 45px;
+}
 
 /* 푸터 영역 */
-	.sFoot {
-		margin-top: 10px;
-		background-color: #C9C9C9;
-		height: 75px;
-	}
+.sFoot {
+    margin-top: 10px;
+    height: 75px;
+    background-color: #1E74BA;
+    color: white;
+    font-family: 'Nova Flat';
+}
 
 
-    .memberJoinFormDiv {
-        width: 400px;
-        display: inline-block;
-        margin:0 auto;
-    }
+.memberJoinFormDiv {
+    width: 400px;
+    display: inline-block;
+    margin:0 auto;
+}
 
-    /* 공통 색깔 */
+/* 공통 색깔 */
 
-    #idColor1{
-        background-color:#2d6f61
-    }
+#idColor1{
+    background-color:#2d6f61
+}
