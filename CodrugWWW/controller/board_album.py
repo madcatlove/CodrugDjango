@@ -180,7 +180,7 @@ def boardAlbum_detail(request, id):
         oImg=[]
         oEtc=[]
         for each in oFile:
-            if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
+            if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE), re.IGNORECASE):
                 oImg.append(each)
             else:
                 oEtc.append(each)

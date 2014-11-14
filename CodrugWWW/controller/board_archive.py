@@ -162,7 +162,7 @@ def boardArchive_detail(request, id):
 
         # 파일 분류작업
         for each in oFile:
-            if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
+            if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE), re.IGNORECASE):
                 oImg.append(each)
             else:
                 oEtc.append(each)
