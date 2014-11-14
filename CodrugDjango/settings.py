@@ -37,8 +37,8 @@ else:
 SECRET_KEY = '%cvxpxlmwv=8#yn))(84wm6cgk5ox520-2emcws06i96_5qe+@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = (isProduction == False)
+TEMPLATE_DEBUG = (isProduction == False)
 
 TEMPLATE_DIRS = ( BASE_DIR + '/templates', )
 
