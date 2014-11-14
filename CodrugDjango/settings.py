@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for CodrugDjango project.
 
@@ -17,6 +18,10 @@ sys.setdefaultencoding('utf-8')
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+##### 실제 서버에 반영?
+isProduction = False
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -24,8 +29,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '%cvxpxlmwv=8#yn))(84wm6cgk5ox520-2emcws06i96_5qe+@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = (isProduction == False)
+TEMPLATE_DEBUG = (isProduction == False)
+
 TEMPLATE_DIRS = ( BASE_DIR + '/templates', )
 
 ALLOWED_HOSTS = []
@@ -66,17 +72,30 @@ WSGI_APPLICATION = 'CodrugDjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'fishdiablo.net',
-        'NAME': 'madcatExternal',
-        'USER': 'madcatExternal',
-        'PASSWORD': '1234',
-        'PORT': '3306',
-        'CHARSET' : 'UTF-8'
+if isProduction == False:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': 'fishdiablo.net',
+            'NAME': 'madcatExternal',
+            'USER': 'madcatExternal',
+            'PASSWORD': '1234',
+            'PORT': '3306',
+            'CHARSET' : 'UTF-8'
+        }
     }
-}
+else :
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': 'localhost',
+            'NAME': 'codrug',
+            'USER': 'codrug',
+            'PASSWORD': 'codrug1234',
+            'PORT': '3306',
+            'CHARSET' : 'UTF-8'
+        }
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
