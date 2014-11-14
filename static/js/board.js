@@ -65,6 +65,8 @@ $(document).ready( function() {
 
     $('#boardForm').ajaxForm({
         beforeSubmit: function(arr, $form, opt) {
+            console.log(arr, $form, opt)
+
             for(var i = 0; i < arr.length; i++) {
 
                 if( arr[i].name === 'board_content') {
