@@ -187,12 +187,12 @@ def member_modify(request):
                 raise exceptions.MemberException(' 필수정보가 누락되었습니다. ')
 
             # 패스워드가 다를때.
-            if user_password is not oMember.password:
+            if unicode(user_password) is not unicode(oMember.password):
                 raise exceptions.MemberException(' 잘못된 정보입니다. (Error:1) "%s" "%s" ' % (user_password, oMember.password))
 
             # 새로운 패스워드가 존재할때.
             if len(user_new_password) != 0 :
-                if user_new_password != user_new_password2 :
+                if unicode(user_new_password) is not unicode(user_new_password2) :
                     raise exceptions.MemberException(' 새로운 비밀번호가 같지 않습니다. ')
                 else:
                     oMember.password = user_new_password # 새로운 비밀번호로 재설정.
