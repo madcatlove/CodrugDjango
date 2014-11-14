@@ -15,12 +15,12 @@
     <script src="{% static 'js/jquery.form.min.js' %}"></script>
 
     <!--timeline css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/timeline.css' %}" />
+
     <!--article_detail css-->
-    <link href="{% static 'css/article_detail.css' %}" rel="stylesheet" type="text/css">
+
     <!-- common file -->
     <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+
 
     <!-- summernote -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/summernote.css' %}" />
@@ -28,63 +28,49 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
-
-<script type="text/javascript">
-    $(document).ready( function() {
-        $('button').click( function() {
-            /* $('#aaaa').modal({
-                keyboard : false,
-                backdrop : 'static',
-                show : true
-            });
-            */
-            $('#aaaa').fadeIn('fast');
-            $('#waitBackground').modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: true,
+    <script type="text/javascript">
+        $(document).ready( function() {
+            $('#myTab a').click(function (e) {
+              e.preventDefault()
+              $(this).tab('show')
             })
         })
-    })
+    </script>
 
-</script>
 
-<style type="text/css">
-     #aaaa {
-         position: absolute;
-         width: 100%;
-         height: 100%;
-         top: 0;
-         left: 0;
-     }
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Codrug Management Page</h2>
+        </div>
 
-    #waitBackground {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1;
-    }
-
-    #waitForground {
-        position: relative;
-        width: 250px;
-        margin: 0 auto;
-        margin-top: 100px;
-        z-index: 5;
-    }
-</style>
-
-<button class="btn btn-primary">이응이응</button>
-
-<div id="aaaa" style="display:none;">
-    <div id="waitForground" class="alert alert-warning">
-        <img src="{% static 'img/loading.gif' %}" alt="Loading.. " width="40" height="40" />
-        &nbsp;&nbsp;서버에 요청중입니다.
+        <div class="col-md-8">
+            <ul class="nav nav-pills" id="myTab" style="margin-top:20px; margin-bottom:10px;">
+              <li class="active"><a href="#home">홈</a></li>
+              <li><a href="#profile">프로필</a></li>
+              <li><a href="#messages">메시지</a></li>
+              <li><a href="#settings">설정</a></li>
+            </ul>
+        </div>
     </div>
-    <div id="waitBackground"></div>
-</div>
+
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+
+        <div class="col-md-8">
+            <div class="tab-content">
+              <div class="tab-pane active" id="home">.1..</div>
+              <div class="tab-pane" id="profile">..2.</div>
+              <div class="tab-pane" id="messages">..3.</div>
+              <div class="tab-pane" id="settings">.4..</div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 </body>
 </html>
