@@ -215,3 +215,25 @@ var _sNote = (function() {
 
     return o;
 })();
+
+
+var toggleWaitLayer = (function() {
+    var isPoped = false; // 레이어 활성화 == true
+
+    return function() {
+        if( isPoped ) {
+            $('#waitBackground').modal('hide');
+            $('#waitLayer').fadeOut('fast');
+            isPoped = false;
+        }
+        else {
+            $('#waitLayer').fadeIn('fast');
+            $('#waitBackground').modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true,
+            })
+            isPoped = true;
+        }
+    }
+})();

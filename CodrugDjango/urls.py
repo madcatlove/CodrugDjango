@@ -2,7 +2,7 @@
 
 from django.conf.urls import *
 from django.contrib import admin
-from CodrugWWW.controller import board_qna, board_free, board_album, board_archive, assignment, upload
+from CodrugWWW.controller import board_qna, board_free, board_album, board_archive, assignment, upload, admin
 
 from CodrugWWW.views import *
 
@@ -71,6 +71,10 @@ urlpatterns = patterns('',
     ###################
     # Upload
     url(r'^file/upload$', upload.uploadFile, name = 'file_upload'),
+
+    ###################
+    # Admin
+    url(r'^manage/$', admin.adminIndex, name = 'admin_index'),
 
     #########
     # FOR TEST

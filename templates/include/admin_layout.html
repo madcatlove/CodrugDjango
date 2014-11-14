@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Codrug Admin Management</title>
+
+    <!-- fontface -->
+    <link href='http://fonts.googleapis.com/css?family=Nova+Flat' rel='stylesheet' type='text/css'>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.form.min.js' %}"></script>
+
+    <!--timeline css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/timeline.css' %}" />
+    <!--article_detail css-->
+    <link href="{% static 'css/article_detail.css' %}" rel="stylesheet" type="text/css">
+    <!-- common file -->
+    <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+
+    <!-- summernote -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/summernote.css' %}" />
+    <script type="text/javascript" src="{% static 'js/summernote.min.js' %}"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<script type="text/javascript">
+    $(document).ready( function() {
+        $('button').click( function() {
+            /* $('#aaaa').modal({
+                keyboard : false,
+                backdrop : 'static',
+                show : true
+            });
+            */
+            $('#aaaa').fadeIn('fast');
+            $('#waitBackground').modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true,
+            })
+        })
+    })
+
+</script>
+
+<style type="text/css">
+     #aaaa {
+         position: absolute;
+         width: 100%;
+         height: 100%;
+         top: 0;
+         left: 0;
+     }
+
+    #waitBackground {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    #waitForground {
+        position: relative;
+        width: 250px;
+        margin: 0 auto;
+        margin-top: 100px;
+        z-index: 5;
+    }
+</style>
+
+<button class="btn btn-primary">이응이응</button>
+
+<div id="aaaa" style="display:none;">
+    <div id="waitForground" class="alert alert-warning">
+        <img src="{% static 'img/loading.gif' %}" alt="Loading.. " width="40" height="40" />
+        &nbsp;&nbsp;서버에 요청중입니다.
+    </div>
+    <div id="waitBackground"></div>
+</div>
+
+</body>
+</html>

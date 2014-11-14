@@ -65,8 +65,8 @@ $(document).ready( function() {
 
     $('#boardForm').ajaxForm({
         beforeSubmit: function(arr, $form, opt) {
-            console.log(arr, $form, opt)
 
+            // summernote content 주입.
             for(var i = 0; i < arr.length; i++) {
 
                 if( arr[i].name === 'board_content') {
@@ -75,12 +75,16 @@ $(document).ready( function() {
 
             }
 
+            // 모달창 띄움.
+            toggleWaitLayer();
+
             return true;
         },
 
         dataType: 'json',
 
         success: function(r, e,e1,e2) {
+            toggleWaitLayer();
             if ( typeof r === 'string') r = JSON.parse(r);
 
             if(r.error == false) {
