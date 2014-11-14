@@ -36,9 +36,9 @@
                         <!-- View Image -->
                         <img class="img-responsive" src="/upload/{{img.outFILE }}" alt="">
                     {% endfor %}
+                    <br/>
                 {% endif %}
 
-                <hr>
 
                 <!-- Post Content -->
                 {{ article.content|bleach }}
@@ -47,16 +47,17 @@
                 {%  if lenFileList > 0 %}
                     {%  for file in fileList %}
                         <!-- Preview Image -->
-                        <a href="/upload/{{file.outFILE }}">첨부파일</a>
+
+                        <a class="btn btn-primary btn-xs" href="/upload/{{file.outFILE }}" target="_blank"><span class="glyphicon glyphicon-floppy-save"></span> {{ file.inFILE }}</a>
+
+
                     {% endfor %}
                 {% endif %}
-
-                <div class="row">
-                <div class="col-md-8">
+                <hr/>
                 <!-- 수정폼 -->
                 <div class="text-left" style="margin-bottom: 15px;">
-                    <button class="btn btn-danger" onclick="void(moveModifyForm({{ article.id }}, '{{ article.category.boardNAME }}'));">수정</button>
-                    <button class="btn btn-danger" onclick="void(moveDeleteForm({{ article.id }}, '{{ article.category.boardNAME }}'));">삭제</button>
+                    <button class="btn btn-danger btn-sm" onclick="void(moveModifyForm({{ article.id }}, '{{ article.category.boardNAME }}'));">수정</button>
+                    <button class="btn btn-danger btn-sm" onclick="void(moveDeleteForm({{ article.id }}, '{{ article.category.boardNAME }}'));">삭제</button>
 
                 </div>
 
