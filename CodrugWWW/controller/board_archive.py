@@ -179,6 +179,8 @@ def boardArchive_detail(request, id):
         'comment':comment,
         'imgList':oImg,
         'fileList':oEtc,
+        'lenImgList': len(oImg),
+        'lenFileList' : len(oEtc),
     }
     rContext = RequestContext( request )
     htmlData = render(request, 'boardArchiveDetail.html', ctx, context_instance = rContext)
