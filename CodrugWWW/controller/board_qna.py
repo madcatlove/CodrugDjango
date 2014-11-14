@@ -265,7 +265,6 @@ def boardQna_closeArticle(request, articleId):
 
 
     except Exception, e:
-        print e
         json_message = utils.sMessage( data = '질문 확인처리를 하지 못하였습니다.', error = True)
 
 

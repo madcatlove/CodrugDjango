@@ -96,6 +96,18 @@ $(document).ready( function() {
     })
 })
 
+var closeQnAArticle = function(seq) {
+    urlReq.get('/board/qna/close/' + seq, {}, function(result) {
+        if( result.error == false) {
+            alert(' 처리가 완료되었습니다. ');
+            window.location.reload();
+        }
+        else {
+            alert( result.data );
+        }
+    })
+}
+
 // --- 글수정 폼으로 ---
 var moveModifyForm = function(id, boardNAME) {
     window.location.href = '/board/' + boardNAME + '/modify/' + id;
