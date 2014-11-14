@@ -34,6 +34,9 @@ def member_join(request):
             user_email = utils.cleanStr( request.POST.get('email') )
             user_name = utils.cleanStr( request.POST.get('name') )
 
+            #crypt
+            user_password = utils.cryptPassword( unicode(user_password).encode('utf8') )
+
             # 유저 이메일 / 비밀번호 길이 체크.
             if len(user_email) == 0 or len(user_password) == 0 or len(user_name) == 0:
                 raise exceptions.MemberException(' 필수 항목이 누락되었습니다. ')
@@ -80,6 +83,8 @@ def member_login(request):
 
         user_email = utils.cleanStr( request.POST.get('email') )
         user_password = utils.cleanStr( request.POST.get('password') )
+
+        user_password = utils.cryptPassword( unicode(user_password).encode('utf8') )
 
         # 유저 이메일 / 비밀번호 길이 체크.
         if len(user_email) == 0 or len(user_password) == 0:
@@ -181,18 +186,21 @@ def member_modify(request):
         user_new_password = utils.cleanStr( request.POST.get('newpassword') )
         user_new_password2 = utils.cleanStr( request.POST.get('newpassword2') )
 
+        user_password = utils.cryptPassword( unicode(user_password).encode('utf8') )
+        user_new_password = utils.cryptPassword( unicode(user_new_password).encode('utf8') )
+        user_new_password2 = utils.cryptPassword( unicode(user_new_password2).encode('utf8') )
 
         try:
             if len(user_name) == 0 or len(user_password) == 0:
                 raise exceptions.MemberException(' 필수정보가 누락되었습니다. ')
 
             # 패스워드가 다를때.
-            if unicode(user_password).encode('utf8') != unicode(oMember.password).encode('utf8'):
+            if  user_password != unicode(oMember.password).encode('utf8'):
                 raise exceptions.MemberException(' 잘못된 정보입니다. (Error:1) ')
 
             # 새로운 패스워드가 존재할때.
             if len(user_new_password) != 0 :
-                if unicode(user_new_password).encode('utf8') != unicode(user_new_password2).encode('utf8') :
+                if user_new_password != user_new_password2:
                     raise exceptions.MemberException(' 새로운 비밀번호가 같지 않습니다. ')
                 else:
                     oMember.password = user_new_password # 새로운 비밀번호로 재설정.

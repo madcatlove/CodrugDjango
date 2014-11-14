@@ -127,3 +127,9 @@ def scriptError(smessage, url = ''):
     message += '</script>'
 
     return message
+
+'''
+    패스워드 암호화
+'''
+def cryptPassword( message):
+    return hashlib.sha256( message ).hexdigest()
