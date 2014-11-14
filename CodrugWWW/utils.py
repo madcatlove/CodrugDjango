@@ -51,8 +51,9 @@ def sMessage( **kwargs ) :
 def fileUpload( oFile, keyName ):
     defaultPath = str(os.getcwd()).split('/')
     defaultPath.append('upload')
-
     uploadPath = '/'.join(defaultPath)
+    if len(uploadPath) == 0:
+        uploadPath = '/home/codrug/upload/'
 
     # calculate file upload
     file = oFile[keyName]
@@ -84,6 +85,8 @@ def fileUploadSingle( oFile ):
     defaultPath = str(os.getcwd()).split('/')
     defaultPath.append('upload')
     uploadPath = '/'.join(defaultPath)
+    if len(uploadPath) == 0:
+        uploadPath = '/home/codrug/upload/'
 
     # file information
     file = oFile

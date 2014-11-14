@@ -41,8 +41,9 @@ def testUpload(request):
 
         defaultPath = str(os.getcwd()).split('/')
         defaultPath.append('upload')
-
         uploadPath = '/'.join(defaultPath)
+        if len(uploadPath) == 0:
+            uploadPath = '/home/codrug/upload/'
 
         rContext = RequestContext(request)
         ctx = {
