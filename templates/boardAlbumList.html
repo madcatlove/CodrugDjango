@@ -16,13 +16,12 @@
 
 
             <div id="links" class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 text-center">
             {% for x in article %}
-
 
                 {% for imgObj in x.fileList %}
                     <a href="/upload/{{ imgObj.outFILE }}" title="{{ x.title }}" data-gallery>
-                        <img src="/upload/{{ imgObj.outFILE }}" alt=" Image File " />
+                        <img src="/upload/{{ imgObj.outFILE }}" alt=" Image File " width="100" height="100" />
                     </a>
                 {% endfor %}
 
