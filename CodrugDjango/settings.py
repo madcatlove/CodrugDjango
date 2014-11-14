@@ -18,9 +18,9 @@ sys.setdefaultencoding('utf-8')
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-
+#123
 ##### 실제 서버에 반영?
-isProduction = False
+isProduction = True
 
 #### 이미지 업로드 디렉토리.
 if isProduction :
