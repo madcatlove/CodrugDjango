@@ -72,6 +72,38 @@ def fileUpload( oFile, keyName ):
         return (None, None, None)
 
 
+'''
+    파일 업로드 함수.(단일)
+    파일 InMemory 객체 요구.
+
+    리턴 (원본파일이름, 변환된파일이름, 파일타입)
+'''
+def fileUploadSingle( oFile ):
+
+    # upload Path
+    defaultPath = str(os.getcwd()).split('/')
+    defaultPath.append('upload')
+    uploadPath = '/'.join(defaultPath)
+
+    # file information
+    file = oFile
+    fileName = unicode( file.name )
+    extension = fileName.split('.')
+    extension = extension[ len(extension) -1 ]
+    transfilename = '%s.%s' % (hashlib.md5(fileName).hexdigest() + str(int(time.time()) ), extension ) # 변환파일.
+
+    # upload file
+    try:
+        with open( '%s/%s' % (uploadPath, transfilename) , 'wb') as fp :
+            for chunk in file.chunks():
+                fp.write(chunk)
+
+        return ( fileName, transfilename, file.content_type )
+    except:
+        return (None, None, None)
+
+
+
 def getBoardExtraMessage(**kwargs) :
     # default message
     message = {

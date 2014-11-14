@@ -56,21 +56,25 @@ def boardAlbum_write(request):
                 raise Exception
 
             ##---------------------------------------
-            ## FILE UPLOAD
+            ## FILE UPLOAD ( Processing Multiple uploads )
             ##---------------------------------------
-            if 'board_file' in request.FILES:
-                rFile = utils.fileUpload(request.FILES, 'board_file') # 리턴값 : (원본파일이름, 변환파일이름, 파일타입)
-                if rFile[0] is not None:
-                    try:
-                        lastImage = File.objects.latest('id')
-                        lastId = lastImage.id + 1 # 새로운 번호
-                    except:
-                        lastId = 1
+            fileList = request.FILES.getlist('board_file')
 
-                    oImage = File( seq = lastId, inFILE = rFile[0], outFILE = rFile[1], typeFILE = rFile[2])
-                    oImage.save()
-                else:
-                    lastId = -1
+            # 파일 리스트가 0 개가 아니라면 업로드 처리.
+            if len(fileList) != 0:
+                # 최근 이미지 번호를 가져와 +1 ( 없으면 1로 설정 )
+                try:
+                    lastImage = File.objects.latest('id')
+                    lastId = lastImage.id + 1
+                except :
+                    lastId = 1
+
+                # 파일 업로드 처리.
+                for fileData in fileList:
+                    rFile = utils.fileUploadSingle( fileData ) # 리턴값 : (원본파일이름, 변환파일이름, 파일타입)
+                    if rFile[0] is not None:
+                        oImage = File( seq = lastId, inFILE = rFile[0], outFILE = rFile[1], typeFILE = rFile[2])
+                        oImage.save()
             else:
                 lastId = -1
 
@@ -107,23 +111,6 @@ def boardAlbum_list(request, page = 1):
     article = Board.objects.filter(category=category).order_by('-id')
     articleCount = article.count()
 
-    # 파일이 존재하면 이미지, 기타파일 분류작업.
-    oImg = []
-    oEtc = []
-    for x in article:
-        if x.image_ref > 0:
-            oFile = File.objects.filter(id=x.image_ref)
-            # 파일 분류작업
-            for each in oFile:
-                if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
-                    oImg.append(each)
-                else:
-                    oEtc.append(each)
-    # 댓글 가공.
-    for idx in range(0, len(article)):
-        commentCount = Comment.objects.filter(category = category, articleID = article[idx]).count()
-        article[idx].commentCount = commentCount
-
 
     #########################
     # PAGING
@@ -149,12 +136,25 @@ def boardAlbum_list(request, page = 1):
         pageList.append(1)
 
 
+    # 댓글 가공.
+    for idx in range(0, len(article)):
+        commentCount = Comment.objects.filter(category = category, articleID = article[idx]).count()
+        article[idx].commentCount = commentCount
+
+    # 게시물에 이미지 정보 주입.
+    for idx in range(0, len(article)):
+        if article[idx].image_ref > 0 :
+            fileList = File.objects.filter( seq = article[idx].image_ref )
+            article[idx].fileList = fileList
+
+
+
     ctx = {
         'page' : page,
         'boardName' : 'album',
         'article' : article,
-        'imgList' :oImg,
-        'flieList':oEtc,
+
+
 
         'totalPage' : totalPage,
         'pageList' : pageList,

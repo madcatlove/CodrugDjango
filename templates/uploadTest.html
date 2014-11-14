@@ -6,11 +6,8 @@
 </head>
 <body>
     <form action="{% url 'testMode' %}" method="POST" enctype="multipart/form-data">
-    <input type="file" name="sUpload" /> <br />
-    <input type="file" name="sUpload" /> <br />
-    <input type="file" name="sUpload" /> <br />
-    <input type="file" name="sUpload" /> <br />
-    <input type="file" name="sUpload" /> <br />
+    <input type="file" name="sUpload" multiple="true" /> <br />
+
     <input type="submit" />
     </form>
 </body>

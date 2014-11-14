@@ -7,7 +7,7 @@
 {% block content %}
 <div id="boardContent">
        <!-- title bar -->
-    <form role="form" id="boardForm" action="/board/free/write" method="POST" enctype="multipart/form-data" onsubmit="return false">
+    <form role="form" id="boardForm" action="/board/album/write" method="POST" enctype="multipart/form-data" onsubmit="return false">
         <div style="width: 100%;" class="form-inline">
             <div style="width:5%; display:inline;">제목</div>
             <input type="text" class="form-control" name="board_title" id="textTitle" style="width:95%;" />
@@ -21,14 +21,16 @@
             </div>
 
             <div id="uploadForm" style="margin-top: 15px; margin-bottom: 10px;">
-                <button class="btn btn-info" onclick="void( addImageUpload() )"> 이미지 <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-info" onclick="void( removeImageUpload() )"> 이미지 <span class="glyphicon glyphicon-minus"></span></button>
-                <input type="file" name="board_file" />
+{#                <button class="btn btn-info" onclick="void( addImageUpload() )"> 이미지 <span class="glyphicon glyphicon-plus"></span></button>#}
+{#                <button class="btn btn-info" onclick="void( removeImageUpload() )"> 이미지 <span class="glyphicon glyphicon-minus"></span></button>#}
+                <input type="file" name="board_file" multiple="true" /> 다중 파일 업로드 가능.
+
+                <div id="fileList"></div>
             </div>
 
             <!-- button -->
             <div class="text-center" style="padding-top: 15px;">
-                <button class="btn btn-primary" onclick="void(_boardCls.submitData() )"> 작성완료 </button>
+                <button class="btn btn-primary" onclick="void( $('#boardForm').submit() )"> 작성완료 </button>
                 <button class="btn btn-danger"> 작성취소 </button>
             </div>
         </div>
@@ -39,6 +41,19 @@
     $(document).ready( function() {
         $('#textContent').summernote( {
             height: 300
+        });
+
+        // 파일 업로드 관련.
+        $('input[name=board_file]').change( function() {
+           var $fList = $(this)[0].files;
+           var $fileListDiv = $('#fileList')
+
+
+           $fileListDiv.html('<hr />');
+           for(var i = 0; i < $fList.length; i++) {
+                $fileListDiv.append( $fList.item(i).name + ' ( ' + $fList.item(i).size + ' bytes )' + '<br />');
+           }
+           $fileListDiv.append('<hr />');
         });
     });
 
