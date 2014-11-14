@@ -19,11 +19,12 @@ def timeline(request,):
     # 게시물에 이미지 정보 주입.
     for idx in range(0, len(content)):
         if content[idx].image_ref > 0 :
+            content[idx].oFile=[]
             fileList = File.objects.filter( seq = content[idx].image_ref )
             oRandomFile = fileList[random.randint(0,len(fileList)-1)]
             # content[idx].fileList = fileList
             content[idx].oFile = oRandomFile
-
+            # print content[idx].oFile
 
     ctx = {
         'content' : content,
