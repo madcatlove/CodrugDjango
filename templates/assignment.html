@@ -12,25 +12,27 @@
 
             <div class="col-sm-4">
                 <div class="thumbnail">
-                    {%  for x in imgList %}
-                        <img src="/upload/{{x.outFILE }}">
-                    {% endfor %}
+
                     <div class="caption">
                         <h3>{{ each.title }}</h3>
-                        <p></p>
+                        <p class="text-info">{{ each.content }} </p>
+                        <p class="text-danger">{{ each.deadline|date:'Y-m-d' }}까지</p>
+                        {% for peopleEach in each.memberList %}
+                        <span class="label label-success">{{peopleEach.name}}</span>
+                        {% endfor %}
+                        <br/>
+                        <br/>
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#submitModal" onclick="void( injectionAssId({{ each.id }}));">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detailModal">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
+
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                {% for y in fileList %}
-                                    <li><a href="/upload/{{y.outFILE }}">첨부파일</a></li>
+                                {% for fileEach in each.fileList %}
+                                    <li><a href="/upload/{{fileEach}}">첨부파일</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -56,7 +58,7 @@
                     <input type="hidden" name="assignment_id" value="" />
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="userId">Submit Assignment</label>
+                            <label for="userId">과제내용 및 인증파일 (파일 없으면 업로드 안됨)</label>
                             <textarea class="form-control" name="assignment_content" rows="5"></textarea>
                             <input class='text-right' type="file" name="assignment_file"/>
                         </div>
@@ -70,6 +72,8 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!--modal end-->
+
+
 
 
     <script type="text/javascript">

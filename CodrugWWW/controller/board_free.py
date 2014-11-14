@@ -167,7 +167,7 @@ def boardFree_detail(request, id):
     oImg = []
     oEtc = []
     if article.image_ref > 0:
-        oFile = File.objects.filter(id=article.image_ref)
+        oFile = File.objects.filter(seq=article.image_ref)
 
         # 파일 분류작업
         for each in oFile:
