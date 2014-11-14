@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import os
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
 import re
@@ -35,12 +36,17 @@ def testUpload(request):
             print zFile.name
 
     else :
-        s = request.GET.get('sdfsdf')
-        print s
+        # defaultPath = str(os.getcwd()).split('/')
+        # defaultPath.append('upload')
+        # uploadPath = '/'.join(defaultPath)
+
+        uploadPath = '/home/codrug/upload/'
+
+        print uploadPath, len(uploadPath)
 
         rContext = RequestContext(request)
         ctx = {
-
+            'uploadPath' : uploadPath,
         }
         rend = render(request, 'uploadTest.html', ctx, context_instance=rContext)
 
