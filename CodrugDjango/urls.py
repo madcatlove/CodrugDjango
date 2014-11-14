@@ -2,7 +2,7 @@
 
 from django.conf.urls import *
 from django.contrib import admin
-from CodrugWWW.controller import board_qna, board_free, board_album, board_archive, assignment
+from CodrugWWW.controller import board_qna, board_free, board_album, board_archive, assignment, upload
 
 from CodrugWWW.views import *
 
@@ -68,6 +68,9 @@ urlpatterns = patterns('',
     url(r'^assignment/write$', assignment.assignment_write, name = 'assignment_write'),
     url(r'^assignment/(?P<articleId>\d*)$', assignment.assignment_detail, name = 'assignment_detail'),
 
+    ###################
+    # Upload
+    url(r'^file/upload$', upload.uploadFile, name = 'file_upload'),
 
     #########
     # FOR TEST

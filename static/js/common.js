@@ -171,3 +171,47 @@ var procMemberLogout = function() {
 var viewMemberJoin = function() {
     window.location.href = '/member/join';
 }
+
+
+/*
+    ################################
+    # SUMMERNOTE UPLOAD HANDLER
+    ################################
+ */
+var _sNote = (function() {
+    var o = {};
+
+    o.summernoteUploadHandler = function(files, editor, $welEditable) {
+        console.log( files, editor, $welEditable )
+	    o.summernoteUploadFile( files[0], editor, $welEditable );
+    };
+
+    o.summernoteUploadFile = function(file ,editor, $welEditable) {
+        var data = new FormData();
+        data.append("upFile", file);
+        console.log( data )
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '/file/upload',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                console.log( result )
+                result = JSON.parse(result);
+                console.log( result , typeof(result) )
+
+                if( result.error == false) {
+                    var image_url = '/upload/' + result.data;
+                    editor.insertImage($welEditable, image_url);
+                }
+                else {
+                    alert(' 이미지 업로드에 실패하였습니다. ' + '(' + result.data + ')' )
+                }
+            }
+        })
+    };
+
+    return o;
+})();
