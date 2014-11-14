@@ -2,7 +2,7 @@
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render
 from .. import utils
-
+import random
 # Create your views here.
 from django.template.loader import get_template
 from django.template import Context, RequestContext
@@ -16,21 +16,17 @@ def timeline(request,):
     # 파일이 존재하면 이미지, 기타파일 분류작업.
     oImg = []
     oEtc = []
-    for x in content:
-        if x.image_ref > 0:
-            oFile = File.objects.filter(id=x.image_ref)
+    # 게시물에 이미지 정보 주입.
+    for idx in range(0, len(content)):
+        if content[idx].image_ref > 0 :
+            fileList = File.objects.filter( seq = content[idx].image_ref )
+            oRandomFile = fileList[random.randint(0,len(fileList)-1)]
+            # content[idx].fileList = fileList
+            content[idx].oFile = oRandomFile
 
-            # 파일 분류작업
-            for each in oFile:
-                if re.search( r'\.(jpg|png|bmp)$', str(each.outFILE)):
-                    oImg.append(each)
-                else:
-                    oEtc.append(each)
 
     ctx = {
         'content' : content,
-        'imgList':oImg,
-        'fileList':oEtc
     }
 
     rContext = RequestContext( request )
