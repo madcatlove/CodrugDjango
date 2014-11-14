@@ -7,20 +7,26 @@
 /* fonts import */
 /*font-family: 'Jeju Gothic', serif;*/
 @font-face {
-    font-family: 'Jeju Gothic';
-    font-style: normal;
-    font-weight: 400;
-    src: url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.eot);
-    src: url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.eot?#iefix) format('embedded-opentype'),
-    url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.woff2) format('woff2'),
-    url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.woff) format('woff'),
-    url(//fonts.gstatic.com/ea/jejugothic/v3/JejuGothic-Regular.ttf) format('truetype');
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
 }
 /* font */
-.jeju{
-    font-family: 'Jeju Gothic';
+.nanum{
+    font-family: 'Nanum Gothic';
 }
-
+.novaflat{
+    font-family: "Nova Flat";
+}
+#bleachA{
+    color:white;
+    text-decoration: none;
+}
 /* HEADER 영역 */
 .sHead {
     margin-top: -70px;

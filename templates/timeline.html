@@ -1,11 +1,11 @@
 {% extends "include/layout.html" %}
 {% load bleach_tags %}
 {% block content %}
-        <div class="page-header">
+        <div class="page-header" style="font-family: 'Nova Flat'">
             <h1 id="timeline">Timeline</h1>
         </div>
 
-        <ul class="timeline">
+        <ul class="timeline nanum">
             {%  for each in content %}
                 <!-- qna 게시글을 보여주는 타임라인 -->
                 {%  if each.category.boardNAME == 'qna' %}
