@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 ##### 실제 서버에 반영?
-isProduction = False
+isProduction = True
 
 #### 이미지 업로드 디렉토리.
 if isProduction :
@@ -42,7 +42,7 @@ TEMPLATE_DEBUG = (isProduction == False)
 
 TEMPLATE_DIRS = ( BASE_DIR + '/templates', )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
