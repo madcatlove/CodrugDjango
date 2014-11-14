@@ -176,10 +176,10 @@ def member_modify(request):
     elif request.method == 'POST':
 
         # 변수 받아옴.
-        user_name = request.POST.get('username')
-        user_password = request.POST.get('userpassword')
-        user_new_password = request.POST.get('newpassword')
-        user_new_password2 = request.POST.get('newpassword2')
+        user_name =  utils.cleanStr( request.POST.get('username') )
+        user_password = utils.cleanStr( request.POST.get('userpassword') )
+        user_new_password = utils.cleanStr( request.POST.get('newpassword') )
+        user_new_password2 = utils.cleanStr( request.POST.get('newpassword2') )
 
 
         try:
