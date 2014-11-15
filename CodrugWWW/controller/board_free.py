@@ -144,7 +144,8 @@ def boardFree_list(request, page = 1):
         'article' : article,
 
         'totalPage' : totalPage,
-        'pageList' : pageList
+        'pageList' : pageList,
+
     }
     rContext = RequestContext( request )
     htmlData = render(request, 'boardFreeList.html', ctx, context_instance = rContext)
