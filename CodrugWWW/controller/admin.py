@@ -45,7 +45,6 @@ def adminMember(request):
     request.METHOD 에 따라 다른 처리
     (PUT -> UPDATE , DELETE-> DELETE RECORD )
 '''
-
 def adminMemberProc(request, memberId):
     print memberId,
 
@@ -55,6 +54,30 @@ def adminMemberProc(request, memberId):
 
     except Exception, e:
         print e
+
+
+'''
+    관리자 -> 과제 제출(쓰기)
+'''
+def adminAssignmentWrite(request):
+
+    if request.method == 'GET':
+        ctx = {
+
+        }
+        rContext = RequestContext(request)
+        htmlData = render(request, 'admin_assignmentWrite.html', ctx, context_instance=rContext)
+
+        return HttpResponse(htmlData)
+    else:
+        pass
+
+
+'''
+    관리자 -> 과제 리스트
+'''
+def adminAssignmentList(request):
+    pass
 
 '''
     관리자 유무 판단

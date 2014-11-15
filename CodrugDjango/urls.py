@@ -77,6 +77,8 @@ urlpatterns = patterns('',
     url(r'^manage/$', admin.adminIndex, name = 'admin_index'),
     url(r'^manage/member/$', admin.adminMember, name = 'admin_member'),
     url(r'^manage/member/(?P<memberId>\d+)$', admin.adminMemberProc, name = 'admin_member_proc'),
+    url(r'^manage/assignment/$', admin.adminAssignmentList, name = 'admin_assignment_list'),
+    url(r'^manage/assignment/write/$', admin.adminAssignmentWrite, name = 'admin_assignment_write'),
 
     #########
     # FOR TEST

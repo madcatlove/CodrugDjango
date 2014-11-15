@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -27,10 +28,13 @@
 <body>
     <script type="text/javascript">
         $(document).ready( function() {
-            $('#myTab a').click(function (e) {
-              e.preventDefault()
-              $(this).tab('show')
-            })
+            var currentURI = '{{ request.get_full_path }}';
+            if(/manage\/member/.test(currentURI)) {
+                $('#menuBar li').eq(0).addClass('active')
+            }
+            else if(/manage\/assignment/.test(currentURI)) {
+                $('#menuBar li').eq(1).addClass('active')
+            }
         })
     </script>
 
@@ -50,9 +54,9 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
 
-    <ul class="nav navbar-nav">
-      <li class="active">
-          <a href="#">
+    <ul class="nav navbar-nav" id="menuBar">
+      <li>
+          <a href="{% url 'admin_member' %}">
             회원 관리
           </a>
       </li>
@@ -63,8 +67,8 @@
           </a>
 
           <ul class="dropdown-menu">
-              <li><a href="#">과제 리스트</a></li>
-              <li><a href="#">과제 작성</a></li>
+              <li><a href="{% url 'admin_assignment_list' %}">과제 리스트</a></li>
+              <li><a href="{% url 'admin_assignment_write' %}">과제 작성</a></li>
           </ul>
       </li>
 
