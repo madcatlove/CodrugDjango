@@ -25,7 +25,16 @@ var urlReq = (function() {
 
         post : function(url, data, resultCallback) {
             sAjax(url, 'POST', data, resultCallback);
+        },
+
+        put : function(url, data, resultCallback) {
+            sAjax(url, 'PUT', data, resultCallback);
+        },
+
+        delete : function(url, data, resultCallback) {
+            sAjax(url, 'DELETE', data, resultCallback);
         }
+
     }
 })();
 

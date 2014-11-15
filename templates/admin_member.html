@@ -1,0 +1,49 @@
+{% extends 'include/admin_layout.html' %}
+{% load codrugFilter %}
+{% block content %}
+    <div class="container" align="center">
+        <div class="col-md-12 clearfix" align="center">
+
+        <div class="text-left">
+            총 회원수 : <strong>{{ member|getLength }}</strong> 명
+        </div>
+        <table class="table table-striped" width="100%">
+            <colgroup>
+                <col width="10%" />
+                <col width="35%" />
+                <col width="15%" />
+                <col width="10%" />
+                <col width="20%" />
+            </colgroup>
+
+            <thead>
+                <tr>
+                    <th>고유번호</th>
+                    <th>이메일주소</th>
+                    <th>이름</th>
+                    <th>레벨</th>
+                    <th>비밀번호(변경용)</th>
+                    <th>수정/삭제</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for sMember in member %}
+                    <tr>
+                        <td>{{ sMember.id }}</td>
+                        <td>{{ sMember.email }}</td>
+                        <td><input class="form-control" type="text" value="{{ sMember.name }}" /></td>
+                        <td><input class="form-control" type="text" value="{{ sMember.level }}" /></td>
+                        <td><input class="form-control" type="password" value="" /></td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="void(modifyMemberInfo( $(this) ));">수정</button>
+                            <button class="btn btn-danger btn-sm">삭제</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+{% endblock %}

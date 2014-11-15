@@ -7,3 +7,7 @@ register = template.Library()
 def getSequence(value, lastNum):
     return int( lastNum - value)
 
+
+@register.filter(name = 'getLength')
+def getLength(value):
+    return len(value)
