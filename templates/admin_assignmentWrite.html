@@ -7,7 +7,9 @@
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script type="text/javascript">
         $(document).ready( function() {
-            $('#workDeadline').datepicker();
+            $('#workDeadline').datepicker({
+                'dateFormat' : 'yy-mm-dd'
+            });
             $('#summernote').summernote({
                 onImageUpload : _sNote.summernoteUploadHandler,
                 height: 300,
@@ -17,7 +19,7 @@
 
 
     <div class="container" style="width: 80%">
-        <form role="form" class="form-horizontal">
+        <form role="form" class="form-horizontal" action="{% url 'admin_assignment_write' %}" method="POST" id="assignmentForm" onsubmit="return procAssignmentWrite();" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label class="col-md-2" for="workTitle">제목</label>
@@ -47,11 +49,12 @@
             </div>
 
             <div class="form-group">
+                <textarea id="workContent" name="workContent" style="display: none;"></textarea>
                 <div id="summernote"></div>
             </div>
 
             <div class="form-group text-center">
-                <button class="btn btn-success"> 과제 등록 </button>
+                <button class="btn btn-success" onclick="void(procAssignmentWrite());"> 과제 등록 </button>
             </div>
         </form>
     </div>

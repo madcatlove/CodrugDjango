@@ -1,4 +1,42 @@
 {% extends 'include/admin_layout.html' %}
-
+{% load codrugFilter %}
 {% block content %}
+
+    {% for aitem in assignmentlist %}
+        <div class="row">
+            <!-- 기본 과제 정보 -->
+            <div class="col-md-2">
+                <strong>과제 정보 </strong>
+            </div>
+            <div class="col-md-10">
+                과제 제목 : {{ aitem.title }} <br />
+                과제 내용 : {{ aitem.content }}
+            </div>
+
+
+            <!-- 제출한 사람 리스트 -->
+            <div class="col-md-2">
+                <strong> 제출한 사람 </strong>
+            </div>
+
+            <div class="col-md-8">
+            {% for slist in aitem.submitlist %}
+                {{ forloop.counter }}. {{ slist.memberID.email }}
+                <br />
+
+                <!-- 파일 정보 -->
+                {# templatetags/codrugFilter 참고! #}
+                {% for image_item in slist.image_ref|getFileList %}
+                    Attach : {{ image_item.inFILE }} ( {{ image_item.outFILE }} )
+                    <br />
+                {% endfor %}
+
+            <br />
+            {% endfor %}
+            </div>
+
+        </div>
+        <hr />
+    {% endfor %}
+
 {% endblock %}
