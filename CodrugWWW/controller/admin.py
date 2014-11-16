@@ -31,9 +31,10 @@ def adminIndex(request):
 '''
 def adminMember(request):
 
-    oMember = Member.objects.all().order_by('-id')
+    if not _privIsAdmin(request):
+        return HttpResponse( utils.scriptError(' 관리자 로그인이 필요한 페이지입니다. ') )
 
-    print oMember[0].id
+    oMember = Member.objects.all().order_by('-id')
 
     # HTML Rendering
     ctx = {
@@ -52,6 +53,10 @@ def adminMember(request):
 def adminMemberProc(request, memberId):
 
     try:
+        # Admin Auth
+        if not _privIsAdmin(request):
+            raise exceptions.MemberException(' 관리자 권한이 필요한 페이지 입니다. ')
+
         # PUT ( update member )
         if request.method == 'PUT':
             rData = QueryDict( request.body ) # BODY 부분 딕셔너리 형태로 재 가공.
@@ -90,6 +95,9 @@ def adminMemberProc(request, memberId):
     관리자 -> 과제 제출(쓰기)
 '''
 def adminAssignmentWrite(request):
+
+    if not _privIsAdmin(request):
+        return HttpResponse( utils.scriptError(' 관리자 로그인이 필요한 페이지입니다. ') )
 
     if request.method == 'GET':
         ctx = {
@@ -149,6 +157,9 @@ def adminAssignmentWrite(request):
     관리자 -> 과제 리스트
 '''
 def adminAssignmentList(request):
+
+    if not _privIsAdmin(request):
+        return HttpResponse( utils.scriptError(' 관리자 로그인이 필요한 페이지입니다. ') )
 
     # 과제리스트 가져옴.
     oAssignment = Assignment.objects.all().order_by('-id')
