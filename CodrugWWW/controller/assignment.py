@@ -58,6 +58,7 @@ def assignment_list(request):
         return HttpResponse( rend )
 
     # ---- DATA PROCESSING ---
+    # 과제 제출 (POST)
     else:
         try:
 
@@ -99,16 +100,29 @@ def assignment_list(request):
             else:
                 raise Exception
 
-            #Submit Models
 
-            oSubmit = Submit(
-                 assignmentID=oAssignment,
-                 memberID=oMember,
-                 subtext=assignment_content,
-                 image_ref=lastId,
-            )
+            # Submit 과제 제출.
+            ####################
 
-            oSubmit.save()
+            # 이미 과제 제출한 내역이 있다면 업데이트 없으면 Insert
+            try:
+                oSubmit = Submit.objects.get( assignmentID = oAssignment, memberID = oMember)
+                oSubmit.subtext = assignment_content
+                if lastId > 0:
+                    oSubmit.image_ref = lastId
+                oSubmit.save()
+
+            # 없을경우 새로운 INSERT
+            except Submit.DoesNotExist, e:
+                oSubmit = Submit(
+                     assignmentID=oAssignment,
+                     memberID=oMember,
+                     subtext=assignment_content,
+                     image_ref=lastId,
+                )
+                oSubmit.save()
+
+
             return redirect('assignment_list')
         except Exception, e:
             return HttpResponse(utils.scriptError("과제 제출에 실패하였습니다."))
