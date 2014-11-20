@@ -1,5 +1,6 @@
 {% extends 'include/admin_layout.html' %}
 {% load codrugFilter %}
+{% load bleach_tags %}
 {% block content %}
 
     {% for aitem in assignmentlist %}
@@ -10,7 +11,7 @@
             </div>
             <div class="col-md-10">
                 과제 제목 : {{ aitem.title }} <br />
-                과제 내용 : {{ aitem.content }}
+                과제 내용 : {{ aitem.content|bleach }}
             </div>
 
 

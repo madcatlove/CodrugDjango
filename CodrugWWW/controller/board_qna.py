@@ -107,6 +107,10 @@ def boardQna_list(request, page = 1):
     article = Board.objects.filter(category=category).order_by('-id')
     articleCount = article.count()
 
+     # 댓글 가공.
+    for idx in range(0, len(article)):
+        commentCount = Comment.objects.filter(category = category, articleID = article[idx]).count()
+        article[idx].commentCount = commentCount
     #########################
     # PAGING
     #########################

@@ -31,7 +31,7 @@
                     <tr class="success">
                         <td class="text-center">{{ each.id }}</td>
                         <td>
-                            <a href="/board/qna/detail/{{ each.id }}">{{ each.title }}</a>
+                            <a href="/board/qna/detail/{{ each.id }}">{{ each.title }} {% if each.commentCount > 0 %}<span class="badge">{{ each.commentCount }}</span>{% endif %}</a>
                         </td>
                         <td class="text-center">{{ each.memberID.name }}</td>
                         <td class="text-center">{{ each.viewCount }}</td>
@@ -42,7 +42,7 @@
                     <tr >
                         <td class="text-center">{{ each.id }}</td>
                         <td>
-                            <a href="/board/qna/detail/{{ each.id }}">{{ each.title }}</a>
+                            <a href="/board/qna/detail/{{ each.id }}">{{ each.title }} {% if each.commentCount > 0 %}<span class="badge">{{ each.commentCount }}</span>{% endif %}</a>
                         </td>
                         <td class="text-center">{{ each.memberID.name }}</td>
                         <td class="text-center">{{ each.viewCount }}</td>
