@@ -1,6 +1,31 @@
 {% extends "include/layout.html" %}
 {% load bleach_tags %}
 {% block content %}
+    <script type="text/javascript">
+        $(document).ready( function() {
+            $('.userPopover').each( function() {
+                var member_name = $(this).find('input').eq(2).val().trim();
+                var member_submitdate = $(this).find('input').eq(0).val().trim();
+                var submit_content = $(this).find('input').eq(1).val().trim();
+                var submitfile = $(this).find('input').eq(3).val().trim();
+                var submitfile_original = $(this).find('input').eq(4).val().trim();
+
+                if( submitfile.length != 0 ) {
+                    submit_content += "<br /><br />";
+                    submit_content += "Attach (<a href='/upload/"+submitfile+"' target='_blank'>" + submitfile_original + "</a>)";
+                }
+
+
+
+                $(this).popover({
+                    title : member_name + ' / ' + member_submitdate,
+                    content : submit_content,
+                    html : true,
+                    trigger: 'click',
+                })
+            })
+        })
+    </script>
 
     <h2 class="text-center title nanum">과제</h2>
     <p class="lead text-center nanum">
@@ -18,8 +43,17 @@
                         <h3>{{ each.title }}</h3>
                         <p class="text-info">{{ each.content|bleach }} </p>
                         <p class="text-danger">{{ each.deadline|date:'Y-m-d' }}까지</p>
-                        {% for peopleEach in each.memberList %}
-                        <span class="label label-success">{{peopleEach.name}}</span>
+                        {% for submitEach in each.submitList %}
+
+                        <span class="label label-success userPopover" data-placement="bottom" data-trigger="click">
+                            <input type="hidden" name="member_submitdate" value="{{ submitEach.created|date:'Y-m-d' }}" />
+                            <input type="hidden" name="member_content" value="{{ submitEach.subtext }}" />
+                            <input type="hidden" name="member_name" value="{{ submitEach.memberID.name}}" />
+                            <input type="hidden" name="member_submitfile" value="{{ submitEach.submitfile.outFILE }}" />
+                            <input type="hidden" name="member_submitfile_original" value="{{ submitEach.submitfile.inFILE }}" />
+                            {{ submitEach.memberID.name}}
+                        </span>
+
                         {% endfor %}
                         <br/>
                         <br/>

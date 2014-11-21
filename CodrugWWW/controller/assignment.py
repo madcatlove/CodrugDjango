@@ -26,6 +26,7 @@ def assignment_list(request):
         for idx in range(0, len(assignmentList)):
             assignmentList[idx].fileList = []
             assignmentList[idx].memberList = []
+            assignmentList[idx].submitList = []
 
 
         for idx in range(0, len(assignmentList)):
@@ -42,9 +43,18 @@ def assignment_list(request):
             try:
                 tempSubmit = Submit.objects.filter(assignmentID =assignmentList[idx].id )
                 for eSubmit in tempSubmit:
+                    try:
+                        eSubmit.submitfile = File.objects.get( id = eSubmit.image_ref )
+                    except:
+                        eSubmit.submitfile = ''
+
+                    assignmentList[idx].submitList.append( eSubmit )
                     assignmentList[idx].memberList.append( eSubmit.memberID )
+
+
             except Submit.DoesNotExist, e :
                 assignmentList[idx].memberList = []
+                assignmentList[idx].submitList = []
 
 
 
