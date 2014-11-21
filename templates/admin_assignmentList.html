@@ -2,42 +2,44 @@
 {% load codrugFilter %}
 {% load bleach_tags %}
 {% block content %}
+    <div>
+        {% for aitem in assignmentlist %}
+            {#    각 과제 하나에 해당하는 div#}
+            <div class="jumbotron">
+                <div class="row">
+                    <!-- 기본 과제 정보 -->
+                    <div class="col-md-2">
+                        <strong>과제 정보 </strong>
+                    </div>
+                    <div class="col-md-10">
+                        과제 제목 : {{ aitem.title }} <br />
+                        과제 내용 : {{ aitem.content|bleach }}
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- 제출한 사람 리스트 -->
+                    <div class="col-md-2">
+                        <strong> 제출한 사람 </strong>
+                    </div>
+                    <div class="col-md-8">
+                        {% for slist in aitem.submitlist %}
+                            {{ forloop.counter }}. {{ slist.memberID.name }}
+                            <br />
 
-    {% for aitem in assignmentlist %}
-        <div class="row">
-            <!-- 기본 과제 정보 -->
-            <div class="col-md-2">
-                <strong>과제 정보 </strong>
+                            <!-- 파일 정보 -->
+                            {# templatetags/codrugFilter 참고! #}
+                            {% for image_item in slist.image_ref|getFileList %}
+                                Attach : {{ image_item.inFILE }} ( {{ image_item.outFILE }} )
+                                <br />
+                            {% endfor %}
+
+                            <br />
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr />
             </div>
-            <div class="col-md-10">
-                과제 제목 : {{ aitem.title }} <br />
-                과제 내용 : {{ aitem.content|bleach }}
-            </div>
-
-
-            <!-- 제출한 사람 리스트 -->
-            <div class="col-md-2">
-                <strong> 제출한 사람 </strong>
-            </div>
-
-            <div class="col-md-8">
-            {% for slist in aitem.submitlist %}
-                {{ forloop.counter }}. {{ slist.memberID.email }}
-                <br />
-
-                <!-- 파일 정보 -->
-                {# templatetags/codrugFilter 참고! #}
-                {% for image_item in slist.image_ref|getFileList %}
-                    Attach : {{ image_item.inFILE }} ( {{ image_item.outFILE }} )
-                    <br />
-                {% endfor %}
-
-            <br />
-            {% endfor %}
-            </div>
-
-        </div>
-        <hr />
-    {% endfor %}
-
+        {% endfor %}
+        {#개별과제 끝#}
+    </div>
 {% endblock %}
