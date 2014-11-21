@@ -15,7 +15,7 @@
 
                     <div class="caption">
                         <h3>{{ each.title }}</h3>
-                        <p class="text-info">{{ each.content }} </p>
+                        <p class="text-info">{{ each.content|bleach }} </p>
                         <p class="text-danger">{{ each.deadline|date:'Y-m-d' }}까지</p>
                         {% for peopleEach in each.memberList %}
                         <span class="label label-success">{{peopleEach.name}}</span>
