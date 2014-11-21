@@ -1,168 +1,172 @@
 {% extends "include/layout.html" %}
 {% load bleach_tags %}
 {% block content %}
-        <div class="page-header" style="font-family: 'Nova Flat'">
-            <h1 id="timeline">Timeline</h1>
-        </div>
+    <div class="page-header" style="font-family: 'Nova Flat'">
+        <h1 id="timeline">Timeline</h1>
+    </div>
 
-        <ul class="timeline nanum">
-            {%  for each in content %}
-                <!-- qna 게시글을 보여주는 타임라인 -->
-                {%  if each.category.boardNAME == 'qna' %}
-                    <li>
-                        <div class="timeline-badge danger"><span><i class="glyphicon glyphicon-credit-card"></i></span></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">{{ each.title }}</h4>
-                                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
-                            </div>
-                            <div class="timeline-body">
-                                {{ each.content|bleach }}
-                                <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
-                                <hr>
-{#                                <div class="btn-group">#}
-{#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
-{#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
-{#                                    </button>#}
-{#                                    <ul class="dropdown-menu" role="menu">#}
-{#                                        <li><a href="#">Action</a></li>#}
-{#                                        <li><a href="#">Another action</a></li>#}
-{#                                        <li><a href="#">Something else here</a></li>#}
-{#                                        <li class="divider"></li>#}
-{#                                        <li><a href="#">Separated link</a></li>#}
-{#                                    </ul>#}
-{#                                </div>#}
-                            </div>
-                        </div>
-                    </li>
-                    <!-- freeboard 보여주는 타임라인 -->
+    <ul class="timeline nanum">
+        {%  for each in content %}
 
-                {% elif each.category.boardNAME == 'free' %}
-                    <li>
-                        <div class="timeline-badge warning"><span><i class="glyphicon glyphicon-credit-card"></i></span></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">{{ each.title }}</h4>
-                                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>{{ each.content|bleach }}</p>
-                                <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
-                                <hr>
-{#                                <div class="btn-group">#}
-{#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
-{#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
-{#                                    </button>#}
-{#                                    <ul class="dropdown-menu" role="menu">#}
-{#                                        <li><a href="#">Action</a></li>#}
-{#                                        <li><a href="#">Another action</a></li>#}
-{#                                        <li><a href="#">Something else here</a></li>#}
-{#                                        <li class="divider"></li>#}
-{#                                        <li><a href="#">Separated link</a></li>#}
-{#                                    </ul>#}
-{#                                </div>#}
-                            </div>
-                        </div>
-                    </li>
+            <!-- qna 게시글을 보여주는 타임라인 -->
 
-                    <!-- assingnment 보여주는 타임라인 -->
-                {% elif each.category.boardNAME == 'assignment' %}
-                    <li>
-                        <div class="timeline-badge"><span><i class="glyphicon glyphicon-check"></i></span></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">{{ each.title }}</h4>
-                                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
-                            </div>
-                            <div class="timeline-body">
-                                {{ each.content|bleach }}
-                                <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
-                                <hr>
-{#                                <div class="btn-group">#}
-{#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
-{#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
-{#                                    </button>#}
-{#                                    <ul class="dropdown-menu" role="menu">#}
-{#                                        <li><a href="#">Action</a></li>#}
-{#                                        <li><a href="#">Another action</a></li>#}
-{#                                        <li><a href="#">Something else here</a></li>#}
-{#                                        <li class="divider"></li>#}
-{#                                        <li><a href="#">Separated link</a></li>#}
-{#                                    </ul>#}
-{#                                </div>#}
-                            </div>
+            {%  if each.category.boardNAME == 'qna' %}
+                <li>
+                    <div class="timeline-badge danger"><span><i class="glyphicon glyphicon-credit-card"></i></span></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ each.title }}</h4>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                         </div>
-                    </li>
+                        <div class="timeline-body">
+                            {{ each.content|bleach }}
+                            <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
+                            <hr>
+                            {#                                <div class="btn-group">#}
+                            {#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
+                            {#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
+                            {#                                    </button>#}
+                            {#                                    <ul class="dropdown-menu" role="menu">#}
+                            {#                                        <li><a href="#">Action</a></li>#}
+                            {#                                        <li><a href="#">Another action</a></li>#}
+                            {#                                        <li><a href="#">Something else here</a></li>#}
+                            {#                                        <li class="divider"></li>#}
+                            {#                                        <li><a href="#">Separated link</a></li>#}
+                            {#                                    </ul>#}
+                            {#                                </div>#}
+                        </div>
+                    </div>
+                </li>
 
-                {% elif each.category.boardNAME == 'archive' %}
-                    <li>
-                        <div class="timeline-badge danger"><i class="glyphicon glyphicon-floppy-disk"></i></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">{{ each.title }}</h4>
-                            </div>
-                            <div class="timeline-body">
-                                {{ each.content|bleach }}
-                            </div>
-                        </div>
-                    </li>
 
-                {% elif each.category.boardNAME == 'assignment' %}
-                    <li>
-                        <div class="timeline-badge info"><i class="glyphicon glyphicon-check"></i></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">{{ each.title }}</h4>
-                                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
-                            </div>
-                            <div class="timeline-body">
-                                {{ each.content|bleach }}
-                                <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
-                                <hr>
-{#                                <div class="btn-group">#}
-{#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
-{#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
-{#                                    </button>#}
-{#                                    <ul class="dropdown-menu" role="menu">#}
-{#                                        <li><a href="#">Action</a></li>#}
-{#                                        <li><a href="#">Another action</a></li>#}
-{#                                        <li><a href="#">Something else here</a></li>#}
-{#                                        <li class="divider"></li>#}
-{#                                        <li><a href="#">Separated link</a></li>#}
-{#                                    </ul>#}
-{#                                </div>#}
-                            </div>
-                        </div>
-                    </li>
+                <!-- freeboard 보여주는 타임라인 -->
 
-                {% elif each.category.boardNAME == 'album' %}
-                    <li class="timeline-inverted">
-                        <div class="timeline-badge success"><i class="glyphicon glyphicon-thumbs-up"></i></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">{{ each.title }}</h4>
-                                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
-                            </div>
-                            <div class="timeline-body">
-                                <img src="/upload/{{ each.oFile.outFILE }}" alt="">
-                                <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
-                                <hr>
-{#                                <div class="btn-group">#}
-{#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
-{#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
-{#                                    </button>#}
-{#                                    <ul class="dropdown-menu" role="menu">#}
-{#                                        <li><a href="#">Action</a></li>#}
-{#                                        <li><a href="#">Another action</a></li>#}
-{#                                        <li><a href="#">Something else here</a></li>#}
-{#                                        <li class="divider"></li>#}
-{#                                        <li><a href="#">Separated link</a></li>#}
-{#                                    </ul>#}
-{#                                </div>#}
-                            </div>
+            {% elif each.category.boardNAME == 'free' %}
+                <li>
+                    <div class="timeline-badge warning"><span><i class="glyphicon glyphicon-credit-card"></i></span></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ each.title }}</h4>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
                         </div>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+                        <div class="timeline-body">
+                            <p>{{ each.content|bleach }}</p>
+                            <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
+                            <hr>
+                            {#                                <div class="btn-group">#}
+                            {#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
+                            {#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
+                            {#                                    </button>#}
+                            {#                                    <ul class="dropdown-menu" role="menu">#}
+                            {#                                        <li><a href="#">Action</a></li>#}
+                            {#                                        <li><a href="#">Another action</a></li>#}
+                            {#                                        <li><a href="#">Something else here</a></li>#}
+                            {#                                        <li class="divider"></li>#}
+                            {#                                        <li><a href="#">Separated link</a></li>#}
+                            {#                                    </ul>#}
+                            {#                                </div>#}
+                        </div>
+                    </div>
+                </li>
+
+                <!-- assingnment 보여주는 타임라인 -->
+            {% elif each.category.boardNAME == 'assignment' %}
+                <li>
+                    <div class="timeline-badge"><span><i class="glyphicon glyphicon-check"></i></span></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ each.title }}</h4>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            {{ each.content|bleach }}
+                            <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
+                            <hr>
+                            {#                                <div class="btn-group">#}
+                            {#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
+                            {#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
+                            {#                                    </button>#}
+                            {#                                    <ul class="dropdown-menu" role="menu">#}
+                            {#                                        <li><a href="#">Action</a></li>#}
+                            {#                                        <li><a href="#">Another action</a></li>#}
+                            {#                                        <li><a href="#">Something else here</a></li>#}
+                            {#                                        <li class="divider"></li>#}
+                            {#                                        <li><a href="#">Separated link</a></li>#}
+                            {#                                    </ul>#}
+                            {#                                </div>#}
+                        </div>
+                    </div>
+                </li>
+
+            {% elif each.category.boardNAME == 'archive' %}
+                <li>
+                    <div class="timeline-badge danger"><i class="glyphicon glyphicon-floppy-disk"></i></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ each.title }}</h4>
+                        </div>
+                        <div class="timeline-body">
+                            {{ each.content|bleach }}
+                        </div>
+                    </div>
+                </li>
+
+            {% elif each.category.boardNAME == 'assignment' %}
+                <li>
+                    <div class="timeline-badge info"><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ each.title }}</h4>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            {{ each.content|bleach }}
+                            <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
+                            <hr>
+                            {#                                <div class="btn-group">#}
+                            {#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
+                            {#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
+                            {#                                    </button>#}
+                            {#                                    <ul class="dropdown-menu" role="menu">#}
+                            {#                                        <li><a href="#">Action</a></li>#}
+                            {#                                        <li><a href="#">Another action</a></li>#}
+                            {#                                        <li><a href="#">Something else here</a></li>#}
+                            {#                                        <li class="divider"></li>#}
+                            {#                                        <li><a href="#">Separated link</a></li>#}
+                            {#                                    </ul>#}
+                            {#                                </div>#}
+                        </div>
+                    </div>
+                </li>
+
+            {% elif each.category.boardNAME == 'album' %}
+                <li class="timeline-inverted">
+                    <div class="timeline-badge success"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ each.title }}</h4>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ each.created }}</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            <img src="/upload/{{ each.oFile.outFILE }}" alt="">
+                            <!-- 타임라인에서 추가동작이 필요할 시에 버튼그룹 -->
+                            <hr>
+                            {#                                <div class="btn-group">#}
+                            {#                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">#}
+                            {#                                        <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>#}
+                            {#                                    </button>#}
+                            {#                                    <ul class="dropdown-menu" role="menu">#}
+                            {#                                        <li><a href="#">Action</a></li>#}
+                            {#                                        <li><a href="#">Another action</a></li>#}
+                            {#                                        <li><a href="#">Something else here</a></li>#}
+                            {#                                        <li class="divider"></li>#}
+                            {#                                        <li><a href="#">Separated link</a></li>#}
+                            {#                                    </ul>#}
+                            {#                                </div>#}
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 {% endblock %}
