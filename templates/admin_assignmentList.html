@@ -29,7 +29,7 @@
                             <!-- 파일 정보 -->
                             {# templatetags/codrugFilter 참고! #}
                             {% for image_item in slist.image_ref|getFileList %}
-                                Attach : {{ image_item.inFILE }} ( {{ image_item.outFILE }} )
+                                Attach : {{ image_item.inFILE }} ( <a href="/upload/{{ image_item.outFILE }}">{{ image_item.outFILE }}</a>)
                                 <br />
                             {% endfor %}
 
